@@ -48,14 +48,14 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get('https://api1.ubiqscan.io/v2/getlatesttransactions')
+      axios.get(this.$store.state.api + 'getlatesttransactions')
         .then(response => {
           this.txns = response.data.result.slice(0, 10)
         })
         .catch(e => {
           this.errors.push(e)
         })
-      axios.get('https://api1.ubiqscan.io/v2/getlatestblocks')
+      axios.get(this.$store.state.api + 'getlatestblocks')
         .then(response => {
           this.blocks = response.data.result.slice(0, 10)
         })

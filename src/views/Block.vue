@@ -161,7 +161,7 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get('https://api1.ubiqscan.io/v2/getblock/' + this.number)
+      axios.get(this.$store.state.api + 'getblock/' + this.number)
         .then(response => {
           console.log(response.data.result)
           this.block = response.data.result

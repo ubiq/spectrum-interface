@@ -113,7 +113,7 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get('https://api1.ubiqscan.io/v2/getbalance/' + this.hash)
+      axios.get(this.$store.state.api + 'getbalance/' + this.hash)
         .then(response => {
           console.log(response.data.result)
           this.account = response.data.result
@@ -121,7 +121,7 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-      axios.get('https://api1.ubiqscan.io/v2/getaccounttransactions/' + this.hash)
+      axios.get(this.$store.state.api + 'getaccounttransactions/' + this.hash)
         .then(response => {
           console.log(response.data.result)
           this.txns = response.data.result

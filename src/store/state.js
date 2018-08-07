@@ -5,6 +5,7 @@ let state = {
     timestamp: 0,
     transactions: 0,
     uncles: 0
-  }
+  },
+  api: 'https://api1.ubiqscan.io/v2/'
 }
 export default state

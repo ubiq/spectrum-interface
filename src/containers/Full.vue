@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get('https://api1.ubiqscan.io/v2/getlatestblocks')
+      axios.get(this.$store.state.api + 'getlatestblocks')
         .then(response => {
           let latestBlock = response.data.result[0]
           if (this.$store.state.latestBlock.number !== latestBlock.number) {

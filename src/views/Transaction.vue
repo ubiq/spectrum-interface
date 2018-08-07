@@ -130,7 +130,7 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get('https://api1.ubiqscan.io/v2/gettransaction/' + this.hash)
+      axios.get(this.$store.state.api + 'gettransaction/' + this.hash)
         .then(response => {
           this.txn = response.data.result
         })

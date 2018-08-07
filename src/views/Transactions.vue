@@ -44,7 +44,7 @@ export default {
     fetch: function () {
       this.refreshing = true
       if (this.type === 'latest') {
-        axios.get('https://api1.ubiqscan.io/v2/getlatesttransactions')
+        axios.get(this.$store.state.api + 'getlatesttransactions')
           .then(response => {
             this.txns = response.data.result
           })
@@ -52,7 +52,7 @@ export default {
             this.errors.push(e)
           })
       } else {
-        axios.get('https://api1.ubiqscan.io/v2/getpendingtransactions')
+        axios.get(this.$store.state.api + 'getpendingtransactions')
           .then(response => {
             this.txns = response.data.result
           })
