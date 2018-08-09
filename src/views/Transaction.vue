@@ -23,7 +23,7 @@
             Block Height:
           </b-col>
           <b-col md="9">
-            <router-link :to="{ name: 'Block', params: { number: txn.blockNumber}}">{{ txn.blockNumber }}</router-link>
+            <router-link :to="{ name: 'Block', params: { number: txn.blockNumber}}">{{ txn.blockNumber }}</router-link> ({{ confirmations }} block confirmations)
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -31,7 +31,7 @@
             TimeStamp:
           </b-col>
           <b-col md="9">
-            TODO <!-- ~{{ calcTime(txn.timestamp) }} -->
+            ~{{ calcTime(txn.timestamp) }}
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -68,6 +68,14 @@
         </b-row>
         <b-row class="card-row">
           <b-col md="3">
+            Gas Used By Txn:
+          </b-col>
+          <b-col md="9">
+            {{ formatNumber(txn.gasUsed) }}
+          </b-col>
+        </b-row>
+        <b-row class="card-row">
+          <b-col md="3">
             Gas Price:
           </b-col>
           <b-col md="9">
@@ -79,7 +87,7 @@
             Actual Tx Cost/Fee:
           </b-col>
           <b-col md="9">
-            TODO
+            {{ calcTxFee(txn.gasUsed, txn.gasPrice)}} UBQ
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -127,12 +135,17 @@ export default {
   created () {
     this.fetch()
   },
+  computed: {
+    confirmations () {
+      return this.$store.state.latestBlock.number - this.txn.blockNumber
+    }
+  },
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get(this.$store.state.api + 'gettransaction/' + this.hash)
+      axios.get(this.$store.state.api + 'transaction/' + this.hash)
         .then(response => {
-          this.txn = response.data.result
+          this.txn = response.data
         })
         .catch(e => {
           this.errors.push(e)
@@ -161,6 +174,9 @@ export default {
     },
     fromWeiToGwei (val) {
       return common.fromWeiToGwei(val)
+    },
+    calcTxFee (gasUsed, gasPrice) {
+      return common.fromWei(common.calcTxFee(gasUsed, gasPrice))
     }
   }
 }
