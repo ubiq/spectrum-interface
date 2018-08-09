@@ -188,7 +188,6 @@ export default {
       this.refreshing = true
       axios.get(this.$store.state.api + 'block/' + this.number)
         .then(response => {
-          console.log(response.data)
           this.block = response.data
         })
         .catch(e => {
@@ -210,7 +209,11 @@ export default {
       return this.$moment().to(timestamp * 1000) + ' (' + this.$moment.utc(timestamp * 1000).format('lll') + ' UTC)'
     },
     formatNumber (val) {
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      if (val) {
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      } else {
+        return null
+      }
     },
     fromWei (val) {
       return common.fromWei(val)

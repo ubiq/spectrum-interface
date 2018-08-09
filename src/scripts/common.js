@@ -15,37 +15,45 @@ module.exports = {
     return new BigNumber(reward).plus(txFees).toString()
   },
   toUtf8: function (hex) {
-    var str = ''
-    var i = 0
-    var l = hex.length
-    if (hex.substring(0, 2) === '0x') {
-      i = 2
-    }
-    for (; i < l; i += 2) {
-      var code = parseInt(hex.substr(i, 2), 16)
-      if (code === 0) {
-        break
+    if (hex) {
+      var str = ''
+      var i = 0
+      var l = hex.length
+      if (hex.substring(0, 2) === '0x') {
+        i = 2
       }
-      str += String.fromCharCode(code)
-    }
-    try {
-      return utf8.decode(str)
-    } catch (err) {
+      for (; i < l; i += 2) {
+        var code = parseInt(hex.substr(i, 2), 16)
+        if (code === 0) {
+          break
+        }
+        str += String.fromCharCode(code)
+      }
+      try {
+        return utf8.decode(str)
+      } catch (err) {
+        return null
+      }
+    } else {
       return null
     }
   },
   toAscii (hex) {
-    var str = ''
-    var i = 0
-    var l = hex.length
-    if (hex.substring(0, 2) === '0x') {
-      i = 2
-    }
-    for (; i < l; i += 2) {
-      var code = parseInt(hex.substr(i, 2), 16)
-      str += String.fromCharCode(code)
-    }
+    if (hex) {
+      var str = ''
+      var i = 0
+      var l = hex.length
+      if (hex.substring(0, 2) === '0x') {
+        i = 2
+      }
+      for (; i < l; i += 2) {
+        var code = parseInt(hex.substr(i, 2), 16)
+        str += String.fromCharCode(code)
+      }
 
-    return str
+      return str
+    } else {
+      return null
+    }
   }
 }
