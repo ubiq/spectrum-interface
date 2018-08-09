@@ -28,9 +28,9 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get(this.$store.state.api + 'getlatestblocks')
+      axios.get(this.$store.state.api + 'latest')
         .then(response => {
-          let latestBlock = response.data.result[0]
+          let latestBlock = response.data
           if (this.$store.state.latestBlock.number !== latestBlock.number) {
             this.$store.dispatch('setLatestBlock', {
               number: latestBlock.number,
