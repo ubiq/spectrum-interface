@@ -22,7 +22,7 @@
             {{ fromWei(data.value) }} UBQ
           </div>
           <div slot="fee" slot-scope="data">
-            {{ calcFee() }}
+            {{ calcTxFee(data.item.gasUsed, data.item.gasPrice) }} UBQ
           </div>
         </b-table>
       </b-card>
@@ -79,8 +79,8 @@ export default {
     getAddressTag (hash) {
       return addresses.getAddressTag(hash) || hash.substring(0, 17) + '...'
     },
-    calcFee () {
-      return 'TODO'
+    calcTxFee (gasUsed, gasPrice) {
+      return common.fromWei(common.calcTxFee(gasUsed, gasPrice))
     }
   }
 }

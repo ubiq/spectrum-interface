@@ -44,9 +44,10 @@ export default {
     fetch: function () {
       this.refreshing = true
       if (this.type === 'latest') {
-        axios.get(this.$store.state.api + 'getlatesttransactions')
+        axios.get(this.$store.state.api + 'latesttransactions/1000')
           .then(response => {
-            this.txns = response.data.result
+            console.log(response.data)
+            this.txns = response.data
           })
           .catch(e => {
             this.errors.push(e)
