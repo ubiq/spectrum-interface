@@ -48,16 +48,16 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get(this.$store.state.api + 'getlatesttransactions')
+      axios.get(this.$store.state.api + 'latesttransactions/10')
         .then(response => {
-          this.txns = response.data.result.slice(0, 10)
+          this.txns = response.data
         })
         .catch(e => {
           this.errors.push(e)
         })
-      axios.get(this.$store.state.api + 'getlatestblocks')
+      axios.get(this.$store.state.api + 'latestblocks/10')
         .then(response => {
-          this.blocks = response.data.result.slice(0, 10)
+          this.blocks = response.data
         })
         .catch(e => {
           this.errors.push(e)
