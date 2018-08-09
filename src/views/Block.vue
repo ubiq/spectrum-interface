@@ -17,7 +17,7 @@
           <b-col md="9">
             <router-link :to="{ name: 'Block', params: { number: number - 1 }}"><span class="fa fa-arrow-left icon-left"/></router-link>
             {{ block.number }}
-            <router-link :to="{ name: 'Block', params: { number: number - -1 }}"><span class="fa fa-arrow-right icon-right"/></router-link>
+            <router-link v-if="fromHead > 0" :to="{ name: 'Block', params: { number: number - -1 }}"><span class="fa fa-arrow-right icon-right"/></router-link>
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -32,8 +32,11 @@
           <b-col md="3">
             Transactions:
           </b-col>
-          <b-col md="9">
+          <b-col v-if="block.transactions !== 0" md="9">
             <router-link :to="{ name: 'Transactions', params: { type: 'block', number: number}}">{{ block.transactions }} transactions</router-link>
+          </b-col>
+          <b-col v-else md="9">
+            {{ block.transactions }} transactions
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -100,7 +103,7 @@
             {{ formatNumber(block.gasLimit) }}
           </b-col>
         </b-row>
-        <b-row class="card-row">
+        <b-row v-if="block.avgGasPrice !== 'NaN'" class="card-row">
           <b-col md="3">
             Avg. Gas Price:
           </b-col>
@@ -108,7 +111,7 @@
             {{ fromWeiToGwei(block.avgGasPrice) }} gwei
           </b-col>
         </b-row>
-        <b-row class="card-row">
+        <b-row v-if="block.txFees !== '0'" class="card-row">
           <b-col md="3">
             Transaction Fees:
           </b-col>
@@ -174,6 +177,11 @@ export default {
   },
   created () {
     this.fetch()
+  },
+  computed: {
+    fromHead () {
+      return this.$store.state.latestBlock.number - this.block.number
+    }
   },
   methods: {
     fetch: function () {

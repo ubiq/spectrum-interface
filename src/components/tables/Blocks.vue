@@ -18,11 +18,12 @@
           <div slot="gasUsed" slot-scope="data">
             {{ data.value }} ({{ calcGasUsed(data.value, data.item.gasLimit) }})
           </div>
-          <div slot="gasPrice" slot-scope="data">
-            {{ calcGasPrice() }}
+          <div slot="avgGasPrice" slot-scope="data">
+            <span v-if="data.value !== 'NaN'">{{ fromWeiToGwei(data.value) }} gwei</span>
+            <span v-else>-</span>
           </div>
-          <div slot="reward" slot-scope="data">
-            {{ fromWei(data.value.minted) }} UBQ
+          <div slot="blockReward" slot-scope="data">
+            {{ fromWei(addTxFees(data.value, data.item.txFees)) }} UBQ
           </div>
         </b-table>
       </b-card>
@@ -66,10 +67,10 @@ export default {
         gasLimit: {
           label: 'GasLimit'
         },
-        gasPrice: {
+        avgGasPrice: {
           label: 'Avg.GasPrice'
         },
-        reward: {
+        blockReward: {
           label: 'Reward'
         }
       }
@@ -82,14 +83,17 @@ export default {
     fromWei (value) {
       return common.fromWei(value)
     },
+    fromWeiToGwei (value) {
+      return common.fromWeiToGwei(value)
+    },
+    addTxFees (reward, txFees) {
+      return common.addTxFees(reward, txFees)
+    },
     getAddressTag (hash) {
       return addresses.getAddressTag(hash) || hash.substring(0, 17) + '...'
     },
     calcGasUsed (gasUsed, gasLimit) {
       return ((gasUsed / gasLimit) * 100).toFixed(2) + '%'
-    },
-    calcGasPrice () {
-      return 'TODO'
     }
   }
 }

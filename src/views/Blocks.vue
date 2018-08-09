@@ -3,7 +3,7 @@
     <b-col md="10">
       <b-breadcrumb>
         <b-breadcrumb-item :to="{name: 'Home'}">Home</b-breadcrumb-item>
-        <b-breadcrumb-item active='true'>Blocks</b-breadcrumb-item>
+        <b-breadcrumb-item active>Blocks</b-breadcrumb-item>
         <b-breadcrumb-link>
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
         </b-breadcrumb-link>
@@ -36,10 +36,9 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get(this.$store.state.api + 'getlatestblocks')
+      axios.get(this.$store.state.api + 'latestblocks/1000')
         .then(response => {
-          console.log(response.data.result)
-          this.blocks = response.data.result
+          this.blocks = response.data
         })
         .catch(e => {
           this.errors.push(e)
