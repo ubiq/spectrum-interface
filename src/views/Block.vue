@@ -33,7 +33,7 @@
             Transactions:
           </b-col>
           <b-col md="9">
-            <router-link :to="{ name: 'Transactions', params: { type: 'block', number: number}}">{{ block.transactions.length }} transactions</router-link> and TODO (internal contract transactions)
+            <router-link :to="{ name: 'Transactions', params: { type: 'block', number: number}}">{{ block.transactions }} transactions</router-link>
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -102,6 +102,38 @@
         </b-row>
         <b-row class="card-row">
           <b-col md="3">
+            Avg. Gas Price:
+          </b-col>
+          <b-col md="9">
+            {{ fromWeiToGwei(block.avgGasPrice) }} gwei
+          </b-col>
+        </b-row>
+        <b-row class="card-row">
+          <b-col md="3">
+            Transaction Fees:
+          </b-col>
+          <b-col md="9">
+            {{ fromWei(block.txFees) }} UBQ
+          </b-col>
+        </b-row>
+        <b-row class="card-row">
+          <b-col md="3">
+            Block Reward:
+          </b-col>
+          <b-col md="9">
+            {{ fromWei(block.blockReward) }} UBQ
+          </b-col>
+        </b-row>
+        <b-row class="card-row">
+          <b-col md="3">
+            Uncles Reward:
+          </b-col>
+          <b-col md="9">
+            {{ fromWei(block.unclesReward) }} UBQ
+          </b-col>
+        </b-row>
+        <b-row class="card-row">
+          <b-col md="3">
             Nonce:
           </b-col>
           <b-col md="9">
@@ -110,26 +142,10 @@
         </b-row>
         <b-row class="card-row">
           <b-col md="3">
-            Block Reward:
-          </b-col>
-          <b-col md="9">
-            TODO
-          </b-col>
-        </b-row>
-        <b-row class="card-row">
-          <b-col md="3">
-            Uncles Reward:
-          </b-col>
-          <b-col md="9">
-            TODO
-          </b-col>
-        </b-row>
-        <b-row class="card-row">
-          <b-col md="3">
             Extra Data:
           </b-col>
           <b-col md="9">
-            TODO web3.toAscii ({{ block.extraData }})
+            {{ toUtf8(block.extraData) || toAscii(block.extraData)}} (hex:{{ block.extraData }})
           </b-col>
         </b-row>
       </b-card>
@@ -140,6 +156,7 @@
 <script>
 import axios from 'axios'
 import addresses from '../scripts/addresses'
+import common from '../scripts/common'
 
 export default {
   name: 'Block',
@@ -161,10 +178,10 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get(this.$store.state.api + 'getblock/' + this.number)
+      axios.get(this.$store.state.api + 'block/' + this.number)
         .then(response => {
-          console.log(response.data.result)
-          this.block = response.data.result
+          console.log(response.data)
+          this.block = response.data
         })
         .catch(e => {
           this.errors.push(e)
@@ -186,6 +203,18 @@ export default {
     },
     formatNumber (val) {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    fromWei (val) {
+      return common.fromWei(val)
+    },
+    fromWeiToGwei (val) {
+      return common.fromWeiToGwei(val)
+    },
+    toAscii (val) {
+      return common.toAscii(val)
+    },
+    toUtf8 (val) {
+      return common.toUtf8(val)
     }
   }
 }
