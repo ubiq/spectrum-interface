@@ -34,7 +34,7 @@
                 TimeStamp:
               </b-col>
               <b-col md="9">
-                ~{{ calcTime(txn.timestamp) }}
+                ~{{ timestamp }}
               </b-col>
             </b-row>
             <b-row class="card-row">
@@ -174,7 +174,11 @@ export default {
       this.fetch()
     },
     latestBlock: function () {
-      this.fetch()
+      if (this.pending === true) {
+        this.fetch()
+      } else {
+        this.timestamp = this.calcTime(this.txn.timestamp)
+      }
     }
   },
   data () {
@@ -186,6 +190,7 @@ export default {
       inputType: 'original',
       inputData: {},
       eventLogs: [],
+      timestamp: '',
       token: {},
       pending: false,
       errors: []
@@ -209,6 +214,7 @@ export default {
         .then(response => {
           if (response.data.hash) {
             this.txn = response.data
+            this.timestamp = this.calcTime(this.txn.timestamp)
             if (response.data.logs.length > 0) {
               this.showLogs = true
               this.eventLogs = contracts.processEventLogs(this.txn.logs)
@@ -231,7 +237,6 @@ export default {
                 this.errors.push(e)
               })
           }
-
           if (this.txn.input !== '0x') {
             this.inputData = contracts.processTxnInput(this.txn.input)
             if (this.inputData.isKnown === true) {
