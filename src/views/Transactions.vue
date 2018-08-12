@@ -52,8 +52,7 @@ export default {
             this.errors.push(e)
           })
       } else {
-        axios.post(this.$store.state.rpc,
-        {
+        axios.post(this.$store.state.rpc, {
           jsonrpc: '2.0',
           method: 'eth_getBlockByNumber',
           params: [
@@ -61,7 +60,8 @@ export default {
             true
           ],
           id: 1
-        }).then(response => {
+        })
+          .then(response => {
             this.txns = response.data.result.transactions
           })
           .catch(e => {
