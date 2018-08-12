@@ -25,10 +25,11 @@
                 Block Height:
               </b-col>
               <b-col md="9">
-                <router-link :to="{ name: 'Block', params: { number: txn.blockNumber}}">{{ txn.blockNumber }}</router-link> ({{ confirmations }} block confirmations)
+                <span v-if="pending">pending</span>
+                <router-link v-else :to="{ name: 'Block', params: { number: txn.blockNumber}}">{{ txn.blockNumber }}</router-link> ({{ confirmations }} block confirmations)
               </b-col>
             </b-row>
-            <b-row class="card-row">
+            <b-row v-if="pending === false" class="card-row">
               <b-col md="3">
                 TimeStamp:
               </b-col>
@@ -73,10 +74,11 @@
                 Gas Limit:
               </b-col>
               <b-col md="9">
-                {{ formatNumber(txn.gas) }}
+                <span v-if="pending">{{ formatNumber(toDecimal(txn.gas)) }}</span>
+                <span v-else>{{ formatNumber(txn.gas) }}</span>
               </b-col>
             </b-row>
-            <b-row class="card-row">
+            <b-row v-if="pending === false" class="card-row">
               <b-col md="3">
                 Gas Used By Txn:
               </b-col>
@@ -92,7 +94,7 @@
                 {{ fromWeiToGwei(txn.gasPrice) }} gwei
               </b-col>
             </b-row>
-            <b-row class="card-row">
+            <b-row v-if="pending === false" class="card-row">
               <b-col md="3">
                 Actual Tx Cost/Fee:
               </b-col>
@@ -105,7 +107,8 @@
                 Nonce & [Position]:
               </b-col>
               <b-col md="9">
-                {{ txn.nonce}} | [{{ txn.transactionIndex }}]
+                <span v-if="pending">{{ toDecimal(txn.nonce) }} | [{{ toDecimal(txn.transactionIndex) }}]</span>
+                <span v-else>{{ txn.nonce}} | [{{ txn.transactionIndex }}]</span>
               </b-col>
             </b-row>
             <b-row class="card-row">
@@ -169,6 +172,9 @@ export default {
   watch: {
     '$route' (to, from) {
       this.fetch()
+    },
+    latestBlock: function () {
+      this.fetch()
     }
   },
   data () {
@@ -181,6 +187,7 @@ export default {
       inputData: {},
       eventLogs: [],
       token: {},
+      pending: false,
       errors: []
     }
   },
@@ -189,7 +196,10 @@ export default {
   },
   computed: {
     confirmations () {
-      return this.$store.state.latestBlock.number - this.txn.blockNumber
+      return this.pending === true ? 0 : this.$store.state.latestBlock.number - this.txn.blockNumber
+    },
+    latestBlock () {
+      return this.$store.state.latestBlock.number
     }
   },
   methods: {
@@ -197,13 +207,33 @@ export default {
       this.refreshing = true
       axios.get(this.$store.state.api + 'transaction/' + this.hash)
         .then(response => {
-          this.txn = response.data
-          if (response.data.logs.length > 0) {
-            this.showLogs = true
-            this.eventLogs = contracts.processEventLogs(response.data.logs)
+          if (response.data.hash) {
+            this.txn = response.data
+            if (response.data.logs.length > 0) {
+              this.showLogs = true
+              this.eventLogs = contracts.processEventLogs(this.txn.logs)
+            }
+            this.pending = false
+          } else {
+            axios.post(this.$store.state.rpc, {
+              jsonrpc: '2.0',
+              method: 'eth_getTransactionByHash',
+              params: [
+                this.hash
+              ],
+              id: 1
+            })
+              .then(response_ => {
+                this.txn = response_.data.result
+                this.pending = true
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
           }
-          if (response.data.input !== '0x') {
-            this.inputData = contracts.processTxnInput(response.data.input)
+
+          if (this.txn.input !== '0x') {
+            this.inputData = contracts.processTxnInput(this.txn.input)
             if (this.inputData.isKnown === true) {
               this.inputType = 'default'
             }
@@ -251,6 +281,9 @@ export default {
     },
     calcTxFee (gasUsed, gasPrice) {
       return common.fromWei(common.calcTxFee(gasUsed, gasPrice))
+    },
+    toDecimal (hex) {
+      return common.hexToDecimal(hex)
     },
     toUtf8 (val) {
       return common.toUtf8(val)

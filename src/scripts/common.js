@@ -14,6 +14,9 @@ module.exports = {
   addTxFees: function (reward, txFees) {
     return new BigNumber(reward).plus(txFees).toString()
   },
+  hexToDecimal: function (hex) {
+    return new BigNumber(hex.substring(2), 16).toString()
+  },
   toUtf8: function (hex) {
     if (hex) {
       var str = ''
