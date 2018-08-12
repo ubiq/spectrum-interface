@@ -10,7 +10,7 @@
             <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
           </b-breadcrumb-link>
         </b-breadcrumb>
-        <TxnsTable :items="txns"/>
+        <TxnsTable :items="txns" :pending="type === 'pending'"/>
       </b-col>
     </b-row>
   </div>
@@ -52,9 +52,17 @@ export default {
             this.errors.push(e)
           })
       } else {
-        axios.get(this.$store.state.api + 'getpendingtransactions')
-          .then(response => {
-            this.txns = response.data.result
+        axios.post(this.$store.state.rpc,
+        {
+          jsonrpc: '2.0',
+          method: 'eth_getBlockByNumber',
+          params: [
+            'pending',
+            true
+          ],
+          id: 1
+        }).then(response => {
+            this.txns = response.data.result.transactions
           })
           .catch(e => {
             this.errors.push(e)

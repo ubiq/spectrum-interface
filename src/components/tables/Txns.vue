@@ -10,7 +10,8 @@
             <router-link :to="{ name: 'Transaction', params: {hash: data.value} }">{{ data.value.substring(0, 17) }}...</router-link>
           </div>
           <div slot="blockNumber" slot-scope="data">
-            <router-link :to="{ name: 'Block', params: {number: data.value} }">{{ data.value}}</router-link>
+            <span v-if="pending">pending</span>
+            <router-link v-else :to="{ name: 'Block', params: {number: data.value} }">{{ data.value}}</router-link>
           </div>
           <div slot="from" slot-scope="data">
             <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link><span class="fa fa-arrow-right pull-right"/>
@@ -22,7 +23,8 @@
             {{ fromWei(data.value) }} UBQ
           </div>
           <div slot="fee" slot-scope="data">
-            {{ calcTxFee(data.item.gasUsed, data.item.gasPrice) }} UBQ
+            <span v-if="pending">-</span>
+            <span v-else>{{ calcTxFee(data.item.gasUsed, data.item.gasPrice) }} UBQ</span>
           </div>
         </b-table>
       </b-card>
@@ -40,6 +42,10 @@ export default {
   props: {
     items: {
       type: Array
+    },
+    pending: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => {
