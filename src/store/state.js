@@ -6,6 +6,6 @@ let state = {
     transactions: 0,
     uncles: 0
   },
-  api: 'https://api1.ubiqscan.io/v2/'
+  api: 'http://127.0.0.1:3000/'
 }
 export default state

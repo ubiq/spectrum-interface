@@ -79,7 +79,6 @@ export default {
       axios.get('https://www.reddit.com/r/Ubiq/new.json?sort=new')
         .then(response => {
           this.reddit = response.data.data.children.splice(0, 4)
-          console.log(this.reddit)
         })
         .catch(e => {
           this.errors.push(e)

@@ -230,6 +230,14 @@ pre {
   color: $text1;
 }
 
+.input-dropdown {
+  margin-top:5px;
+}
+
+.input-dropdown>button {
+  background-color: $grey2;
+}
+
 .tx-badge {
   width: 30px;
   text-align: center;
@@ -239,6 +247,11 @@ pre {
   border-radius: 0 0 3px 3px;
   margin-top: 1px;
   color: $text1;
+}
+
+.tab-card {
+  border-radius: 0 0 3px 3px;
+  margin-top: 0px;
 }
 
 ul.nav-tabs {
