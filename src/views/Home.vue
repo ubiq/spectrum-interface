@@ -36,6 +36,14 @@ import PreviewBlock from '../components/PreviewBlock.vue'
 
 export default {
   name: 'Home',
+  watch: {
+    '$route' (to, from) {
+      this.fetch()
+    },
+    latestBlock: function () {
+      this.fetch()
+    }
+  },
   data () {
     return {
       errors: [],
@@ -45,6 +53,11 @@ export default {
   },
   created () {
     this.fetch()
+  },
+  computed: {
+    latestBlock () {
+      return this.$store.state.latestBlock.number
+    }
   },
   methods: {
     fetch: function () {
