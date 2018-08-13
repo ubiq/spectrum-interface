@@ -15,6 +15,7 @@ var addresses = {
   '0x81f87d1049d47cc772e6a4e9110817f0646ab411': 'Whalesburg.com',
   '0xf35074bbd0a9aee46f4ea137971feec024ab704e': 'Solopool.org',
   '0x4bdf392a77a498c3bfde9f8cc4ca45982cb06c72': 'Anorak.tech',
+  '0x438cfa62edc703f4f0806e72082a02bf39bc0a1d': 'Ubiqminers.com',
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
   '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',
