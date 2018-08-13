@@ -11,6 +11,7 @@ import Blocks from '@/views/Blocks'
 import Home from '@/views/Home'
 import Transaction from '@/views/Transaction'
 import Transactions from '@/views/Transactions'
+import Uncles from '@/views/Uncles'
 
 Vue.use(Router)
 
@@ -48,6 +49,17 @@ export default new Router({
           path: '/blocks',
           name: 'Blocks',
           component: Blocks
+        }
+      ]
+    },
+    {
+      path: 'uncles',
+      component: Full,
+      children: [
+        {
+          path: '/uncles',
+          name: 'Uncles',
+          component: Uncles
         }
       ]
     },

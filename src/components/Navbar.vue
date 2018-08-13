@@ -22,7 +22,7 @@
           <b-dropdown-item><router-link :to="{ name: 'Transactions', params: {type: 'latest'} }">View Latest Txns</router-link></b-dropdown-item>
           <b-dropdown-item><router-link :to="{ name: 'Transactions', params: {type: 'pending'} }">View Pending Txns</router-link></b-dropdown-item>
           <b-dropdown-item><router-link :to="{ name: 'Blocks', params: {} }">View Latest Blocks</router-link></b-dropdown-item>
-          <b-dropdown-item href="#">View Uncles</b-dropdown-item>
+          <b-dropdown-item><router-link :to="{ name: 'Uncles', params: {} }">View Latest Uncles</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="TOKENS" right>
