@@ -67,7 +67,7 @@
           <b-col md="3">
             Mined By:
           </b-col>
-          <b-col md="9">
+          <b-col v-if="isBlock" md="9">
             <router-link :to="{ name: 'Address', params: {hash: block.miner} }">{{ getAddressTag(block.miner) }}</router-link>
           </b-col>
         </b-row>
@@ -127,7 +127,7 @@
             {{ fromWei(block.blockReward) }} UBQ
           </b-col>
         </b-row>
-        <b-row class="card-row">
+        <b-row  class="card-row">
           <b-col md="3">
             Uncles Reward:
           </b-col>
@@ -172,7 +172,8 @@ export default {
   data () {
     return {
       refreshing: false,
-      block: {}
+      block: {},
+      isBlock: false
     }
   },
   created () {
@@ -189,6 +190,9 @@ export default {
       axios.get(this.$store.state.api + 'block/' + this.number)
         .then(response => {
           this.block = response.data
+          if (this.block.number) {
+            this.isBlock = true
+          }
         })
         .catch(e => {
           this.errors.push(e)

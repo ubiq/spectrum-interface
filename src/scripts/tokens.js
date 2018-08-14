@@ -143,5 +143,19 @@ module.exports = {
           isTokenTxn: false // not a token transaction
         }
     }
+  },
+  formatValue: function (val, contract) {
+    if (tokens[contract]) {
+      return new BigNumber(val).div(tokenDecimals(contract)).toString()
+    } else {
+      return val
+    }
+  },
+  getName: function (contract) {
+    if (tokens[contract]) {
+      return tokens[contract].name
+    } else {
+      return contract
+    }
   }
 }

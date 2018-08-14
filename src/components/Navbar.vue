@@ -27,7 +27,7 @@
 
         <b-nav-item-dropdown text="TOKENS" right>
           <b-dropdown-item href="#">View Tokens</b-dropdown-item>
-          <b-dropdown-item href="#">View Token Transfers</b-dropdown-item>
+          <b-dropdown-item><router-link :to="{ name: 'TokenTransfers', params: {} }">View Token Transfers</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="MISC" right>

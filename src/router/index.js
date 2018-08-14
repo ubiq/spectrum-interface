@@ -11,6 +11,7 @@ import Blocks from '@/views/Blocks'
 import Home from '@/views/Home'
 import Transaction from '@/views/Transaction'
 import Transactions from '@/views/Transactions'
+import TokenTransfers from '@/views/TokenTransfers'
 import Uncle from '@/views/Uncle'
 import Uncles from '@/views/Uncles'
 
@@ -50,6 +51,17 @@ export default new Router({
           path: '/blocks',
           name: 'Blocks',
           component: Blocks
+        }
+      ]
+    },
+    {
+      path: 'tokentransfers',
+      component: Full,
+      children: [
+        {
+          path: '/tokentxns',
+          name: 'TokenTransfers',
+          component: TokenTransfers
         }
       ]
     },

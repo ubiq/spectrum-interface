@@ -34,7 +34,8 @@ export default {
   data () {
     return {
       refreshing: false,
-      txns: []
+      txns: [],
+      errors: []
     }
   },
   created () {
