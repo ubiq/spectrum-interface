@@ -16,22 +16,25 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
 
-        <b-nav-item><router-link :to="{ name: 'Home', params: {} }">HOME</router-link></b-nav-item>
+        <b-nav-item :to="{ name: 'Home', params: {} }">HOME</b-nav-item>
 
         <b-nav-item-dropdown text="BLOCKCHAIN" right>
-          <b-dropdown-item><router-link :to="{ name: 'Transactions', params: {type: 'latest'} }">View Latest Txns</router-link></b-dropdown-item>
-          <b-dropdown-item><router-link :to="{ name: 'Transactions', params: {type: 'pending'} }">View Pending Txns</router-link></b-dropdown-item>
-          <b-dropdown-item><router-link :to="{ name: 'Blocks', params: {} }">View Latest Blocks</router-link></b-dropdown-item>
-          <b-dropdown-item><router-link :to="{ name: 'Uncles', params: {} }">View Latest Uncles</router-link></b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'Transactions', params: {type: 'latest'} }"><span class="fa fa-list-alt"/> View Txns</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'Transactions', params: {type: 'pending'} }"><span class="fa fa-tasks"/> View Pending Txns</b-dropdown-item>
+          <b-dropdown-divider/>
+          <b-dropdown-item :to="{ name: 'Blocks', params: {} }"><span class="fa fa-cubes"/> View Blocks</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'Uncles', params: {} }"><span class="fa fa-cube"/> View Uncles</b-dropdown-item>
+          <b-dropdown-divider/>
+          <b-dropdown-item :to="{ name: 'Uncles', params: {} }"><span class="fa fa-code-fork"/> Forked Blocks (Reorgs)</b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="TOKENS" right>
-          <b-dropdown-item href="#">View Tokens</b-dropdown-item>
-          <b-dropdown-item><router-link :to="{ name: 'TokenTransfers', params: {} }">View Token Transfers</router-link></b-dropdown-item>
+          <b-dropdown-item href="#"><span class="fa fa-certificate"/> View Tokens</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'TokenTransfers', params: {} }"><span class="fa fa-navicon"/> View Token Transfers</b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="MISC" right>
-          <b-dropdown-item href="#">Network Stats</b-dropdown-item>
+          <b-dropdown-item href="https://ubiq.darcr.us" target="_blank"><span class="fa fa-dashboard"/> Network Stats</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 

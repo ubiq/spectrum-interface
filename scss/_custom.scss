@@ -22,14 +22,6 @@ a:hover {
   text-decoration: none;
 }
 
-.nav-item .nav-link a {
-  color: $text1 !important;
-}
-
-.nav-item .nav-link a:hover {
-  color: rgba(255, 255, 255, 0.75) !important;
-}
-
 .app-body {
   padding-top: 65px;
   min-height: calc(100vh - 228px); // view height - footer height
@@ -253,15 +245,24 @@ pre {
   border-radius: 0 0 3px 3px;
   margin-top: 0px;
 }
-
-ul.nav-tabs {
-  border-bottom: 1px solid $grey3;
-}
-
+/* TODO fix for tabs (conflicting with navbar item)
 li.nav-item>.nav-link.active {
   background-color: $grey3;
   border-color: $grey3;
-  color: $text1;
+  color: #fff;
+}
+*/
+
+.nav-item .nav-link {
+  color: $text1 !important;
+}
+
+.nav-item .nav-link:hover {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+ul.nav-tabs {
+  border-bottom: 1px solid $grey3;
 }
 
 .account-txn-tabs {
@@ -271,6 +272,37 @@ li.nav-item>.nav-link.active {
 hr {
   margin: 5px 0px;
 }
+
+// dropdowns
+.dropdown-menu {
+  background-color: $grey2;
+}
+
+.dropdown-item {
+  color: $text1;
+}
+
+.dropdown-item>span {
+  width: 20px;
+  text-align: center;
+}
+
+.dropdown-item.active, .dropdown-item.active:hover, .dropdown-item:active {
+  background-color: $highlight;
+  color: #fff;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  color: $text1;
+  background-color: $grey3;
+  border-color: $highlight;
+  outline: none;
+}
+
+.dropdown-divider {
+  border-top: 1px solid $text1;
+}
+
 // scrollbars
 
 ::-webkit-scrollbar
