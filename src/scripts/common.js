@@ -58,5 +58,8 @@ module.exports = {
     } else {
       return null
     }
+  },
+  toTH (diff, decimals) {
+    return new BigNumber(diff).div(1000000000000).toFixed(decimals).toString()
   }
 }

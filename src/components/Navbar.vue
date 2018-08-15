@@ -25,7 +25,7 @@
           <b-dropdown-item :to="{ name: 'Blocks', params: {} }"><span class="fa fa-cubes"/> View Blocks</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'Uncles', params: {} }"><span class="fa fa-cube"/> View Uncles</b-dropdown-item>
           <b-dropdown-divider/>
-          <b-dropdown-item :to="{ name: 'Uncles', params: {} }"><span class="fa fa-code-fork"/> Forked Blocks (Reorgs)</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'ForkedBlocks', params: {} }"><span class="fa fa-code-fork"/> Forked Blocks (Reorgs)</b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="TOKENS" right>
