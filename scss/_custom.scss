@@ -245,13 +245,12 @@ pre {
   border-radius: 0 0 3px 3px;
   margin-top: 0px;
 }
-/* TODO fix for tabs (conflicting with navbar item)
-li.nav-item>.nav-link.active {
+
+.nav-tabs>li.nav-item>.nav-link.active {
   background-color: $grey3;
   border-color: $grey3;
   color: #fff;
 }
-*/
 
 .nav-item .nav-link {
   color: $text1 !important;
