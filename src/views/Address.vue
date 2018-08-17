@@ -4,7 +4,7 @@
       <b-breadcrumb>
         <b-breadcrumb-item :to="{name: 'Home'}">Home</b-breadcrumb-item>
         <b-breadcrumb-item :to="{name: 'Accounts'}">Accounts</b-breadcrumb-item>
-        <b-breadcrumb-item active>{{ hash }}</b-breadcrumb-item>
+        <b-breadcrumb-item active>{{ hash }} {{ getAddressTitle(hash) }}</b-breadcrumb-item>
         <b-breadcrumb-link>
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
         </b-breadcrumb-link>
@@ -27,7 +27,7 @@
                 Balance:
               </b-col>
               <b-col md="8">
-                10000000000
+                {{ fromWei(this.balance) }}
               </b-col>
             </b-row>
             <hr>
@@ -44,7 +44,7 @@
                 Ubiq Value:
               </b-col>
               <b-col md="8">
-                $10000000000
+                ${{ formatNumber(calcValue()) }}
               </b-col>
             </b-row>
             <hr>
@@ -61,7 +61,7 @@
                 Transactions:
               </b-col>
               <b-col md="8">
-                {{ txnsTotal }}
+                {{ formatNumber(txnsTotal) }}
               </b-col>
             </b-row>
           </b-col>
@@ -75,12 +75,12 @@
         <b-tab title="Transactions" active>
           <b-card no-body class="tab-table-card">
             <span style="padding:15px;">
-              Latest {{ txns.length }} txns from a total of {{ txnsTotal }} transactions
+              Latest {{ txns.length }} txns from a total of {{ formatNumber(txnsTotal) }} transactions
             </span>
             <TxnsTable :items="txns" :address="hash"/>
           </b-card>
         </b-tab>
-        <b-tab title="Erc20 Token Txns">
+        <b-tab v-if="tokentxnsTotal > 0" title="Erc20 Token Txns">
           <b-card no-body class="tab-table-card">
             <span style="padding:15px;">
               Latest {{ tokentxns.length }} token txns from a total of {{ tokentxnsTotal }} transactions
@@ -96,6 +96,7 @@
 <script>
 import axios from 'axios'
 import addresses from '../scripts/addresses'
+import common from '../scripts/common'
 import TxnsTable from '../components/tables/AccountTxns.vue'
 import TokenTransfersTable from '../components/tables/AccountTokenTransfers.vue'
 
@@ -115,6 +116,7 @@ export default {
       txnsTotal: 0,
       tokentxns: [],
       tokentxnsTotal: 0,
+      balance: 0,
       errors: []
     }
   },
@@ -124,23 +126,30 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      /* axios.get(this.$store.state.api + 'getbalance/' + this.hash)
+      axios.post(this.$store.state.rpc, {
+        jsonrpc: '2.0',
+        method: 'eth_getBalance',
+        params: [
+          this.hash,
+          'latest'
+        ],
+        id: 1
+      })
         .then(response => {
-          console.log(response.data.result)
-          this.account = response.data.result
+          this.balance = common.hexToDecimal(response.data.result)
         })
         .catch(e => {
           this.errors.push(e)
-        }) */
+        })
       axios.get(this.$store.state.api + 'latestaccounttxns/' + this.hash)
         .then(response => {
-          this.txns = response.data.txns
+          this.txns = response.data.txns || []
           this.txnsTotal = response.data.total
 
           axios.get(this.$store.state.api + 'latestaccounttokentxns/' + this.hash)
-            .then(response => {
-              this.tokentxns = response.data.txns
-              this.tokentxnsTotal = response.data.total
+            .then(response_ => {
+              this.tokentxns = response_.data.txns || []
+              this.tokentxnsTotal = response_.data.total
             })
             .catch(e_ => {
               this.errors.push(e_)
@@ -150,7 +159,6 @@ export default {
           this.errors.push(e)
         })
 
-
       let self = this
       setTimeout(function () {
         self.refreshing = false
@@ -158,6 +166,14 @@ export default {
     },
     getAddressTag (hash) {
       return addresses.getAddressTag(hash) || hash
+    },
+    getAddressTitle (hash) {
+      let tag = addresses.getAddressTag(hash)
+      if (tag) {
+        return '(' + tag + ')'
+      } else {
+        return ''
+      }
     },
     calcGasUsed (gasUsed, gasLimit) {
       return ((gasUsed / gasLimit) * 100).toFixed(2) + '%'
@@ -167,6 +183,12 @@ export default {
     },
     formatNumber (val) {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
+    fromWei (val) {
+      return common.fromWei(val)
+    },
+    calcValue () {
+      return common.mulFiat(common.fromWei(this.balance), this.$store.state.price.usd)
     }
   },
   components: {
