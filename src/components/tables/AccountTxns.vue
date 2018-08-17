@@ -20,8 +20,8 @@
         <div slot="value" slot-scope="data">
           {{ fromWei(data.value) }} UBQ
         </div>
-        <div slot="fee" slot-scope="data">
-          {{ calcFee() }}
+        <div slot="txFee" slot-scope="data">
+          {{ calcTxFee(data.item.gasUsed, data.item.gasPrice) }} UBQ
         </div>
       </b-table>
     </b-col>
@@ -61,7 +61,7 @@ export default {
         value: {
           label: 'Value'
         },
-        fee: {
+        txFee: {
           label: 'TxFee'
         }
       }
@@ -77,11 +77,11 @@ export default {
     getAddressTag (hash) {
       return addresses.getAddressTag(hash) || hash.substring(0, 17) + '...'
     },
-    calcFee () {
-      return 'TODO'
-    },
     calcTime (timestamp) {
       return this.$moment().to(timestamp * 1000)
+    },
+    calcTxFee (gasUsed, gasPrice) {
+      return common.fromWei(common.calcTxFee(gasUsed, gasPrice))
     }
   }
 }
