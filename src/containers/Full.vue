@@ -11,6 +11,7 @@
 <script>
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import common from '../scripts/common'
 import axios from 'axios'
 
 export default {
@@ -18,6 +19,11 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+  data () {
+    return {
+      errors: []
+    }
   },
   created () {
     this.fetch()
@@ -28,9 +34,9 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get(this.$store.state.api + 'latest')
+      axios.get(this.$store.state.api + 'status')
         .then(response => {
-          let latestBlock = response.data
+          let latestBlock = response.data.latestBlock
           if (this.$store.state.latestBlock.number !== latestBlock.number) {
             this.$store.dispatch('setLatestBlock', {
               number: latestBlock.number,
@@ -39,9 +45,22 @@ export default {
               transactions: latestBlock.transactions,
               uncles: latestBlock.uncles
             })
+            axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+              .then(response_ => {
+                console.log(response_.data.bpi.USD.rate)
+                this.$store.dispatch('setPrice', {
+                  btc: response.data.price,
+                  usd: common.mulFiat(response.data.price, response_.data.bpi.USD.rate.replace(',', '')),
+                  eur: common.mulFiat(response.data.price, response_.data.bpi.EUR.rate.replace(',', ''))
+                })
+              })
+              .catch(e_ => {
+                this.errors.push(e_)
+              })
           }
         })
         .catch(e => {
+          console.log(e)
           this.errors.push(e)
         })
     }
