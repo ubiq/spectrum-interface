@@ -61,7 +61,7 @@
                 Transactions:
               </b-col>
               <b-col md="8">
-                250
+                {{ txnsTotal }}
               </b-col>
             </b-row>
           </b-col>
@@ -75,7 +75,7 @@
         <b-tab title="Transactions" active>
           <b-card no-body class="tab-table-card">
             <span style="padding:15px;">
-              Latest {{ txns.length }} txns from a total of TODO transactions
+              Latest {{ txns.length }} txns from a total of {{ txnsTotal }} transactions
             </span>
             <TxnsTable :items="txns" :address="hash"/>
           </b-card>
@@ -83,7 +83,7 @@
         <b-tab title="Erc20 Token Txns">
           <b-card no-body class="tab-table-card">
             <span style="padding:15px;">
-              Latest {{ tokentxns.length }} token txns from a total of TODO transactions
+              Latest {{ tokentxns.length }} token txns from a total of {{ tokentxnsTotal }} transactions
             </span>
             <TokenTransfersTable :items="tokentxns" :address="hash"/>
           </b-card>
@@ -112,7 +112,9 @@ export default {
       refreshing: false,
       account: {},
       txns: [],
+      txnsTotal: 0,
       tokentxns: [],
+      tokentxnsTotal: 0,
       errors: []
     }
   },
@@ -132,10 +134,13 @@ export default {
         }) */
       axios.get(this.$store.state.api + 'latestaccounttxns/' + this.hash)
         .then(response => {
-          this.txns = response.data
+          this.txns = response.data.txns
+          this.txnsTotal = response.data.total
+
           axios.get(this.$store.state.api + 'latestaccounttokentxns/' + this.hash)
             .then(response => {
-              this.tokentxns = response.data
+              this.tokentxns = response.data.txns
+              this.tokentxnsTotal = response.data.total
             })
             .catch(e_ => {
               this.errors.push(e_)
