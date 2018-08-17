@@ -75,12 +75,18 @@
         <b-tab title="Transactions" active>
           <b-card no-body class="tab-table-card">
             <span style="padding:15px;">
-              Latest 25 txns from a total of TODO transactions
+              Latest {{ txns.length }} txns from a total of TODO transactions
             </span>
             <TxnsTable :items="txns" :address="hash"/>
           </b-card>
         </b-tab>
         <b-tab title="Erc20 Token Txns">
+          <b-card no-body class="tab-table-card">
+            <span style="padding:15px;">
+              Latest {{ tokentxns.length }} token txns from a total of TODO transactions
+            </span>
+            <TokenTransfersTable :items="tokentxns" :address="hash"/>
+          </b-card>
         </b-tab>
       </b-tabs>
     </b-col>
@@ -91,6 +97,7 @@
 import axios from 'axios'
 import addresses from '../scripts/addresses'
 import TxnsTable from '../components/tables/AccountTxns.vue'
+import TokenTransfersTable from '../components/tables/AccountTokenTransfers.vue'
 
 export default {
   name: 'Address',
@@ -104,7 +111,9 @@ export default {
     return {
       refreshing: false,
       account: {},
-      txns: []
+      txns: [],
+      tokentxns: [],
+      errors: []
     }
   },
   created () {
@@ -113,22 +122,29 @@ export default {
   methods: {
     fetch: function () {
       this.refreshing = true
-      axios.get(this.$store.state.api + 'getbalance/' + this.hash)
+      /* axios.get(this.$store.state.api + 'getbalance/' + this.hash)
         .then(response => {
           console.log(response.data.result)
           this.account = response.data.result
         })
         .catch(e => {
           this.errors.push(e)
-        })
-      axios.get(this.$store.state.api + 'getaccounttransactions/' + this.hash)
+        }) */
+      axios.get(this.$store.state.api + 'latestaccounttxns/' + this.hash)
         .then(response => {
-          console.log(response.data.result)
-          this.txns = response.data.result
+          this.txns = response.data
+          axios.get(this.$store.state.api + 'latestaccounttokentxns/' + this.hash)
+            .then(response => {
+              this.tokentxns = response.data
+            })
+            .catch(e_ => {
+              this.errors.push(e_)
+            })
         })
         .catch(e => {
           this.errors.push(e)
         })
+
 
       let self = this
       setTimeout(function () {
@@ -149,7 +165,8 @@ export default {
     }
   },
   components: {
-    TxnsTable
+    TxnsTable,
+    TokenTransfersTable
   }
 }
 </script>

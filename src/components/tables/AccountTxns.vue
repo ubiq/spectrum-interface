@@ -8,6 +8,9 @@
         <div slot="blockNumber" slot-scope="data">
           <router-link :to="{ name: 'Block', params: {number: data.value} }">{{ data.value}}</router-link>
         </div>
+        <div slot="timestamp" slot-scope="data">
+          ~{{ calcTime(data.value) }}
+        </div>
         <div slot="from" slot-scope="data">
           <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link><b-badge v-if="address === data.value" class="tx-badge pull-right">OUT</b-badge><b-badge v-else class="tx-badge pull-right">IN</b-badge>
         </div>
@@ -46,6 +49,9 @@ export default {
         blockNumber: {
           label: 'Block'
         },
+        timestamp: {
+          label: 'Age'
+        },
         from: {
           label: 'From'
         },
@@ -73,6 +79,9 @@ export default {
     },
     calcFee () {
       return 'TODO'
+    },
+    calcTime (timestamp) {
+      return this.$moment().to(timestamp * 1000)
     }
   }
 }

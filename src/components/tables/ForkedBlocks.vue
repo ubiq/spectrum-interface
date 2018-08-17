@@ -88,7 +88,7 @@ export default {
     },
     calcTime (timestamp) {
       return this.$moment().to(timestamp * 1000)
-    },
+    }
   }
 }
 </script>
