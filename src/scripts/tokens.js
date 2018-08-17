@@ -71,6 +71,18 @@ function tokenDecimals (address) {
   }
 }
 
+function stripHexPrefix (str) {
+  if (typeof str !== 'string') {
+    return str
+  }
+  return isHexPrefixed(str) ? str.slice(2) : str
+}
+
+function zeroPad (len) {
+  var str = '0'
+  return str.repeat(len)
+}
+
 function isHexPrefixed (str) {
   if (typeof str !== 'string') {
     return false
@@ -157,5 +169,17 @@ module.exports = {
     } else {
       return contract
     }
+  },
+  getTokens: function () {
+    return tokens
+  },
+  zeroPadAddress: function (str) {
+    if (typeof str !== 'string') {
+      return str
+    }
+    return zeroPad(24) + stripHexPrefix(str)
+  },
+  toBalance: function (hex, contract) {
+    return new BigNumber(hex, 16).div(tokenDecimals(contract)).toString()
   }
 }

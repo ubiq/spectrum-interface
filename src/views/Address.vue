@@ -33,8 +33,16 @@
             <hr>
           </b-col>
           <b-col md="6">
-            <strong>Misc</strong>
-            <hr>
+            <b-dropdown size="sm" split variant="secondary" class="input-dropdown" style="margin-top:-10px">
+              <div slot="button-content">Token Balances <b-badge>{{ tokenBalances.length }}</b-badge></div>
+              <div v-for="(item, index) in tokenBalances" :key="index">
+                <b-dropdown-item>
+                  <div><strong>{{ item.name }}</strong></div>
+                  <div>{{ item.balance}} {{item.symbol}}</div>
+                </b-dropdown-item>
+                <b-dropdown-divider/>
+              </div>
+            </b-dropdown>
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -49,10 +57,6 @@
             </b-row>
             <hr>
           </b-col>
-          <b-col md="6">
-            <strong>Misc</strong>
-            <hr>
-          </b-col>
         </b-row>
         <b-row class="card-row">
           <b-col md="6">
@@ -64,9 +68,6 @@
                 {{ formatNumber(txnsTotal) }}
               </b-col>
             </b-row>
-          </b-col>
-          <b-col md="6">
-            <strong>Misc</strong>
           </b-col>
         </b-row>
       </b-card>
@@ -83,7 +84,7 @@
         <b-tab v-if="tokentxnsTotal > 0" title="Erc20 Token Txns">
           <b-card no-body class="tab-table-card">
             <span style="padding:15px;">
-              Latest {{ tokentxns.length }} token txns from a total of {{ tokentxnsTotal }} transactions
+              Latest {{ tokentxns.length }} token txns from a total of {{ formatNumber(tokentxnsTotal) }} transactions
             </span>
             <TokenTransfersTable :items="tokentxns" :address="hash"/>
           </b-card>
@@ -97,6 +98,7 @@
 import axios from 'axios'
 import addresses from '../scripts/addresses'
 import common from '../scripts/common'
+import tokens from '../scripts/tokens'
 import TxnsTable from '../components/tables/AccountTxns.vue'
 import TokenTransfersTable from '../components/tables/AccountTokenTransfers.vue'
 
@@ -116,6 +118,8 @@ export default {
       txnsTotal: 0,
       tokentxns: [],
       tokentxnsTotal: 0,
+      tokensObj: {},
+      tokenBalances: [],
       balance: 0,
       errors: []
     }
@@ -158,8 +162,37 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
+      this.tokensObj = tokens.getTokens()
 
+      console.log(tokens.zeroPadAddress(this.hash))
       let self = this
+      var bcount = 2
+      Object.keys(this.tokensObj).forEach(function (key) {
+        axios.post(self.$store.state.rpc, {
+          jsonrpc: '2.0',
+          method: 'eth_call',
+          params: [{
+            to: key,
+            data: '0x70a08231' + tokens.zeroPadAddress(self.hash)
+          }, 'latest'],
+          id: bcount
+        })
+          .then(response => {
+            let balance = tokens.toBalance(response.data.result, key)
+            if (balance != '0') {
+              self.tokenBalances.push({
+                name: self.tokensObj[key].name,
+                symbol: self.tokensObj[key].symbol,
+                balance: balance
+              })
+            }
+          })
+          .catch(e => {
+            self.errors.push(e)
+          })
+        bcount += 1
+      })
+
       setTimeout(function () {
         self.refreshing = false
       }, 2000)
@@ -189,6 +222,9 @@ export default {
     },
     calcValue () {
       return common.mulFiat(common.fromWei(this.balance), this.$store.state.price.usd)
+    },
+    gettokens () {
+      return tokens.tokens()
     }
   },
   components: {
