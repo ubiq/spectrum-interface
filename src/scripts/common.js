@@ -17,6 +17,9 @@ module.exports = {
   hexToDecimal: function (hex) {
     return new BigNumber(hex.substring(2), 16).toString()
   },
+  mulFiat: function (a, b) {
+    return new BigNumber(a).times(b).toFixed(2).toString()
+  },
   toUtf8: function (hex) {
     if (hex) {
       var str = ''
