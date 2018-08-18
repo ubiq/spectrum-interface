@@ -12,6 +12,7 @@
       <b-card no-body class="block-card">
         <b-row class="card-row">
           <b-col md="6">
+            <Blockie :address="hash" size="xs" inline="true"/>
             <strong>Overview</strong><span v-b-modal.qrModal class="fa fa-qrcode pull-right"/>
             <b-modal id="qrModal" centered variant="dark" hide-footer style="text-align:center">
               <Qrcode :value="hash" :options="{size: 300}"/>
@@ -100,6 +101,7 @@
 <script>
 import axios from 'axios'
 import addresses from '../scripts/addresses'
+import Blockie from '../components/Blockie.vue'
 import common from '../scripts/common'
 import tokens from '../scripts/tokens'
 import TxnsTable from '../components/tables/AccountTxns.vue'
@@ -239,9 +241,10 @@ export default {
     }
   },
   components: {
+    Blockie,
+    Qrcode,
     TxnsTable,
-    TokenTransfersTable,
-    Qrcode
+    TokenTransfersTable
   }
 }
 </script>
