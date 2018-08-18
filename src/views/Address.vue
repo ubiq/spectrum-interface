@@ -52,7 +52,7 @@
                 Ubiq Value:
               </b-col>
               <b-col md="8">
-                ${{ formatNumber(calcValue()) }}
+                ${{ formatNumber(calcValue()) }} (@ ${{ priceUSD }}/UBQ)
               </b-col>
             </b-row>
             <hr>
@@ -126,6 +126,11 @@ export default {
   },
   created () {
     this.fetch()
+  },
+  computed: {
+    priceUSD () {
+      return this.$store.state.price.usd
+    }
   },
   methods: {
     fetch: function () {
@@ -223,7 +228,7 @@ export default {
       return common.fromWei(val)
     },
     calcValue () {
-      return common.mulFiat(common.fromWei(this.balance), this.$store.state.price.usd)
+      return common.mulFiat(common.fromWei(this.balance), this.priceUSD)
     },
     gettokens () {
       return tokens.tokens()
