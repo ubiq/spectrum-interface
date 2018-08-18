@@ -12,7 +12,10 @@
       <b-card no-body class="block-card">
         <b-row class="card-row">
           <b-col md="6">
-            <strong>Overview</strong><span class="fa fa-qrcode pull-right"/>
+            <strong>Overview</strong><span v-b-modal.qrModal class="fa fa-qrcode pull-right"/>
+            <b-modal id="qrModal" centered variant="dark" hide-footer style="text-align:center">
+              <Qrcode :value="hash" :options="{size: 300}"/>
+            </b-modal>
             <hr>
           </b-col>
           <b-col md="6">
@@ -101,6 +104,7 @@ import common from '../scripts/common'
 import tokens from '../scripts/tokens'
 import TxnsTable from '../components/tables/AccountTxns.vue'
 import TokenTransfersTable from '../components/tables/AccountTokenTransfers.vue'
+import Qrcode from '@xkeshi/vue-qrcode'
 
 export default {
   name: 'Address',
@@ -236,7 +240,8 @@ export default {
   },
   components: {
     TxnsTable,
-    TokenTransfersTable
+    TokenTransfersTable,
+    Qrcode
   }
 }
 </script>
