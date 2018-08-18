@@ -167,6 +167,7 @@ export default {
       console.log(tokens.zeroPadAddress(this.hash))
       let self = this
       var bcount = 2
+      var tokenBals = []
       Object.keys(this.tokensObj).forEach(function (key) {
         axios.post(self.$store.state.rpc, {
           jsonrpc: '2.0',
@@ -180,7 +181,7 @@ export default {
           .then(response => {
             let balance = tokens.toBalance(response.data.result, key)
             if (balance != '0') {
-              self.tokenBalances.push({
+              tokenBals.push({
                 name: self.tokensObj[key].name,
                 symbol: self.tokensObj[key].symbol,
                 balance: balance
@@ -192,6 +193,7 @@ export default {
           })
         bcount += 1
       })
+      this.tokenBalances = tokenBals
 
       setTimeout(function () {
         self.refreshing = false
