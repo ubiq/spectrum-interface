@@ -66,7 +66,7 @@
                 Value:
               </b-col>
               <b-col md="9">
-                {{ fromWei(txn.value) }} UBQ
+                {{ fromWei(txn.value) }} UBQ (${{ calcValue(fromWei(txn.value), 2)}})
               </b-col>
             </b-row>
             <b-row class="card-row">
@@ -99,7 +99,7 @@
                 Actual Tx Cost/Fee:
               </b-col>
               <b-col md="9">
-                {{ calcTxFee(txn.gasUsed, txn.gasPrice)}} UBQ
+                {{ calcTxFee(txn.gasUsed, txn.gasPrice)}} UBQ (${{ calcValue(calcTxFee(txn.gasUsed, txn.gasPrice), 4) }})
               </b-col>
             </b-row>
             <b-row class="card-row">
@@ -205,6 +205,9 @@ export default {
     },
     latestBlock () {
       return this.$store.state.latestBlock.number
+    },
+    priceUSD () {
+      return this.$store.state.price.usd
     }
   },
   methods: {
@@ -295,6 +298,9 @@ export default {
     },
     processEventTopic (topic) {
       return contracts.processEventTopic(topic)
+    },
+    calcValue (ubq, decimals) {
+      return common.mulFiat(ubq, this.priceUSD, decimals)
     }
   }
 }

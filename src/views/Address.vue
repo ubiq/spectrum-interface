@@ -228,7 +228,7 @@ export default {
       return common.fromWei(val)
     },
     calcValue () {
-      return common.mulFiat(common.fromWei(this.balance), this.priceUSD)
+      return common.mulFiat(common.fromWei(this.balance), this.priceUSD, 2)
     },
     gettokens () {
       return tokens.tokens()
