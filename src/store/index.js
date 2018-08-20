@@ -9,22 +9,24 @@ export const store = new Vuex.Store({
   state,
   mutations: {
     latestBlockInstance (state, payload) {
-      // console.log('blockNumberInstance mutation being executed', payload)
       state.latestBlock = payload
     },
     priceInstance (state, payload) {
-      console.log('priceInstance mutation being executed', payload)
       state.price = payload
+    },
+    supplyInstance (state, payload) {
+      state.supply = payload
     }
   },
   actions: {
     setLatestBlock ({commit}, payload) {
-      // console.log('setBlockNumber action being executed')
       commit('latestBlockInstance', payload)
     },
     setPrice ({commit}, payload) {
-      console.log('setPrice action being executed')
       commit('priceInstance', payload)
+    },
+    setSupply ({commit}, payload) {
+      commit('supplyInstance', payload)
     }
   }
 })

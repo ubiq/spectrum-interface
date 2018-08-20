@@ -12,6 +12,7 @@ let state = {
     btc: '0',
     usd: '0',
     eur: '0'
-  }
+  },
+  supply: ''
 }
 export default state
