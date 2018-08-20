@@ -65,7 +65,8 @@ footer a:hover {
 }
 
 .card-dark {
-  background-color: #111;
+  background-color: $grey3;
+  color: $text1
 }
 
 .card-home .card-body {
