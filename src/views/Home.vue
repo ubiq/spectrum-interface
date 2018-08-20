@@ -4,10 +4,10 @@
       <b-col md="5">
         <b-card class="card-dark">
           <div>
-            <img src='../assets/logo.svg' width="60" height="60"/>
-            <span style="display:inline-block">
-              <div>MARKET CAP OF ${{ marketcap }} MILLION</div>
-              <div>${{ priceUSD }} @ {{ priceBTC }} BTC/UBQ</div>
+            <img src="../assets/logo-circle.svg" width="50" height="50" style="margin-top:-20px;"/>
+            <span style="display:inline-block;">
+              <h6 style="margin-bottom:0;">MARKET CAP OF ${{ marketcap }} MILLION</h6>
+              <h5>${{ priceUSD }} @ {{ priceBTC }} BTC/UBQ</h5>
             </span>
           </div>
           <b-row style="padding:15px 15px 0 15px">
@@ -41,7 +41,7 @@
     <b-row class="justify-content-md-center" style="margin-top:20px;">
       <b-col md="5">
         <b-card class="card-home">
-          <strong slot="header">Blocks <b-badge pill variant="dark" class="float-right"><router-link :to="{ name: 'Blocks', params: {} }">View All</router-link></b-badge></strong>
+          <strong slot="header">Blocks</strong>
           <div v-for="(item, index) in blocks" :key="index">
             <PreviewBlock :info="item"/>
             <hr style="margin:5px 0 3px 0;">
@@ -50,7 +50,7 @@
       </b-col>
       <b-col md="5">
         <b-card class="card-home">
-          <strong slot="header">Transactions <b-badge pill variant="dark" class="float-right"><router-link :to="{ name: 'Transactions', params: {type: 'latest'} }">View All</router-link></b-badge></strong>
+          <strong slot="header">Transactions</strong>
           <div v-for="(item, index) in txns" :key="index">
             <PreviewTxn :info="item"/>
           </div>
