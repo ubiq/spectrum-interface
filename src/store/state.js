@@ -6,7 +6,7 @@ let state = {
     transactions: 0,
     uncles: 0
   },
-  api: 'http://127.0.0.1:3000/',
+  api: process.env.API_URL,
   rpc: 'https://rpc1.ubiqscan.io',
   price: {
     btc: '0',
