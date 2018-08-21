@@ -93,6 +93,20 @@
             <TokenTransfersTable :items="tokentxns" :address="hash"/>
           </b-card>
         </b-tab>
+        <b-tab v-if="isContract" title="Contract">
+          <b-card no-body class="tab-table-card">
+            <b-col md="12">
+              <b-row class="card-row" style="margin-top:10px;">
+                <b-col md="12">
+                  Contract deployed in transaction {{ contractDeployTxn }}
+                </b-col>
+              </b-row>
+              <hr>
+              <strong>Contract Creation Code <span class="fa fa-calculator"/></strong>
+              <b-card class="card-input-data" style="margin-bottom:15px;">{{ contractByteCode }}</b-card>
+            </b-col>
+          </b-card>
+        </b-tab>
       </b-tabs>
     </b-col>
   </b-row>
@@ -127,6 +141,9 @@ export default {
       tokensObj: {},
       tokenBalances: [],
       balance: 0,
+      isContract: false,
+      contractDeployTxn: '',
+      contractByteCode: '',
       errors: []
     }
   },
@@ -175,7 +192,6 @@ export default {
         })
       this.tokensObj = tokens.getTokens()
 
-      console.log(tokens.zeroPadAddress(this.hash))
       let self = this
       var bcount = 2
       var tokenBals = []
@@ -191,7 +207,7 @@ export default {
         })
           .then(response => {
             let balance = tokens.toBalance(response.data.result, key)
-            if (balance != '0') {
+            if (balance !== '0') {
               tokenBals.push({
                 name: self.tokensObj[key].name,
                 symbol: self.tokensObj[key].symbol,
@@ -205,6 +221,25 @@ export default {
         bcount += 1
       })
       this.tokenBalances = tokenBals
+
+      axios.post(this.$store.state.rpc, {
+        jsonrpc: '2.0',
+        method: 'eth_getCode',
+        params: [
+          this.hash,
+          'latest'
+        ],
+        id: bcount
+      })
+        .then(response => {
+          if (response.data.result !== '0x') {
+            this.isContract = true
+            this.contractByteCode = response.data.result
+          }
+        })
+        .catch(e => {
+          self.errors.push(e)
+        })
 
       setTimeout(function () {
         self.refreshing = false
