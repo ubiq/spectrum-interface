@@ -35,6 +35,7 @@ export default {
     return {
       refreshing: false,
       txns: [],
+      total: 0,
       errors: []
     }
   },
@@ -47,7 +48,8 @@ export default {
       if (this.type === 'latest') {
         axios.get(this.$store.state.api + 'latesttransactions/1000')
           .then(response => {
-            this.txns = response.data
+            this.txns = response.data.txns
+            this.total = response.data.total
           })
           .catch(e => {
             this.errors.push(e)
