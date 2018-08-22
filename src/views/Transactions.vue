@@ -10,7 +10,7 @@
             <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
           </b-breadcrumb-link>
         </b-breadcrumb>
-        <TxnsTable :items="txns" :pending="type === 'pending'"/>
+        <TxnsTable :items="txns" :pending="type === 'pending'" :total="total"/>
       </b-col>
     </b-row>
   </div>

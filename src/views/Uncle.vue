@@ -160,11 +160,7 @@ export default {
       return this.$moment().to(timestamp * 1000) + ' (' + this.$moment.utc(timestamp * 1000).format('lll') + ' UTC)'
     },
     formatNumber (val) {
-      if (val) {
-        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      } else {
-        return null
-      }
+      return common.formatNumber(val)
     },
     fromWei (val) {
       return common.fromWei(val)
