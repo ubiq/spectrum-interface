@@ -137,7 +137,7 @@ export default {
         })
       axios.get(this.$store.state.api + 'latestblocks/10')
         .then(response => {
-          this.blocks = response.data
+          this.blocks = response.data.blocks
           this.difficulty = (this.blocks[0].difficulty / 1000000000000).toFixed(2) // (TH)
           this.blocktime = this.blocks[0].timestamp - this.blocks[1].timestamp
           // calc avg blocktime based on latest blocks

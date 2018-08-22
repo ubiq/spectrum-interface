@@ -8,7 +8,7 @@
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
         </b-breadcrumb-link>
       </b-breadcrumb>
-      <BlocksTable :items="blocks"/>
+      <BlocksTable :items="blocks" :total="total"/>
     </b-col>
   </b-row>
 </template>
@@ -27,7 +27,8 @@ export default {
   data () {
     return {
       refreshing: false,
-      blocks: []
+      blocks: [],
+      total: 0
     }
   },
   created () {
@@ -38,7 +39,8 @@ export default {
       this.refreshing = true
       axios.get(this.$store.state.api + 'latestblocks/1000')
         .then(response => {
-          this.blocks = response.data
+          this.blocks = response.data.blocks
+          this.total = response.data.total
         })
         .catch(e => {
           this.errors.push(e)
