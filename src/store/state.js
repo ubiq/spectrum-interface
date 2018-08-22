@@ -13,6 +13,7 @@ let state = {
     usd: '0',
     eur: '0'
   },
-  supply: ''
+  supply: '',
+  txnsCounts: []
 }
 export default state

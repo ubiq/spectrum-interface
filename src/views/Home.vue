@@ -3,7 +3,7 @@
     <b-row class="justify-content-md-center">
       <b-col md="5">
         <b-card class="card-dark">
-          <div>
+          <div style="margin-bottom:55px;">
             <img src="../assets/logo-circle.svg" width="50" height="50" style="margin-top:-20px;"/>
             <span style="display:inline-block;">
               <h6 style="margin-bottom:0;">MARKET CAP OF ${{ marketcap }} MILLION</h6>
@@ -34,7 +34,8 @@
       </b-col>
       <b-col md="5">
         <b-card class="text-center card-dark">
-          <img src='../assets/logo.svg' width="100" height="100"/>
+          <h6>14 day Ubiq transaction history</h6>
+          <LineChart :chart-data="chartData" :options="chartOptions" :height="180" :styles="{height: '180px'}"/>
         </b-card>
       </b-col>
     </b-row>
@@ -62,6 +63,7 @@
 
 <script>
 import axios from 'axios'
+import LineChart from '../components/charts/Line.vue'
 import common from '../scripts/common'
 import PreviewTxn from '../components/PreviewTxn.vue'
 import PreviewBlock from '../components/PreviewBlock.vue'
@@ -84,7 +86,26 @@ export default {
       blocks: [],
       hashrate: '',
       blocktime: 0,
-      difficulty: 0
+      difficulty: 0,
+      chartData: {},
+      chartOptions: {
+        scales: {
+          xAxes: [{
+            display: false
+          }],
+          yAxes: [{
+            ticks: {
+              min: 0
+            },
+            fontColor: 'rgba(255,255,255,0.5)'
+          }]
+        },
+        legend: {
+          display: false
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }
   },
   created () {
@@ -139,11 +160,24 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
+      this.chartData = {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'],
+        datasets: [
+          {
+            label: 'Txns',
+            borderColor: '#00ea90',
+            pointBackgroundColor: '#00ea90',
+            cubicInterpolationMode: 'monotone',
+            data: this.$store.state.txnsCounts
+          }
+        ]
+      }
     }
   },
   components: {
     PreviewTxn,
-    PreviewBlock
+    PreviewBlock,
+    LineChart
   }
 }
 </script>

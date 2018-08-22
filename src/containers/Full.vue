@@ -46,6 +46,7 @@ export default {
               uncles: latestBlock.uncles
             })
             this.$store.dispatch('setSupply', response.data.supply)
+            this.$store.dispatch('setTxnsCount', response.data.txnCounts)
             axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
               .then(response_ => {
                 console.log(response_.data.bpi.USD.rate)

@@ -16,6 +16,9 @@ export const store = new Vuex.Store({
     },
     supplyInstance (state, payload) {
       state.supply = payload
+    },
+    txnsCountInstance (state, payload) {
+      state.txnsCounts = payload
     }
   },
   actions: {
@@ -27,6 +30,9 @@ export const store = new Vuex.Store({
     },
     setSupply ({commit}, payload) {
       commit('supplyInstance', payload)
+    },
+    setTxnsCount ({commit}, payload) {
+      commit('txnsCountInstance', payload)
     }
   }
 })
