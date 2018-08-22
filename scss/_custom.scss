@@ -28,6 +28,7 @@ a:hover {
 }
 
 .footer {
+  margin-top: 20px;
   background-color: $grey3 !important;
   color: $text1;
   -webkit-box-shadow:$box-shadow1;
@@ -66,7 +67,8 @@ footer a:hover {
 
 .card-dark {
   background-color: $grey3;
-  color: $text1
+  color: $text1;
+  margin-top: 0;
 }
 
 .card-home .card-body {

@@ -1,19 +1,5 @@
 <template>
-  <!-- Footer -->
-  <!-- <footer class="footer mt-4">
-    <b-container fluid>
-      <div>
-        <div style="display:inline-block;margin-right:10px;vertical-align:top;">
-          <img src="../assets/poweredby.svg" width="128" height="80"/>
-        </div>
-        <div style="display:inline-block;width:280px;">
-          <p style="margin-bottom:0">Ubiqscan is powered by Ubiq Spectrum an open-source block explorer and analytics platform for Ubiq, a decentralized smart contracts platform.</p>
-        </div>
-      </div>
-      <PreviewBlock :info="latestBlock"/>
-    </b-container>
-  </footer> -->
-  <footer class="footer mt-4">
+  <footer class="footer">
 
     <b-container fluid style="height:156px;padding-top:10px;">
       <b-row>
