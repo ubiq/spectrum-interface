@@ -33,6 +33,11 @@ var tokens = {
     symbol: 'ESCH',
     decimals: 18
   },
+  '0xe8253295177930b0646a9d8d13a9c1a7b087c4c0': {
+    name: 'Bananas',
+    symbol: 'NANA',
+    decimals: 8
+  },
   '0x500684ce0d4f04abedff3e54fcf8acc5e6cfc4bd': {
     name: 'GeoCoin',
     symbol: 'GEO',
