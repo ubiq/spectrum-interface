@@ -27,7 +27,8 @@ export default {
   data () {
     return {
       refreshing: false,
-      uncles: []
+      uncles: [],
+      total: 0,
     }
   },
   created () {
@@ -38,7 +39,8 @@ export default {
       this.refreshing = true
       axios.get(this.$store.state.api + 'latestuncles/1000')
         .then(response => {
-          this.uncles = response.data
+          this.uncles = response.data.uncles
+          this.total = response.data.total
         })
         .catch(e => {
           this.errors.push(e)
