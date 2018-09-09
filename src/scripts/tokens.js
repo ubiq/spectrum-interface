@@ -18,6 +18,11 @@ var tokens = {
     symbol: 'BTW',
     decimals: 2
   },
+  '0x0319b92eb57929684c27531da133b0d2bbf691af': {
+    name: 'Cauli',
+    symbol: 'CAULI',
+    decimals: 8
+  },
   '0x08533d6a06ce365298b12ef92eb407cba8aa8273': {
     name: 'CryptopiaFeeShare',
     symbol: 'CEFS',
