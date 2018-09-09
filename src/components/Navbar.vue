@@ -18,6 +18,8 @@
 
         <b-nav-item :to="{ name: 'Home', params: {} }">HOME</b-nav-item>
 
+        <b-nav-item :to="{ name: 'Map', params: {} }">NODE MAP</b-nav-item>
+
         <b-nav-item-dropdown text="BLOCKCHAIN" right>
           <b-dropdown-item :to="{ name: 'Transactions', params: {type: 'latest'} }"><span class="fa fa-list-alt"/> View Txns</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'Transactions', params: {type: 'pending'} }"><span class="fa fa-tasks"/> View Pending Txns</b-dropdown-item>

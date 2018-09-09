@@ -28,7 +28,7 @@ export default {
     return {
       refreshing: false,
       uncles: [],
-      total: 0,
+      total: 0
     }
   },
   created () {

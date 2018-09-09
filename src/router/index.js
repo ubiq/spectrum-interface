@@ -15,6 +15,17 @@ import Transactions from '@/views/Transactions'
 import TokenTransfers from '@/views/TokenTransfers'
 import Uncle from '@/views/Uncle'
 import Uncles from '@/views/Uncles'
+import Map from '@/views/Map'
+
+import L from 'leaflet'
+
+delete L.Icon.Default.prototype._getIconUrl
+// eslint-disable-next-line
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
 
 Vue.use(Router)
 
@@ -29,6 +40,11 @@ export default new Router({
           path: '/',
           name: 'Home',
           component: Home
+        },
+        {
+          path: '/map',
+          name: 'Map',
+          component: Map
         }
       ]
     },
