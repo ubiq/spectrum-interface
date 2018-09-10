@@ -62,6 +62,11 @@ var tokens = {
     name: 'PickleRicks',
     symbol: 'RICKS',
     decimals: 8
+  },
+  '0xbc3e373d2b24faf1dfe5b3f3acff9d66a7b48869': {
+    name: 'WorldBit Token',
+    symbol: 'WBT',
+    decimals: 18
   }
 }
 
