@@ -6,6 +6,7 @@
       </nav>
       <b-card no-body>
         <span style="margin:15px 15px 5px 15px;" v-if="pending">Showing {{ items.length }} pending txns</span>
+        <span style="margin:15px 15px 5px 15px;" v-else-if="block">Showing {{ items.length }} txns from block {{ blockNumber }}</span>
         <span style="margin:15px 15px 5px 15px;" v-else>Latest {{ items.length }} txns from a total of {{ formatNumber(total) }} transactions</span>
         <hr/>
         <b-table class="mb-0" responsive="sm" hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
@@ -49,6 +50,14 @@ export default {
     pending: {
       type: Boolean,
       default: false
+    },
+    block: {
+      type: Boolean,
+      default: false
+    },
+    blockNumber: {
+      type: Number,
+      default: 0
     },
     total: {
       type: Number

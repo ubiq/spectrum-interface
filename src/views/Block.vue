@@ -33,7 +33,7 @@
             Transactions:
           </b-col>
           <b-col v-if="block.transactions !== 0" md="9">
-            <router-link :to="{ name: 'Transactions', params: { type: 'block', number: number}}">{{ block.transactions }} transactions</router-link>
+            <router-link :to="{ name: 'Transactions', params: { type: 'block', blockNumber: number}}">{{ block.transactions }} transactions</router-link>
           </b-col>
           <b-col v-else md="9">
             {{ block.transactions }} transactions

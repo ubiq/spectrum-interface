@@ -37,7 +37,7 @@ export default new Router({
       component: Full,
       children: [
         {
-          path: '/txns/:type',
+          path: '/txns/:type/:blockNumber?',
           name: 'Transactions',
           component: Transactions,
           props: true
