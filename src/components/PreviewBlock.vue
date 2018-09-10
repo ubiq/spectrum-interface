@@ -13,7 +13,7 @@
         <strong>Mined By <router-link :to="{ name: 'Address', params: {hash: miner.full} }">{{ miner.short}}</router-link></strong>
       </b-row>
       <b-row>
-        <label><router-link :to="{ name: 'Transactions', params: {type: 'block', number: number} }">{{ txns }} txns</router-link></label>
+        <label><router-link :to="{ name: 'Transactions', params: {type: 'block', blockNumber: number} }">{{ txns }} txns</router-link></label>
       </b-row>
       <b-row>
         <label>Block Reward {{ reward }} UBQ</label>
