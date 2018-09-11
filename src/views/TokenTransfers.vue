@@ -9,7 +9,7 @@
             <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
           </b-breadcrumb-link>
         </b-breadcrumb>
-        <TokenTransfersTable :items="transfers"/>
+        <TokenTransfersTable :items="transfers" :total="total"/>
       </b-col>
     </b-row>
   </div>
@@ -30,6 +30,7 @@ export default {
     return {
       refreshing: false,
       transfers: [],
+      total: 0,
       errors: []
     }
   },
@@ -41,7 +42,8 @@ export default {
       this.refreshing = true
       axios.get(this.$store.state.api + 'latesttokentransfers/1000')
         .then(response => {
-          this.transfers = response.data
+          this.transfers = response.data.txns
+          this.total = response.data.total
         })
         .catch(e => {
           this.errors.push(e)
