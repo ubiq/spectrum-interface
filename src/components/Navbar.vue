@@ -29,7 +29,7 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="TOKENS" right>
-          <b-dropdown-item href="#"><span class="fa fa-certificate"/> View Tokens</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'Tokens', params: {} }"><span class="fa fa-certificate"/> View Tokens</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'TokenTransfers', params: {} }"><span class="fa fa-navicon"/> View Token Transfers</b-dropdown-item>
         </b-nav-item-dropdown>
 

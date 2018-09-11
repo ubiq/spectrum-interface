@@ -10,6 +10,7 @@ import Block from '@/views/Block'
 import Blocks from '@/views/Blocks'
 import ForkedBlocks from '@/views/ForkedBlocks'
 import Home from '@/views/Home'
+import Tokens from '@/views/Tokens'
 import Transaction from '@/views/Transaction'
 import Transactions from '@/views/Transactions'
 import TokenTransfers from '@/views/TokenTransfers'
@@ -63,6 +64,17 @@ export default new Router({
           path: '/blocks_forked',
           name: 'ForkedBlocks',
           component: ForkedBlocks
+        }
+      ]
+    },
+    {
+      path: 'tokens',
+      component: Full,
+      children: [
+        {
+          path: '/tokens',
+          name: 'Tokens',
+          component: Tokens
         }
       ]
     },
