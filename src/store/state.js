@@ -14,6 +14,9 @@ let state = {
     eur: '0'
   },
   supply: '',
-  txnsCounts: []
+  txnsCounts: {
+    data: [],
+    labels: []
+  }
 }
 export default state

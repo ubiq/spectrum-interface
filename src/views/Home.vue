@@ -161,14 +161,14 @@ export default {
           this.errors.push(e)
         })
       this.chartData = {
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'],
+        labels: this.$store.state.txnsCounts.labels,
         datasets: [
           {
             label: 'Txns',
             borderColor: '#00ea90',
             pointBackgroundColor: '#00ea90',
             cubicInterpolationMode: 'monotone',
-            data: this.$store.state.txnsCounts
+            data: this.$store.state.txnsCounts.data
           }
         ]
       }

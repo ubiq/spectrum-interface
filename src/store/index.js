@@ -18,7 +18,8 @@ export const store = new Vuex.Store({
       state.supply = payload
     },
     txnsCountInstance (state, payload) {
-      state.txnsCounts = payload
+      state.txnsCounts.data = payload.data
+      state.txnsCounts.labels = payload.labels
     }
   },
   actions: {
