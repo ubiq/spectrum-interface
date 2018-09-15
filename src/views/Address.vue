@@ -3,7 +3,7 @@
     <b-col md="10">
       <b-breadcrumb>
         <b-breadcrumb-item :to="{name: 'Home'}">Home</b-breadcrumb-item>
-        <b-breadcrumb-item :to="{name: 'Accounts'}">Accounts</b-breadcrumb-item>
+        <b-breadcrumb-item>Accounts</b-breadcrumb-item>
         <b-breadcrumb-item active>{{ hash }} {{ getAddressTitle(hash) }}</b-breadcrumb-item>
         <b-breadcrumb-link>
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
@@ -102,7 +102,7 @@
                 </b-col>
               </b-row>
               <hr>
-              <strong>Contract Creation Code <span class="fa fa-calculator"/></strong>
+              <strong>Contract Byte Code <span class="fa fa-calculator"/></strong>
               <b-card class="card-input-data" style="margin-bottom:15px;">{{ contractByteCode }}</b-card>
             </b-col>
           </b-card>
@@ -190,6 +190,26 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
+
+      axios.post(this.$store.state.rpc, {
+        jsonrpc: '2.0',
+        method: 'eth_getCode',
+        params: [
+          this.hash,
+          'latest'
+        ],
+        id: 2
+      })
+        .then(response => {
+          if (response.data.result !== '0x') {
+            this.isContract = true
+            this.contractByteCode = response.data.result
+          }
+        })
+        .catch(e => {
+          self.errors.push(e)
+        })
+
       this.tokensObj = tokens.getTokens()
 
       let self = this
@@ -221,25 +241,6 @@ export default {
         bcount += 1
       })
       this.tokenBalances = tokenBals
-
-      axios.post(this.$store.state.rpc, {
-        jsonrpc: '2.0',
-        method: 'eth_getCode',
-        params: [
-          this.hash,
-          'latest'
-        ],
-        id: bcount
-      })
-        .then(response => {
-          if (response.data.result !== '0x') {
-            this.isContract = true
-            this.contractByteCode = response.data.result
-          }
-        })
-        .catch(e => {
-          self.errors.push(e)
-        })
 
       setTimeout(function () {
         self.refreshing = false
