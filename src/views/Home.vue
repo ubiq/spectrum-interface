@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get(this.$store.state.api + 'latesttransactions/10')
+      axios.get(this.$store.state.api + 'latesttransactions/12')
         .then(response => {
           this.txns = response.data.txns
           this.txnCount = response.data.total
@@ -135,10 +135,10 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-      axios.get(this.$store.state.api + 'latestblocks/10')
+      axios.get(this.$store.state.api + 'latestblocks/12')
         .then(response => {
           this.blocks = response.data.blocks
-          this.difficulty = (this.blocks[0].difficulty / 1000000000000).toFixed(2) // (TH)
+          this.difficulty = common.toTH(this.blocks[0].difficulty, 2) // (TH)
           this.blocktime = this.blocks[0].timestamp - this.blocks[1].timestamp
           // calc avg blocktime based on latest blocks
           var blocktimes = []
