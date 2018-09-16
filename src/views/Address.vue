@@ -97,12 +97,13 @@
           <b-card no-body class="tab-table-card">
             <b-col md="12">
               <b-row class="card-row" style="margin-top:10px;">
-                <b-col md="12">
-                  Contract deployed in transaction {{ contractDeployTxn }}
+                <b-col v-if="contractDeployTxn != ''" md="12">
+                  Contract deployed in txn <router-link :to="{ name: 'Transaction', params: {hash: contractDeployTxn} }">{{ contractDeployTxn.substr(0, 17) }}...</router-link> by <router-link :to="{ name: 'Address', params: {hash: contractDeployBy} }">{{ getAddressTag(contractDeployBy) }}</router-link>
                 </b-col>
               </b-row>
               <hr>
-              <strong>Contract Byte Code <span class="fa fa-calculator"/></strong>
+              <strong v-if="contractDeployTxn != ''">Contract Deploy Code <span class="fa fa-calculator"/></strong>
+              <strong v-else>Contract Byte Code <span class="fa fa-calculator"/></strong>
               <b-card class="card-input-data" style="margin-bottom:15px;">{{ contractByteCode }}</b-card>
             </b-col>
           </b-card>
@@ -143,6 +144,7 @@ export default {
       balance: 0,
       isContract: false,
       contractDeployTxn: '',
+      contractDeployBy: '',
       contractByteCode: '',
       errors: []
     }
@@ -191,25 +193,42 @@ export default {
           this.errors.push(e)
         })
 
-      axios.post(this.$store.state.rpc, {
-        jsonrpc: '2.0',
-        method: 'eth_getCode',
-        params: [
-          this.hash,
-          'latest'
-        ],
-        id: 2
-      })
+      // get contract info if contract
+      axios.get(this.$store.state.api + 'transactionbycontract/' + this.hash)
         .then(response => {
-          if (response.data.result !== '0x') {
+          if (response.data.hash) {
             this.isContract = true
-            this.contractByteCode = response.data.result
+            this.contractDeployTxn = response.data.hash
+            this.contractByteCode = response.data.input
+            this.contractDeployBy = response.data.from
+          } else {
+            axios.post(this.$store.state.rpc, {
+              jsonrpc: '2.0',
+              method: 'eth_getCode',
+              params: [
+                this.hash,
+                'latest'
+              ],
+              id: 2
+            })
+              .then(response => {
+                if (response.data.result !== '0x') {
+                  this.isContract = true
+                  this.contractByteCode = response.data.result
+                } else {
+                  this.isContract = false
+                }
+              })
+              .catch(e => {
+                self.errors.push(e)
+              })
           }
         })
         .catch(e => {
-          self.errors.push(e)
+          this.erros.push(e)
         })
 
+      // token balances
       this.tokensObj = tokens.getTokens()
 
       let self = this
