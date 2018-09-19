@@ -205,6 +205,9 @@ module.exports = {
       return contract
     }
   },
+  getToken: function (hash) {
+    return tokens[hash] || null
+  },
   getTokens: function () {
     return tokens
   },
@@ -216,5 +219,12 @@ module.exports = {
   },
   toBalance: function (hex, contract) {
     return new BigNumber(hex, 16).div(tokenDecimals(contract)).toString()
+  },
+  toToken: function (supply, contract) {
+    if (tokens[contract]) {
+      return new BigNumber(supply).div(tokenDecimals(contract)).toString()
+    } else {
+      return supply
+    }
   }
 }

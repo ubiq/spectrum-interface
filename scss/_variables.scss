@@ -14,3 +14,7 @@ $code:                     #ccc !default;
 $box-shadow1:              0px 1px 4px 0px rgba(0, 0, 0, 0.14);
 $box-shadow2:              0px 1px 4px 0px rgba(0, 0, 0, 0.24);
 $box-shadow3:              0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+
+// @media
+$break-small:              320px;
+$break-large:              1200px;

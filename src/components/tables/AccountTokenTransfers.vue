@@ -10,7 +10,7 @@
             ~{{ calcTime(data.value) }}
           </div>
           <div slot="from" slot-scope="data">
-            <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link><b-badge v-if="address === data.value" class="tx-badge pull-right">OUT</b-badge><b-badge v-else class="tx-badge pull-right">IN</b-badge>
+            <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link><b-badge v-if="address === data.value && badge === true" class="tx-badge pull-right">OUT</b-badge><b-badge v-else-if="address !== data.value && badge === true" class="tx-badge pull-right">IN</b-badge>
           </div>
           <div slot="to" slot-scope="data">
             <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link>
@@ -38,6 +38,10 @@ export default {
     },
     address: {
       type: String
+    },
+    badge: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => {

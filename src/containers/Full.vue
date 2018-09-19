@@ -49,7 +49,6 @@ export default {
             this.$store.dispatch('setTxnsCount', response.data.txnCounts)
             axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
               .then(response_ => {
-                console.log(response_.data.bpi.USD.rate)
                 this.$store.dispatch('setPrice', {
                   btc: response.data.price,
                   usd: common.mulFiat(response.data.price, response_.data.bpi.USD.rate.replace(',', '')),

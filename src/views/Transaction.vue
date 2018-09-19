@@ -58,7 +58,7 @@
                 Token Transfered:
               </b-col>
               <b-col md="9">
-                <span class="fa fa-arrow-right"/> From <router-link :to="{ name: 'Address', params: { hash: token.from }}">{{ shortenAddress(token.from) }}</router-link> To <router-link :to="{ name: 'Address', params: { hash: token.to }}">{{ shortenAddress(token.to) }}</router-link> for {{ token.value }} <router-link :to="{ name: 'Address', params: { hash: token.contract }}">{{ token.symbol }}</router-link>
+                <span class="fa fa-arrow-right"/> From <router-link :to="{ name: 'Address', params: { hash: token.from }}">{{ shortenAddress(token.from) }}</router-link> To <router-link :to="{ name: 'Address', params: { hash: token.to }}">{{ shortenAddress(token.to) }}</router-link> for {{ token.value }} <router-link :to="{ name: 'Token', params: { hash: token.contract }}">{{ token.symbol }}</router-link>
               </b-col>
             </b-row>
             <b-row class="card-row">

@@ -10,6 +10,7 @@ import Block from '@/views/Block'
 import Blocks from '@/views/Blocks'
 import ForkedBlocks from '@/views/ForkedBlocks'
 import Home from '@/views/Home'
+import Token from '@/views/Token'
 import Tokens from '@/views/Tokens'
 import Transaction from '@/views/Transaction'
 import Transactions from '@/views/Transactions'
@@ -132,6 +133,18 @@ export default new Router({
           path: '/tx/:hash',
           name: 'Transaction',
           component: Transaction,
+          props: true
+        }
+      ]
+    },
+    {
+      path: 'token',
+      component: Full,
+      children: [
+        {
+          path: '/token/:hash',
+          name: 'Token',
+          component: Token,
           props: true
         }
       ]

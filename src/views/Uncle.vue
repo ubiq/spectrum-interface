@@ -138,7 +138,6 @@ export default {
       this.refreshing = true
       axios.get(this.$store.state.api + 'uncle/' + this.hash)
         .then(response => {
-          console.log(response)
           this.uncle = response.data
         })
         .catch(e => {

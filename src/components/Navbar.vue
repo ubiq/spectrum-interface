@@ -8,7 +8,7 @@
 
       <b-navbar-nav>
         <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+          <b-form-input size="sm" class="mr-sm-2 search-input" type="text" placeholder="Search by Address / Txhash / Block "/>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
       </b-navbar-nav>
