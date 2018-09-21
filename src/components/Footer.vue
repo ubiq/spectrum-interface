@@ -41,7 +41,7 @@
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item>
-          <router-link :to="{ name: 'Address', params: {hash: '0x1234567890123456789012345678901234567890'} }">Donations 0xda904bc07fd95e39661941b3f6daded1b8a38c71</router-link>
+          <router-link :to="{ name: 'Address', params: {hash: '0xa126d20e4424ff3f611670c129b931ad3eb60433'} }">Donations 0xa126d20e4424ff3f611670c129b931ad3eb60433</router-link>
         </b-nav-item>
       </b-navbar-nav>
     </b-navbar>
