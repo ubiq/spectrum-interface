@@ -15,7 +15,8 @@
           <h6>Latest Discussions <span class="fa fa-reddit"/></h6>
           <hr style="margin: 5px 0px"/>
           <div v-for="(item, index) in reddit" :key="index">
-            <a :href="'https://reddit.com' + item.data.permalink" target="_blank">{{ item.data.title }}</a>
+            <a v-if="item.data.title.length < 90" :href="'https://reddit.com' + item.data.permalink" target="_blank">{{ item.data.title }}</a>
+            <a v-else :href="'https://reddit.com' + item.data.permalink" target="_blank">{{ item.data.title.substr(0, 90) }}...</a>
             <hr style="margin: 5px 0px"/>
           </div>
         </b-col>
