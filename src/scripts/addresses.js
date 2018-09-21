@@ -19,6 +19,7 @@ var addresses = {
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
   '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',
+  '0x11e328fd0ee99a2c2f5e929a8f25afb94cecb660': 'ERC20 Exchange',
   // Other
   '0x2300b30dfd91306a5acfa8ae00a3a47d519303ee': 'Infinitum Card',
   '0xae3f04584446aa081cd98011f80f19977f8c10e0': 'Infinitum Flame',

@@ -18,26 +18,43 @@ var functions = {
   '0xb20d30a9': 'setDailyLimit(uint256 _newLimit)',
   '0xb61d27f6': 'execute(address _to, uint256 _value, bytes _data)',
   '0xb75c7dc6': 'revoke(bytes32 _operation)',
-  '0xba51a6df': 'changeRequirement(unit256 _newRequired)',
+  '0xba51a6df': 'changeRequirement(uint256 _newRequired)',
   '0xc2cf7326': 'hasConfirmed(bytes32 _operation, address _owner)',
   '0xcbf0b0c0': 'kill(address _to)',
   '0xf00d4b5d': 'changeOwner(address _from, address _to)',
   // escher
   '0x4e71d92d': 'claim()',
-  '0x0121b93f': 'vote(unit256 candidate)',
+  '0x0121b93f': 'vote(uint256 candidate)',
   // trex user wallet
   '0x6ea056a9': 'sweep(address _token, uint256 _amount)',
   '0xc0ee0b8a': 'tokenFallback(address _from, uint256 _value, bytes _data)',
   // trex controller
   '0x19449cb2': 'changeAuthorizedCaller(address _newCaller)',
-  '0x28090abb': 'logSweep(address from, address to, address token, unit256 amount)',
+  '0x28090abb': 'logSweep(address from, address to, address token, uint256 amount)',
   '0x3c18d318': 'sweeperOf(address _token)',
   '0x5e949fa0': 'changeDestination(address _dest)',
   '0x5ed7ca5b': 'halt()',
   '0x77bb09eb': 'addSweeper(address _token, address _sweeper)',
   '0xa6f9dae1': 'changeOwner(address _owner)',
   '0xa9b1d507': 'makeWallet()',
-  '0xbe9a6555': 'start()'
+  '0xbe9a6555': 'start()',
+  // Erc20.exchange
+  '0x04804ee8': 'sell(string token, uint256 amount, uint256 price)',
+  '0x06909f69': 'cancel(string token, uint256 index)',
+  '0x07da68f5': 'stop()',
+  '0x1dffdbe6': 'trade(string token, uint256 maker, uint256 taker)',
+  '0x7b8bf4fd': 'set_fee(uint256 the_maker_fee, uint256 the_taker_fee, uint256 the_deploy_fee)',
+  '0x7cb97b2b': 'set_owner(address new_owner)',
+  '0x9b0a5e67': 'buy(string token, uint256 amount, uint256 price)',
+  '0x9d2cd67c': 'collect_main_fee()',
+  '0xb2f05133': 'set_trader(address new_trader)',
+  '0xc5346fb1': 'approve_coin(string coin, bool approved)',
+  '0xe142400e': 'createToken(string symbol, string name, address coin_address, uint8 decimals)',
+  '0xe7b1a7ae': 'collect_fee(string token)',
+  '0xe95d74e0': 'set_coin_minimum_trade(string token, uint256 the_minimum_trade)',
+  '0xeca6e42d': 'set_minimum_trade(uint256 the_minimum_trade)',
+  '0xf29f7b1b': 'remove_coin(uint256 index)',
+  '0xf780d867': 'add_coin(string coin, string name, address base, uint8 digits)'
 }
 
 var events = {
