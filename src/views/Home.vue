@@ -40,7 +40,7 @@
       </b-col>
     </b-row>
     <b-row class="justify-content-md-center" style="margin-top:20px;">
-      <b-col md="5">
+      <b-col md="5" class="d-none d-md-block">
         <b-card class="card-home">
           <strong slot="header">Blocks</strong>
           <div v-for="(item, index) in blocks" :key="index">
@@ -49,7 +49,7 @@
           </div>
         </b-card>
       </b-col>
-      <b-col md="5">
+      <b-col md="5" class="d-none d-md-block">
         <b-card class="card-home">
           <strong slot="header">Transactions</strong>
           <div v-for="(item, index) in txns" :key="index">
