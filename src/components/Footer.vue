@@ -33,20 +33,18 @@
         </b-col>
       </b-row>
     </b-container>
-    <span class="d-none d-md-block">
-      <b-navbar type="dark" variant="dark">
-        <b-navbar-nav>
-          <b-nav-item href="https://ubiqsmart.com" target="_blank">
-            Ubiqsmart © 2018 (C)
-          </b-nav-item>
-        </b-navbar-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item>
-            <router-link :to="{ name: 'Address', params: {hash: '0xa126d20e4424ff3f611670c129b931ad3eb60433'} }">Donations 0xa126d20e4424ff3f611670c129b931ad3eb60433</router-link>
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-navbar>
-    </span>
+    <b-navbar type="dark" variant="dark">
+      <b-navbar-nav>
+        <b-nav-item href="https://ubiqsmart.com" target="_blank">
+          Ubiqsmart © 2018 (C)
+        </b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto d-none d-md-block">
+        <b-nav-item>
+          <router-link :to="{ name: 'Address', params: {hash: '0xa126d20e4424ff3f611670c129b931ad3eb60433'} }">Donations 0xa126d20e4424ff3f611670c129b931ad3eb60433</router-link>
+        </b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
   </footer>
 </template>
 
