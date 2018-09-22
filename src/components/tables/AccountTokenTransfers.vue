@@ -2,7 +2,7 @@
   <b-row>
     <b-col md="12">
       <b-card no-body>
-        <b-table class="mb-0" responsive="sm" hover :items="items" :fields="fields">
+        <b-table class="mb-0" responsive="sm" stacked="sm" hover :items="items" :fields="fields">
           <div slot="hash" slot-scope="data">
             <router-link :to="{ name: 'Transaction', params: {hash: data.value} }">{{ data.value.substring(0, 17) }}...</router-link>
           </div>

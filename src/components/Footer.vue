@@ -11,7 +11,7 @@
             </div>
           </div>
         </b-col>
-        <b-col md="6">
+        <b-col md="6" class="d-none d-md-block">
           <h6>Latest Discussions <span class="fa fa-reddit"/></h6>
           <hr style="margin: 5px 0px"/>
           <div v-for="(item, index) in reddit" :key="index">
@@ -20,7 +20,7 @@
             <hr style="margin: 5px 0px"/>
           </div>
         </b-col>
-        <b-col md="2">
+        <b-col md="2" class="d-none d-md-block">
           <h6>Social <span class="fa fa-users"/></h6>
           <hr style="margin: 5px 0px"/>
           <ul class="social">
@@ -33,18 +33,20 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-navbar type="dark" variant="dark">
-      <b-navbar-nav>
-        <b-nav-item href="https://ubiqsmart.com" target="_blank">
-          Ubiqsmart © 2018 (C)
-        </b-nav-item>
-      </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item>
-          <router-link :to="{ name: 'Address', params: {hash: '0xa126d20e4424ff3f611670c129b931ad3eb60433'} }">Donations 0xa126d20e4424ff3f611670c129b931ad3eb60433</router-link>
-        </b-nav-item>
-      </b-navbar-nav>
-    </b-navbar>
+    <span class="d-none d-md-block">
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-nav>
+          <b-nav-item href="https://ubiqsmart.com" target="_blank">
+            Ubiqsmart © 2018 (C)
+          </b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item>
+            <router-link :to="{ name: 'Address', params: {hash: '0xa126d20e4424ff3f611670c129b931ad3eb60433'} }">Donations 0xa126d20e4424ff3f611670c129b931ad3eb60433</router-link>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-navbar>
+    </span>
   </footer>
 </template>
 
