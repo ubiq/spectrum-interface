@@ -26,7 +26,7 @@ var tokens = {
     name: 'Cauli',
     symbol: 'CAULI',
     decimals: 8,
-    display: true
+    display: false
   },
   '0x08533d6a06ce365298b12ef92eb407cba8aa8273': {
     name: 'CryptopiaFeeShare',
