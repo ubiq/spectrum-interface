@@ -50,7 +50,16 @@
                 To:
               </b-col>
               <b-col md="9">
-                <router-link :to="{ name: 'Address', params: { hash: txn.to}}">{{ txn.to }}</router-link> {{ getAddressTag(txn.to) }}
+                <span v-if="txn.to"><router-link :to="{ name: 'Address', params: { hash: txn.to}}">{{ txn.to }}</router-link> {{ getAddressTag(txn.to) }}</span>
+                <span v-else>null</span>
+              </b-col>
+            </b-row>
+            <b-row v-if="txn.contractAddress" class="card-row">
+              <b-col md="3">
+                Contract deployed:
+              </b-col>
+              <b-col md="9">
+                <router-link :to="{ name: 'Address', params: { hash: txn.contractAddress}}">{{ txn.contractAddress }}</router-link> {{ getAddressTag(txn.contractAddress) }}
               </b-col>
             </b-row>
             <b-row v-if="tokenTransfered" class="card-row">
