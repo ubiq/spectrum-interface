@@ -6,10 +6,10 @@
 
     <b-collapse is-nav id="nav_collapse">
 
-      <b-navbar-nav>
+      <b-navbar-nav class="d-none d-md-block">
         <b-nav-form>
           <b-form-input size="sm" class="mr-sm-2 search-input" type="text" placeholder="Search by Address / Txhash / Block / Token" v-model="search"/>
-          <b-button size="sm" class="my-2 my-sm-0" type="button" v-on:click="submitSearch(search)">Search</b-button>
+          <b-button size="sm" class="my-2 my-sm-0" type="submit" v-on:click="submitSearch(search)">Search</b-button>
         </b-nav-form>
       </b-navbar-nav>
 
