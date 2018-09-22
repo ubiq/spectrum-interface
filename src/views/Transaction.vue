@@ -56,7 +56,7 @@
             </b-row>
             <b-row v-if="txn.contractAddress" class="card-row">
               <b-col md="3">
-                Contract deployed:
+                Contract Deployed:
               </b-col>
               <b-col md="9">
                 <router-link :to="{ name: 'Address', params: { hash: txn.contractAddress}}">{{ txn.contractAddress }}</router-link> {{ getAddressTag(txn.contractAddress) }}
