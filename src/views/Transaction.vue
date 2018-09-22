@@ -126,7 +126,7 @@
               </b-col>
               <b-col md="9">
                 <b-card class="card-input-data">
-                  <pre v-if="inputType === 'original'">{{ txn.input }}</pre>
+                  <span v-if="inputType === 'original'">{{ txn.input }}</span>
                   <!-- leave this gross indentation for correct formatting inside pre -->
                   <pre v-if="inputType === 'default'">
 Function: {{ inputData.function }}
@@ -135,10 +135,9 @@ MethodID: {{ inputData.methodId }}
 <span v-for="(item, index) in inputData.params" :key="index">[{{ index }}]:  {{ item }}
 </span>
                   </pre>
-                  <pre v-if="inputType === 'utf8'">{{ toUtf8(txn.input) }}</pre>
                 </b-card>
                 <b-dropdown size="sm" variant="secondary" text="View Input As" class="input-dropdown">
-                  <b-dropdown-item v-if="tokenTransfered" v-on:click="inputType = 'default'">Default View</b-dropdown-item>
+                  <b-dropdown-item v-if="inputData.function" v-on:click="inputType = 'default'">Default View</b-dropdown-item>
                   <b-dropdown-item v-on:click="inputType = 'original'">Original</b-dropdown-item>
                 </b-dropdown>
               </b-col>
