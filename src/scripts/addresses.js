@@ -18,9 +18,9 @@ var addresses = {
   '0x438cfa62edc703f4f0806e72082a02bf39bc0a1d': 'Ubiqminers.com',
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
-  '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia Ubiq',
-  '0x6b7bcaebcbe0b92f879cfe5ed2cdb34247d49f0d': 'Cryptopia Tokens',
-  '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',  
+  '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia', // UBQ
+  '0x6b7bcaebcbe0b92f879cfe5ed2cdb34247d49f0d': 'Cryptopia', // ERC20
+  '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',
   '0x11e328fd0ee99a2c2f5e929a8f25afb94cecb660': 'ERC20 Exchange',
   // Other
   '0x2300b30dfd91306a5acfa8ae00a3a47d519303ee': 'Infinitum Card',
