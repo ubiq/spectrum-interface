@@ -11,7 +11,10 @@
       </b-breadcrumb>
       <b-tabs class="account-txn-tabs">
         <b-tab title="Overview" active>
-          <b-card no-body class="block-card tab-card">
+          <b-card v-if="notfound" no-body class="block-card tab-card">
+            <b-alert show variant="danger">Sorry, we are unable to locate this transaction hash</b-alert>
+          </b-card>
+          <b-card v-if="notfound === false" no-body class="block-card tab-card">
             <b-row class="card-row">
               <b-col md="3">
                 TxHash:
@@ -193,6 +196,7 @@ export default {
     return {
       refreshing: false,
       txn: {},
+      notfound: false,
       tokenTransfered: false,
       showLogs: false,
       inputType: 'original',
@@ -241,8 +245,12 @@ export default {
               id: 1
             })
               .then(response_ => {
-                this.txn = response_.data.result
-                this.pending = true
+                if (response_.data.result) {
+                  this.txn = response_.data.result
+                  this.pending = true
+                } else {
+                  this.notfound = true
+                }
               })
               .catch(e => {
                 this.errors.push(e)
