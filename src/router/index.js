@@ -137,6 +137,18 @@ export default new Router({
         }
       ]
     },
+    // redirect legacy /en/ routes
+    {
+      path: '/en/:route/:id?',
+      redirect: to => {
+        const { params } = to
+        if (params.id) {
+          return '/' + params.route + '/' + params.id
+        } else {
+          return '/' + params.route
+        }
+      }
+    },
     {
       path: 'token',
       component: Full,
