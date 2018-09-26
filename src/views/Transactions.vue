@@ -25,8 +25,9 @@ export default {
   name: 'Transactions',
   props: ['type', 'blockNumber'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     },
     type: function () {
       this.fetch()
@@ -39,9 +40,6 @@ export default {
       total: 0,
       errors: []
     }
-  },
-  created () {
-    this.fetch()
   },
   methods: {
     fetch: function () {

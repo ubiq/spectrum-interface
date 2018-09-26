@@ -20,8 +20,9 @@ import ForkedBlocksTable from '../components/tables/ForkedBlocks.vue'
 export default {
   name: 'ForkedBlocks',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     }
   },
   data () {
@@ -29,9 +30,6 @@ export default {
       refreshing: false,
       blocks: []
     }
-  },
-  created () {
-    this.fetch()
   },
   methods: {
     fetch: function () {

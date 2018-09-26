@@ -120,8 +120,9 @@ export default {
   name: 'Uncle',
   props: ['hash'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     }
   },
   data () {
@@ -129,9 +130,6 @@ export default {
       refreshing: false,
       uncle: {}
     }
-  },
-  created () {
-    this.fetch()
   },
   methods: {
     fetch: function () {

@@ -112,8 +112,9 @@ export default {
   name: 'Token',
   props: ['hash'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     }
   },
   data () {
@@ -131,9 +132,6 @@ export default {
       contractByteCode: '',
       errors: []
     }
-  },
-  created () {
-    this.fetch()
   },
   methods: {
     fetch: function () {

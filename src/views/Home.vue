@@ -71,8 +71,9 @@ import PreviewBlock from '../components/PreviewBlock.vue'
 export default {
   name: 'Home',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     },
     latestBlock: function () {
       this.fetch()
@@ -107,9 +108,6 @@ export default {
         maintainAspectRatio: false
       }
     }
-  },
-  created () {
-    this.fetch()
   },
   computed: {
     latestBlock () {

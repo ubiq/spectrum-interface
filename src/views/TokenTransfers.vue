@@ -22,8 +22,9 @@ import TokenTransfersTable from '../components/tables/TokenTransfers.vue'
 export default {
   name: 'TokenTransfers',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     }
   },
   data () {
@@ -33,9 +34,6 @@ export default {
       total: 0,
       errors: []
     }
-  },
-  created () {
-    this.fetch()
   },
   methods: {
     fetch: function () {

@@ -20,8 +20,9 @@ import BlocksTable from '../components/tables/Blocks.vue'
 export default {
   name: 'Blocks',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     }
   },
   data () {
@@ -30,9 +31,6 @@ export default {
       blocks: [],
       total: 0
     }
-  },
-  created () {
-    this.fetch()
   },
   methods: {
     fetch: function () {

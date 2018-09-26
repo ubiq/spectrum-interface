@@ -181,8 +181,9 @@ export default {
   name: 'Transaction',
   props: ['hash'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: this.fetch(),
+      immediate: true
     },
     latestBlock: function () {
       if (this.pending === true) {
@@ -207,9 +208,6 @@ export default {
       pending: false,
       errors: []
     }
-  },
-  created () {
-    this.fetch()
   },
   computed: {
     confirmations () {
