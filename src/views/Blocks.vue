@@ -41,15 +41,14 @@ export default {
         .then(response => {
           this.blocks = response.data.blocks
           this.total = response.data.total
+          let self = this
+          setTimeout(function () {
+            self.refreshing = false
+          }, 2000)
         })
         .catch(e => {
           this.errors.push(e)
         })
-
-      let self = this
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     }
   },
   components: {

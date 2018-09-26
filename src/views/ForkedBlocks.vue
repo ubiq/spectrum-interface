@@ -39,15 +39,14 @@ export default {
       axios.get(this.$store.state.api + 'latestforkedblocks/1000')
         .then(response => {
           this.blocks = response.data
+          let self = this
+          setTimeout(function () {
+            self.refreshing = false
+          }, 2000)
         })
         .catch(e => {
           this.errors.push(e)
         })
-
-      let self = this
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     }
   },
   components: {
