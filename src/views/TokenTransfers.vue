@@ -23,7 +23,9 @@ export default {
   name: 'TokenTransfers',
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     }
   },

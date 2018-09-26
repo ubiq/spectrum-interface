@@ -113,7 +113,9 @@ export default {
   props: ['hash'],
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     }
   },

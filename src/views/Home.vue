@@ -72,7 +72,9 @@ export default {
   name: 'Home',
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     },
     latestBlock: function () {

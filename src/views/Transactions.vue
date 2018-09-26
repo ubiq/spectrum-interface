@@ -26,7 +26,9 @@ export default {
   props: ['type', 'blockNumber'],
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     },
     type: function () {

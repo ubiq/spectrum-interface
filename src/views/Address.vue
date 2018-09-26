@@ -128,7 +128,9 @@ export default {
   props: ['hash'],
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     }
   },
@@ -182,6 +184,10 @@ export default {
             .then(response_ => {
               this.tokentxns = response_.data.txns || []
               this.tokentxnsTotal = response_.data.total
+              let self = this
+              setTimeout(function () {
+                self.refreshing = false
+              }, 2000)
             })
             .catch(e_ => {
               this.errors.push(e_)
@@ -258,10 +264,6 @@ export default {
         bcount += 1
       })
       this.tokenBalances = tokenBals
-
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     },
     getAddressTag (hash) {
       return addresses.getAddressTag(hash) || hash

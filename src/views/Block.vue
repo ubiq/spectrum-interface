@@ -166,7 +166,9 @@ export default {
   props: ['number'],
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     }
   },

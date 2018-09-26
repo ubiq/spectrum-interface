@@ -21,7 +21,9 @@ export default {
   name: 'ForkedBlocks',
   watch: {
     '$route': {
-      handler: this.fetch(),
+      handler: function (from, to) {
+        this.fetch()
+      },
       immediate: true
     }
   },
