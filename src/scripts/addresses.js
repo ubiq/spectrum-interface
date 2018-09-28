@@ -16,6 +16,15 @@ var addresses = {
   '0xf35074bbd0a9aee46f4ea137971feec024ab704e': 'Solopool.org',
   '0x4bdf392a77a498c3bfde9f8cc4ca45982cb06c72': 'Anorak.tech',
   '0x438cfa62edc703f4f0806e72082a02bf39bc0a1d': 'Ubiqminers.com',
+  '0x5553fac50a765fcc2c5be8a17e0be8dfe02ebb37': 'Pool.sexy',
+  '0xaa5091ec0c91847fd72262241949d811303f945f': 'Zet-tech.eu',
+  '0x437ea033e1ad8a3c7a2385a9d11e8161587113b5': 'Miningclub.info',
+  '0xafda64d9e03deb48698b6914bf13225ee95900c6': 'Ubiq.cc',
+  '0x9ad0e9f488da8b2b0b6b6899570e7680ca07f65f': 'Aikapool.com',
+  '0xd4259e490a20dd1884ed61fd33a92ce6f9eb140f': 'Cryptodig.ru',
+  '0x7b9a3f220e2820f0da3d0e365a729f2fb8b351c6': 'Miner-hash.cloud',
+  '0x0ebf873b343ab004d5a95479c58645bd75f4c42b': 'ReiDoCoin.com.br',
+  '0x59b5ff7ef75bdbbf78f341eeb1bcbc2a908edd67': 'Mole-pool.net',  
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
   '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia', // UBQ
