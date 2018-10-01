@@ -52,6 +52,7 @@ var addresses = {
   // Contracts
   '0x256009e4687ab2183bbca3e4ea54ba6f0a7ad21e': 'ESCH Airdrop #1',
   '0x36ae3bdbbd19bc55f2fe3cccf41bf12c4c3afb42': 'ESCH Airdrop #2',
+  '0x1cac28619f78cdf8da22f9cf523f995d3fe7e98c': 'ESCH Airdrop #3',
   '0xfcd0b547b89f001c17d50df98cf10ce406da5518': 'UIP #1',
   '0x96cf38c234d5e513c4fc783a3ba73d7320f2900b': 'UIP #2'
 }
