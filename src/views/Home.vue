@@ -165,10 +165,11 @@ export default {
         datasets: [
           {
             label: 'Txns',
+            borderWidth: 1,
             borderColor: '#00ea90',
             pointBackgroundColor: '#00ea90',
             cubicInterpolationMode: 'monotone',
-            data: this.$store.state.txnsCounts.data
+            data: this.$store.state.txnsCounts.values
           }
         ]
       }

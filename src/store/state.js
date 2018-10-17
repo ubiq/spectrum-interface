@@ -15,7 +15,8 @@ let state = {
   },
   supply: '',
   txnsCounts: {
-    data: [],
+    chart: '',
+    values: [],
     labels: []
   }
 }

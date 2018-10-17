@@ -46,7 +46,6 @@ export default {
               uncles: latestBlock.uncles
             })
             this.$store.dispatch('setSupply', response.data.supply)
-            this.$store.dispatch('setTxnsCount', response.data.txnCounts)
             axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
               .then(response_ => {
                 console.log(response_.data.bpi.USD.rate)
@@ -55,6 +54,14 @@ export default {
                   usd: common.mulFiat(response.data.price, response_.data.bpi.USD.rate.replace(',', '')),
                   eur: common.mulFiat(response.data.price, response_.data.bpi.EUR.rate.replace(',', ''))
                 })
+              })
+            axios.get(this.$store.state.api + 'charts/txns')
+              .then(response__ => {
+                console.log(response.data)
+                this.$store.dispatch('setTxnsCount', response__.data)
+              })
+              .catch(e_ => {
+                this.errors.push(e_)
               })
               .catch(e_ => {
                 this.errors.push(e_)

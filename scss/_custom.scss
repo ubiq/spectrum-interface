@@ -325,3 +325,25 @@ hr {
   background: $highlight;
   border-radius: 3px;
 }
+
+// list group
+
+.list-group-item {
+  background-color: #222;
+}
+
+// leaflet controls
+
+.leaflet-bar a {
+  background-color: #222 !important;
+  border: 0px !important;
+  color: #00ea90 !important;
+}
+
+.leaflet-container .leaflet-control-attribution {
+    background: #fff;
+    background-color: #222 !important;
+}
+.leaflet-container a {
+    color: #00ea90 !important;
+}
