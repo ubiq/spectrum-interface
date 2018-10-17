@@ -27,7 +27,7 @@ export default {
     'l-popup': Vue2Leaflet.LPopup,
     'l-marker-cluster': Vue2LeafletMarkerCluster
   },
-  data() {
+  data () {
     let icon = L.icon(Object.assign({},
       L.Icon.Default.prototype.options, {
         iconUrl,
@@ -42,7 +42,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     setTimeout(() => {
       console.log('done')
       this.$nextTick(() => {

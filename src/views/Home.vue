@@ -87,7 +87,6 @@ export default {
       hashrate: '',
       blocktime: 0,
       difficulty: 0,
-      chartData: {},
       chartOptions: {
         scales: {
           xAxes: [{
@@ -110,6 +109,7 @@ export default {
   },
   created () {
     this.fetch()
+    console.log(self.chartData)
   },
   computed: {
     latestBlock () {
@@ -123,6 +123,21 @@ export default {
     },
     marketcap () {
       return (common.mulFiat(common.fromWei(this.$store.state.supply), this.$store.state.price.usd, 2) / 1000000).toFixed(2)
+    },
+    chartData () {
+      return {
+        labels: this.$store.state.txnsCounts.labels,
+        datasets: [
+          {
+            label: 'Txns',
+            borderWidth: 1,
+            borderColor: '#00ea90',
+            pointBackgroundColor: '#00ea90',
+            cubicInterpolationMode: 'monotone',
+            data: this.$store.state.txnsCounts.values
+          }
+        ]
+      }
     }
   },
   methods: {
@@ -160,19 +175,6 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-      this.chartData = {
-        labels: this.$store.state.txnsCounts.labels,
-        datasets: [
-          {
-            label: 'Txns',
-            borderWidth: 1,
-            borderColor: '#00ea90',
-            pointBackgroundColor: '#00ea90',
-            cubicInterpolationMode: 'monotone',
-            data: this.$store.state.txnsCounts.values
-          }
-        ]
-      }
     }
   },
   components: {

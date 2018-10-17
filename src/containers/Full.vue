@@ -55,7 +55,7 @@ export default {
                   eur: common.mulFiat(response.data.price, response_.data.bpi.EUR.rate.replace(',', ''))
                 })
               })
-            axios.get(this.$store.state.api + 'charts/txns')
+            axios.get(this.$store.state.api + 'charts/txns/14')
               .then(response__ => {
                 console.log(response.data)
                 this.$store.dispatch('setTxnsCount', response__.data)
