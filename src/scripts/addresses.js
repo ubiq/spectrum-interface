@@ -24,7 +24,7 @@ var addresses = {
   '0xd4259e490a20dd1884ed61fd33a92ce6f9eb140f': 'Cryptodig.ru',
   '0x7b9a3f220e2820f0da3d0e365a729f2fb8b351c6': 'Miner-hash.cloud',
   '0x0ebf873b343ab004d5a95479c58645bd75f4c42b': 'ReiDoCoin.com.br',
-  '0x59b5ff7ef75bdbbf78f341eeb1bcbc2a908edd67': 'Mole-pool.net',  
+  '0x59b5ff7ef75bdbbf78f341eeb1bcbc2a908edd67': 'Mole-pool.net',
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
   '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia', // UBQ
