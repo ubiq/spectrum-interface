@@ -7,7 +7,7 @@
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav class="d-none d-md-block">
-        <b-nav-form @submit.prevent="submitSearch(search)">
+        <b-nav-form @submit.prevent="submitSearch(search)" autocomplete="off">
           <b-form-input size="sm" class="mr-sm-2 search-input" type="text" placeholder="Search by Address / Txhash / Block" v-model="search"/>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
