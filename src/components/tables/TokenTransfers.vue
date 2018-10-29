@@ -5,7 +5,7 @@
         <b-pagination size="md" align="right" :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next"/>
       </nav>
       <b-card no-body>
-        <span style="margin:15px 15px 5px 15px;">Latest {{ items.length }} txns from a total of {{ formatNumber(total) }} token transfers</span>
+        <span style="margin:15px 15px 5px 15px;">Latest {{ formatNumber(items.length) }} txns from a total of {{ formatNumber(total) }} token transfers</span>
         <hr/>
         <b-table class="mb-0" responsive="sm" hover stacked="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
           <div slot="hash" slot-scope="data">

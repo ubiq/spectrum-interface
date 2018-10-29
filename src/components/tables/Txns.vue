@@ -5,9 +5,9 @@
         <b-pagination size="md" align="right" :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next"/>
       </nav>
       <b-card no-body>
-        <span style="margin:15px 15px 5px 15px;" v-if="pending">Showing {{ items.length }} pending txns</span>
-        <span style="margin:15px 15px 5px 15px;" v-else-if="block">Showing {{ items.length }} txns from block {{ blockNumber }}</span>
-        <span style="margin:15px 15px 5px 15px;" v-else>Latest {{ items.length }} txns from a total of {{ formatNumber(total) }} transactions</span>
+        <span style="margin:15px 15px 5px 15px;" v-if="pending">Showing {{ formatNumber(items.length) }} pending txns</span>
+        <span style="margin:15px 15px 5px 15px;" v-else-if="block">Showing {{ formatNumber(items.length) }} txns from block {{ blockNumber }}</span>
+        <span style="margin:15px 15px 5px 15px;" v-else>Latest {{ formatNumber(items.length) }} txns from a total of {{ formatNumber(total) }} transactions</span>
         <hr/>
         <b-table class="mb-0" responsive="sm" hover stacked="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
           <div slot="hash" slot-scope="data">
