@@ -4,7 +4,7 @@
       <b-breadcrumb>
         <b-breadcrumb-item :to="{name: 'Home'}">Home</b-breadcrumb-item>
         <b-breadcrumb-item :to="{name: 'Tokens'}">Tokens</b-breadcrumb-item>
-        <b-breadcrumb-item active>{{ hash }} {{ getAddressTitle(hash) }}</b-breadcrumb-item>
+        <b-breadcrumb-item active>{{ checksumAddress }} {{ getAddressTitle(hash) }}</b-breadcrumb-item>
         <b-breadcrumb-link>
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
         </b-breadcrumb-link>
@@ -133,6 +133,11 @@ export default {
       contractDeployBy: '',
       contractByteCode: '',
       errors: []
+    }
+  },
+  computed: {
+    checksumAddress () {
+      return common.toChecksumAddress(this.hash)
     }
   },
   methods: {

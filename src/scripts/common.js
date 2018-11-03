@@ -1,4 +1,5 @@
 var BigNumber = require('bignumber.js')
+var util = require('ethereumjs-util')
 var utf8 = require('utf8')
 
 module.exports = {
@@ -71,5 +72,8 @@ module.exports = {
     } else {
       return null
     }
+  },
+  toChecksumAddress (address) {
+    return util.toChecksumAddress(address)
   }
 }
