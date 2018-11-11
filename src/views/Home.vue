@@ -109,7 +109,6 @@ export default {
   },
   created () {
     this.fetch()
-    console.log(self.chartData)
   },
   computed: {
     latestBlock () {
@@ -126,7 +125,7 @@ export default {
     },
     chartData () {
       return {
-        labels: this.$store.state.txnsCounts.labels,
+        labels: this.$store.state.txnsCounts.labels.slice(-14),
         datasets: [
           {
             label: 'Txns',
@@ -134,7 +133,7 @@ export default {
             borderColor: '#00ea90',
             pointBackgroundColor: '#00ea90',
             cubicInterpolationMode: 'monotone',
-            data: this.$store.state.txnsCounts.values
+            data: this.$store.state.txnsCounts.values.slice(-14)
           }
         ]
       }

@@ -15,7 +15,30 @@ let state = {
   },
   supply: '',
   txnsCounts: {
-    chart: '',
+    values: [],
+    labels: []
+  },
+  avgGasPrice: {
+    values: [],
+    labels: []
+  },
+  gasLimit: {
+    values: [],
+    labels: []
+  },
+  difficulty: {
+    values: [],
+    labels: []
+  },
+  hashrate: {
+    values: [],
+    labels: []
+  },
+  blocktime: {
+    values: [],
+    labels: []
+  },
+  blocktime88: {
     values: [],
     labels: []
   }

@@ -65,6 +65,9 @@ module.exports = {
   toTH (diff, decimals) {
     return new BigNumber(diff).div(1000000000000).toFixed(decimals).toString()
   },
+  toGH (hashrate, decimals) {
+    return new BigNumber(hashrate).div(1000000000).toFixed(decimals).toString()
+  },
   formatNumber (val) {
     if (val) {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

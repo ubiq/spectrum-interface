@@ -17,6 +17,7 @@ import TokenTransfers from '@/views/TokenTransfers'
 import Uncle from '@/views/Uncle'
 import Uncles from '@/views/Uncles'
 import Map from '@/views/Map'
+import Stats from '@/views/Stats'
 
 import L from 'leaflet'
 
@@ -46,6 +47,11 @@ export default new Router({
           path: '/map',
           name: 'Map',
           component: Map
+        },
+        {
+          path: '/stats',
+          name: 'Stats',
+          component: Stats
         }
       ]
     },
