@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <Navbar/>
+    <notifications position="top left" class="top-notification" group="normal" width="100%"/>
     <div class="container-fluid app-body">
       <router-view></router-view>
     </div>

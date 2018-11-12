@@ -6,9 +6,9 @@
 
     <b-collapse is-nav id="nav_collapse">
 
-      <b-navbar-nav>
-        <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+      <b-navbar-nav class="d-none d-md-block">
+        <b-nav-form @submit.prevent="submitSearch(search)" autocomplete="off">
+          <b-form-input size="sm" class="mr-sm-2 search-input" type="text" placeholder="Search by Address / Txhash / Block" v-model="search"/>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
       </b-navbar-nav>
@@ -47,7 +47,97 @@
 </template>
 
 <script>
+import axios from 'axios'
+import common from '../scripts/common'
+import Tokens from '../scripts/tokens'
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  data () {
+    return {
+      search: '',
+      errors: []
+    }
+  },
+  methods: {
+    submitSearch: function (str) {
+      // remove whitespace
+      str = str.replace(/\s/g, '')
+      var address = new RegExp(/^0x[0-9a-fA-F]{40}$/i)
+      var hash = new RegExp(/^0x[0-9a-fA-F]{64}$/i)
+      if (address.test(str)) {
+        // matches address format
+        if (Tokens.getToken(str.toLowerCase())) {
+          // matches token hash
+          this.$router.push({name: 'Token', params: {hash: str.toLowerCase()}})
+          this.search = ''
+        } else {
+          // must be an account/contract
+          this.$router.push({name: 'Address', params: {hash: str.toLowerCase()}})
+          this.search = ''
+        }
+      } else if (hash.test(str)) {
+        console.log('search: is hash')
+        // is block or txn hash
+        // check if block hash
+        axios.post(this.$store.state.rpc, {
+          jsonrpc: '2.0',
+          method: 'eth_getBlockByHash',
+          params: [
+            str,
+            false
+          ],
+          id: 1
+        })
+          .then(response => {
+            if (response.data.result) {
+              // is block hash
+              this.$router.push({name: 'Block', params: {number: common.hexToDecimal(response.data.result.number)}})
+              this.search = ''
+            } else {
+              // check if txn hash
+              axios.post(this.$store.state.rpc, {
+                jsonrpc: '2.0',
+                method: 'eth_getTransactionByHash',
+                params: [
+                  str
+                ],
+                id: 2
+              })
+                .then(response => {
+                  if (response.data.result) {
+                    // is txn hash
+                    this.$router.push({name: 'Transaction', params: {hash: str.toLowerCase()}})
+                    this.search = ''
+                  } else {
+                    // hash is not valid txn or block hash
+                    console.log('Search: invalid block/txn hash')
+                    this.$notify({
+                      group: 'normal',
+                      text: '<span class="fa fa-search"/> Invalid Txn/Block Hash: ' + str,
+                      type: 'error'
+                    })
+                  }
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                })
+            }
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
+      } else if (!isNaN(parseFloat(str)) && isFinite(str)) {
+        // is potential block number
+        this.$router.push({name: 'Block', params: {number: str}})
+        this.search = ''
+      } else {
+        this.$notify({
+          group: 'normal',
+          text: '<span class="fa fa-search"/> Invalid search params: ' + str,
+          type: 'error'
+        })
+      }
+    }
+  }
 }
 </script>

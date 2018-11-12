@@ -20,8 +20,11 @@ import ForkedBlocksTable from '../components/tables/ForkedBlocks.vue'
 export default {
   name: 'ForkedBlocks',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     }
   },
   data () {
@@ -30,24 +33,20 @@ export default {
       blocks: []
     }
   },
-  created () {
-    this.fetch()
-  },
   methods: {
     fetch: function () {
       this.refreshing = true
       axios.get(this.$store.state.api + 'latestforkedblocks/1000')
         .then(response => {
           this.blocks = response.data
+          let self = this
+          setTimeout(function () {
+            self.refreshing = false
+          }, 2000)
         })
         .catch(e => {
           this.errors.push(e)
         })
-
-      let self = this
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     }
   },
   components: {

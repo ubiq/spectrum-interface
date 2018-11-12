@@ -5,9 +5,9 @@
         <b-pagination size="md" align="right" :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next"/>
       </nav>
       <b-card no-body>
-        <b-table class="mb-0" responsive="sm" hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+        <b-table class="mb-0" responsive="sm" hover stacked="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
           <div slot="address" slot-scope="data">
-            <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ data.value }}</router-link>
+            <router-link :to="{ name: 'Token', params: {hash: data.value} }">{{ data.value.substr(0,17) }}...</router-link>
           </div>
         </b-table>
       </b-card>
@@ -28,7 +28,7 @@ export default {
   data: () => {
     return {
       currentPage: 1,
-      perPage: 50,
+      perPage: 25,
       totalRows: 0,
       fields: {
         symbol: {

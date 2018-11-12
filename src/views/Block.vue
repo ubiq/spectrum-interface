@@ -165,8 +165,11 @@ export default {
   name: 'Block',
   props: ['number'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     }
   },
   data () {
@@ -175,9 +178,6 @@ export default {
       block: {},
       isBlock: false
     }
-  },
-  created () {
-    this.fetch()
   },
   computed: {
     fromHead () {

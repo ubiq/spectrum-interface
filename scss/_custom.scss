@@ -26,6 +26,14 @@ a:hover {
   padding-top: 65px;
   min-height: calc(100vh - 228px); // view height - footer height
 }
+.form-inline .form-control {
+  @media screen and (max-width: $break-small) {
+    width: 100px;
+  }
+  @media screen and (min-width: $break-large) {
+    width: 400px;
+  }
+}
 
 .footer {
   margin-top: 20px;
@@ -82,6 +90,11 @@ footer a:hover {
 .card-home .card-body {
   max-height:532px;
   overflow-y:auto;
+}
+
+.top-notification {
+  margin-top: 56px;
+  border-radius: 3px;
 }
 
 // tables

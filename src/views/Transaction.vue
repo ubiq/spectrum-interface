@@ -11,7 +11,10 @@
       </b-breadcrumb>
       <b-tabs class="account-txn-tabs">
         <b-tab title="Overview" active>
-          <b-card no-body class="block-card tab-card">
+          <b-card v-if="notfound" no-body class="block-card tab-card">
+            <b-alert show variant="danger">Sorry, we are unable to locate this transaction hash</b-alert>
+          </b-card>
+          <b-card v-if="notfound === false" no-body class="block-card tab-card">
             <b-row class="card-row">
               <b-col md="3">
                 TxHash:
@@ -50,7 +53,16 @@
                 To:
               </b-col>
               <b-col md="9">
-                <router-link :to="{ name: 'Address', params: { hash: txn.to}}">{{ txn.to }}</router-link> {{ getAddressTag(txn.to) }}
+                <span v-if="txn.to"><router-link :to="{ name: 'Address', params: { hash: txn.to}}">{{ txn.to }}</router-link> {{ getAddressTag(txn.to) }}</span>
+                <span v-else>null</span>
+              </b-col>
+            </b-row>
+            <b-row v-if="txn.contractAddress" class="card-row">
+              <b-col md="3">
+                Contract Deployed:
+              </b-col>
+              <b-col md="9">
+                <router-link :to="{ name: 'Address', params: { hash: txn.contractAddress}}">{{ txn.contractAddress }}</router-link> {{ getAddressTag(txn.contractAddress) }}
               </b-col>
             </b-row>
             <b-row v-if="tokenTransfered" class="card-row">
@@ -58,7 +70,7 @@
                 Token Transfered:
               </b-col>
               <b-col md="9">
-                <span class="fa fa-arrow-right"/> From <router-link :to="{ name: 'Address', params: { hash: token.from }}">{{ shortenAddress(token.from) }}</router-link> To <router-link :to="{ name: 'Address', params: { hash: token.to }}">{{ shortenAddress(token.to) }}</router-link> for {{ token.value }} <router-link :to="{ name: 'Address', params: { hash: token.contract }}">{{ token.symbol }}</router-link>
+                <span class="fa fa-arrow-right"/> From <router-link :to="{ name: 'Address', params: { hash: token.from }}">{{ shortenAddress(token.from) }}</router-link> To <router-link :to="{ name: 'Address', params: { hash: token.to }}">{{ shortenAddress(token.to) }}</router-link> for {{ token.value }} <router-link :to="{ name: 'Token', params: { hash: token.contract }}">{{ token.symbol }}</router-link>
               </b-col>
             </b-row>
             <b-row class="card-row">
@@ -117,7 +129,7 @@
               </b-col>
               <b-col md="9">
                 <b-card class="card-input-data">
-                  <pre v-if="inputType === 'original'">{{ txn.input }}</pre>
+                  <span v-if="inputType === 'original'">{{ txn.input }}</span>
                   <!-- leave this gross indentation for correct formatting inside pre -->
                   <pre v-if="inputType === 'default'">
 Function: {{ inputData.function }}
@@ -126,10 +138,9 @@ MethodID: {{ inputData.methodId }}
 <span v-for="(item, index) in inputData.params" :key="index">[{{ index }}]:  {{ item }}
 </span>
                   </pre>
-                  <pre v-if="inputType === 'utf8'">{{ toUtf8(txn.input) }}</pre>
                 </b-card>
                 <b-dropdown size="sm" variant="secondary" text="View Input As" class="input-dropdown">
-                  <b-dropdown-item v-if="tokenTransfered" v-on:click="inputType = 'default'">Default View</b-dropdown-item>
+                  <b-dropdown-item v-if="inputData.function" v-on:click="inputType = 'default'">Default View</b-dropdown-item>
                   <b-dropdown-item v-on:click="inputType = 'original'">Original</b-dropdown-item>
                 </b-dropdown>
               </b-col>
@@ -170,8 +181,11 @@ export default {
   name: 'Transaction',
   props: ['hash'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     },
     latestBlock: function () {
       if (this.pending === true) {
@@ -185,6 +199,7 @@ export default {
     return {
       refreshing: false,
       txn: {},
+      notfound: false,
       tokenTransfered: false,
       showLogs: false,
       inputType: 'original',
@@ -195,9 +210,6 @@ export default {
       pending: false,
       errors: []
     }
-  },
-  created () {
-    this.fetch()
   },
   computed: {
     confirmations () {
@@ -233,8 +245,12 @@ export default {
               id: 1
             })
               .then(response_ => {
-                this.txn = response_.data.result
-                this.pending = true
+                if (response_.data.result) {
+                  this.txn = response_.data.result
+                  this.pending = true
+                } else {
+                  this.notfound = true
+                }
               })
               .catch(e => {
                 this.errors.push(e)

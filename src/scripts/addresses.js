@@ -16,9 +16,21 @@ var addresses = {
   '0xf35074bbd0a9aee46f4ea137971feec024ab704e': 'Solopool.org',
   '0x4bdf392a77a498c3bfde9f8cc4ca45982cb06c72': 'Anorak.tech',
   '0x438cfa62edc703f4f0806e72082a02bf39bc0a1d': 'Ubiqminers.com',
+  '0x5553fac50a765fcc2c5be8a17e0be8dfe02ebb37': 'Pool.sexy',
+  '0xaa5091ec0c91847fd72262241949d811303f945f': 'Zet-tech.eu',
+  '0x437ea033e1ad8a3c7a2385a9d11e8161587113b5': 'Miningclub.info',
+  '0xafda64d9e03deb48698b6914bf13225ee95900c6': 'Ubiq.cc',
+  '0x9ad0e9f488da8b2b0b6b6899570e7680ca07f65f': 'Aikapool.com',
+  '0xd4259e490a20dd1884ed61fd33a92ce6f9eb140f': 'Cryptodig.ru',
+  '0x7b9a3f220e2820f0da3d0e365a729f2fb8b351c6': 'Miner-hash.cloud',
+  '0x0ebf873b343ab004d5a95479c58645bd75f4c42b': 'ReiDoCoin.com.br',
+  '0x59b5ff7ef75bdbbf78f341eeb1bcbc2a908edd67': 'Mole-pool.net',
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
+  '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia', // UBQ
+  '0x6b7bcaebcbe0b92f879cfe5ed2cdb34247d49f0d': 'Cryptopia', // ERC20
   '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',
+  '0x11e328fd0ee99a2c2f5e929a8f25afb94cecb660': 'ERC20 Exchange',
   // Other
   '0x2300b30dfd91306a5acfa8ae00a3a47d519303ee': 'Infinitum Card',
   '0xae3f04584446aa081cd98011f80f19977f8c10e0': 'Infinitum Flame',
@@ -40,7 +52,9 @@ var addresses = {
   // Contracts
   '0x256009e4687ab2183bbca3e4ea54ba6f0a7ad21e': 'ESCH Airdrop #1',
   '0x36ae3bdbbd19bc55f2fe3cccf41bf12c4c3afb42': 'ESCH Airdrop #2',
-  '0xfcd0b547b89f001c17d50df98cf10ce406da5518': 'UIP #1'
+  '0x1cac28619f78cdf8da22f9cf523f995d3fe7e98c': 'ESCH Airdrop #3',
+  '0xfcd0b547b89f001c17d50df98cf10ce406da5518': 'UIP #1',
+  '0x96cf38c234d5e513c4fc783a3ba73d7320f2900b': 'UIP #2'
 }
 
 module.exports = {

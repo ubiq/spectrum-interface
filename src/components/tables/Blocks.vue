@@ -5,9 +5,9 @@
         <b-pagination size="md" align="right" :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next"/>
       </nav>
       <b-card no-body>
-        <span style="margin:15px 15px 5px 15px;">Latest {{ items.length }} blocks from a total of {{ formatNumber(total) }}</span>
+        <span style="margin:15px 15px 5px 15px;">Latest {{ formatNumber(items.length) }} blocks from a total of {{ formatNumber(total) }}</span>
         <hr/>
-        <b-table class="mb-0" responsive="sm" hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+        <b-table class="mb-0" responsive="sm" hover stacked="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
           <div slot="number" slot-scope="data">
             <router-link :to="{ name: 'Block', params: {number: data.value} }">{{ data.value }}</router-link>
           </div>

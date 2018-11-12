@@ -25,8 +25,11 @@ export default {
   name: 'Transactions',
   props: ['type', 'blockNumber'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     },
     type: function () {
       this.fetch()
@@ -40,17 +43,18 @@ export default {
       errors: []
     }
   },
-  created () {
-    this.fetch()
-  },
   methods: {
     fetch: function () {
       this.refreshing = true
+      let self = this
       if (this.type === 'latest') {
         axios.get(this.$store.state.api + 'latesttransactions/1000')
           .then(response => {
             this.txns = response.data.txns
             this.total = response.data.total
+            setTimeout(function () {
+              self.refreshing = false
+            }, 2000)
           })
           .catch(e => {
             this.errors.push(e)
@@ -59,6 +63,9 @@ export default {
         axios.get(this.$store.state.api + 'blocktransactions/' + this.blockNumber)
           .then(response => {
             this.txns = response.data
+            setTimeout(function () {
+              self.refreshing = false
+            }, 2000)
           })
           .catch(e => {
             this.errors.push(e)
@@ -76,15 +83,14 @@ export default {
         })
           .then(response => {
             this.txns = response.data.result.transactions
+            setTimeout(function () {
+              self.refreshing = false
+            }, 2000)
           })
           .catch(e => {
             this.errors.push(e)
           })
       }
-      let self = this
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     }
   },
   components: {

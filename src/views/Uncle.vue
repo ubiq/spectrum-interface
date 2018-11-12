@@ -120,8 +120,11 @@ export default {
   name: 'Uncle',
   props: ['hash'],
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     }
   },
   data () {
@@ -130,15 +133,11 @@ export default {
       uncle: {}
     }
   },
-  created () {
-    this.fetch()
-  },
   methods: {
     fetch: function () {
       this.refreshing = true
       axios.get(this.$store.state.api + 'uncle/' + this.hash)
         .then(response => {
-          console.log(response)
           this.uncle = response.data
         })
         .catch(e => {

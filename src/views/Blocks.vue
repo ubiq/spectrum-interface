@@ -20,8 +20,11 @@ import BlocksTable from '../components/tables/Blocks.vue'
 export default {
   name: 'Blocks',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     }
   },
   data () {
@@ -31,9 +34,6 @@ export default {
       total: 0
     }
   },
-  created () {
-    this.fetch()
-  },
   methods: {
     fetch: function () {
       this.refreshing = true
@@ -41,15 +41,14 @@ export default {
         .then(response => {
           this.blocks = response.data.blocks
           this.total = response.data.total
+          let self = this
+          setTimeout(function () {
+            self.refreshing = false
+          }, 2000)
         })
         .catch(e => {
           this.errors.push(e)
         })
-
-      let self = this
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     }
   },
   components: {

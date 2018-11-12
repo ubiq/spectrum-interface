@@ -7,17 +7,21 @@ import App from './App'
 import router from './router'
 import { store } from './store/'
 import moment from 'moment'
-
-Vue.use(require('vue-moment'), {moment: moment})
+import Notifications from 'vue-notification'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(Notifications)
+Vue.use(require('vue-moment'), {moment: moment})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App,
+    Notifications
+  },
   template: '<App/>'
 })

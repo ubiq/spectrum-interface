@@ -8,7 +8,7 @@
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
         </b-breadcrumb-link>
       </b-breadcrumb>
-      <UnclesTable :items="uncles"/>
+      <UnclesTable :items="uncles" :total="total"/>
     </b-col>
   </b-row>
 </template>
@@ -20,8 +20,11 @@ import UnclesTable from '../components/tables/Uncles.vue'
 export default {
   name: 'Blocks',
   watch: {
-    '$route' (to, from) {
-      this.fetch()
+    '$route': {
+      handler: function (from, to) {
+        this.fetch()
+      },
+      immediate: true
     }
   },
   data () {
@@ -31,9 +34,6 @@ export default {
       total: 0
     }
   },
-  created () {
-    this.fetch()
-  },
   methods: {
     fetch: function () {
       this.refreshing = true
@@ -41,15 +41,14 @@ export default {
         .then(response => {
           this.uncles = response.data.uncles
           this.total = response.data.total
+          let self = this
+          setTimeout(function () {
+            self.refreshing = false
+          }, 2000)
         })
         .catch(e => {
           this.errors.push(e)
         })
-
-      let self = this
-      setTimeout(function () {
-        self.refreshing = false
-      }, 2000)
     }
   },
   components: {
