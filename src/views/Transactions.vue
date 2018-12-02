@@ -11,7 +11,7 @@
             <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
           </b-breadcrumb-link>
         </b-breadcrumb>
-        <TxnsTable :items="txns" :pending="type === 'pending'" :block="type === 'block'" :blockNumber="blockNumber" :total="total"/>
+        <TxnsTable :items="txns" :pending="type === 'pending'" :block="type === 'block'" :blockNumber="Number(blockNumber)" :total="total"/>
       </b-col>
     </b-row>
   </div>
@@ -60,7 +60,7 @@ export default {
             this.errors.push(e)
           })
       } else if (this.type === 'block') {
-        axios.get(this.$store.state.api + 'blocktransactions/' + this.blockNumber)
+        axios.get(this.$store.state.api + `block/${this.blockNumber}/txns`)
           .then(response => {
             this.txns = response.data
             setTimeout(function () {

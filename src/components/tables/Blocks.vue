@@ -12,7 +12,7 @@
             <router-link :to="{ name: 'Block', params: {number: data.value} }">{{ data.value }}</router-link>
           </div>
           <div slot="transactions" slot-scope="data">
-            <router-link :to="{ name: 'Transactions', params: {type: 'block', number: data.item.number} }">{{ data.value}}</router-link>
+            <router-link :to="{ name: 'Transactions', params: {type: 'block', blockNumber: data.item.number} }">{{ data.value}}</router-link>
           </div>
           <div slot="miner" slot-scope="data">
             <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link>
