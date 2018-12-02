@@ -95,6 +95,10 @@ footer a:hover {
 .top-notification {
   margin-top: 56px;
   border-radius: 3px;
+  .notification-content {
+    font: 14px "Courier New";
+    font-weight: 400;
+  }
 }
 
 // tables

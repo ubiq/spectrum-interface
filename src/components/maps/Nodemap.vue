@@ -2,7 +2,7 @@
   <l-map style="height: 500px; width: 750px;" :minZoom="2" :maxZoom="8" :zoom="2" :center="[40,0]">
     <l-icondefault></l-icondefault>
     <l-tilelayer url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png"></l-tilelayer>
-    <l-marker-cluster :options="clusterOptions">
+    <l-marker-cluster :options="clusterOptions" ref="clusterRef">
       <l-marker v-for="l in locations" :key="l.id" :lat-lng="l.lat_lng" :icon="icon">
         <l-popup :content="l.id"></l-popup>
       </l-marker>
@@ -44,7 +44,6 @@ export default {
   },
   created () {
     setTimeout(() => {
-      console.log('done')
       this.$nextTick(() => {
         this.clusterOptions = {
           disableClusteringAtZoom: 12
@@ -76,4 +75,9 @@ body {
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
   background: #333333b8;
 }
+
+.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
+  background-color: #00000000;
+}
+
 </style>
