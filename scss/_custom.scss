@@ -126,6 +126,10 @@ footer a:hover {
   color: $text1;
 }
 
+.table tbody tr.b-table-details:hover {
+  background-color: inherit;
+}
+
 .table td {
   vertical-align: middle;
   color: $text1;
@@ -370,4 +374,22 @@ hr {
 }
 .leaflet-container a {
     color: #00ea90 !important;
+}
+
+.nested-col-grid {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 5px;
+}
+
+.nested-row-grid {
+  display: inline-grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.code {
+  font: 12px "Courier New", Helvetica, Arial, sans-serif;
 }

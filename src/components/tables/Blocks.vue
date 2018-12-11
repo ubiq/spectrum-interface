@@ -12,7 +12,12 @@
             <router-link :to="{ name: 'Block', params: {number: data.value} }">{{ data.value }}</router-link>
           </div>
           <div slot="transactions" slot-scope="data">
-            <router-link :to="{ name: 'Transactions', params: {type: 'block', blockNumber: data.item.number} }">{{ data.value}}</router-link>
+            <template v-if="data.value !== 0">
+              <router-link :to="{ name: 'Transactions', params: {type: 'block', blockNumber: data.item.number} }">{{data.value}}</router-link>
+            </template>
+            <template v-else>
+              <span>{{data.value}}</span>
+            </template>
           </div>
           <div slot="miner" slot-scope="data">
             <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link>

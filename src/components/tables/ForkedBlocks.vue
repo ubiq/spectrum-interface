@@ -5,7 +5,7 @@
         <b-pagination size="md" align="right" :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next"/>
       </nav>
       <b-card no-body>
-        <b-table class="mb-0" responsive="sm" stacked="sm" hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+        <b-table @row-hovered="dbg" class="mb-0" responsive="sm" stacked="sm" hover striped :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
           <div slot="number" slot-scope="data">
             <router-link :to="{ name: 'Block', params: {number: data.value} }">{{ data.value }}</router-link>
           </div>
@@ -15,12 +15,31 @@
           <div slot="miner" slot-scope="data">
             <router-link :to="{ name: 'Address', params: {hash: data.value} }">{{ getAddressTag(data.value) }}</router-link>
           </div>
-
-          <div slot="difficulty" slot-scope="data">
-            {{ toTH(data.value) }}
-          </div>
           <div slot="blockReward" slot-scope="data">
             {{ fromWei(data.value) }} UBQ
+          </div>
+          <div slot="row-details" slot-scope="data">
+            <div class="nested-col-grid">
+              <div class="">
+                  <span class="code">Hash: {{ data.item.hash }}</span>
+                  <br>
+                  <span class="code">Miner:</span> <router-link :to="{ name: 'Address', params: {hash: data.item.miner} }">{{ getAddressTag(data.item.miner) }}</router-link>
+                  <br>
+                  <span class="code">Nonce: {{ data.item.nonce }}</span>
+              </div>
+              <div class="">
+                  <span class="code">Canonical chain hash:</span><router-link :to="{ name: 'Block', params: {number: data.item.canonicalblock.number} }">{{ data.item.canonicalblock.hash }}</router-link>
+                  <br>
+                  <span class="code">Miner:</span> <router-link :to="{ name: 'Address', params: {hash: data.item.canonicalblock.miner} }">{{getAddressTag(data.item.canonicalblock.miner)}}</router-link>
+                  <br>
+                  <span class="code">Nonce: {{data.item.canonicalblock.nonce}}</span>
+                </div>
+            </div>
+          </div>
+          <div slot="showDetails" slot-scope="data">
+            <b-button size="sm" @click.stop="fetchBlock(data)" class="mr-2">
+              {{ data.detailsShowing ? 'Hide' : 'Show'}} Details
+            </b-button>
           </div>
         </b-table>
       </b-card>
@@ -32,6 +51,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import common from '../../scripts/common'
 import addresses from '../../scripts/addresses'
 export default {
@@ -58,22 +78,37 @@ export default {
         uncles: {
           label: 'Uncles'
         },
-        miner: {
-          label: 'Miner'
-        },
-        difficulty: {
-          label: 'Difficulty'
-        },
         gasLimit: {
           label: 'GasLimit'
         },
         blockReward: {
           label: 'Reward'
+        },
+        showDetails: {
+          label: ''
         }
       }
     }
   },
   methods: {
+    dbg (i, idx, e) {
+      console.log(i, idx, e)
+    },
+    fetchBlock (data) {
+      console.log(data)
+      if (data.item.canonicalblock === undefined) {
+        axios.get(this.$store.state.api + `block/${data.item.number}`)
+          .then(response => {
+            data.item.canonicalblock = response.data
+            data.toggleDetails()
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
+      } else {
+        data.toggleDetails()
+      }
+    },
     getRowCount (items) {
       return items.length
     },
