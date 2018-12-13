@@ -11,10 +11,15 @@
           <b-form-input size="sm" class="mr-sm-2 search-input" type="text" placeholder="Search by Address / Txhash / Block" v-model="search"/>
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
+
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
+
+        <b-nav-item v-b-modal.modalPopover>BROADCAST TRANSACTION</b-nav-item>
+
+        <navbarmodal id="modalPopover" />
 
         <b-nav-item :to="{ name: 'Home', params: {} }">HOME</b-nav-item>
 
@@ -48,10 +53,14 @@
 
 <script>
 import axios from 'axios'
+import navbarModal from './misc/navbarmodal'
 import common from '../scripts/common'
 import Tokens from '../scripts/tokens'
 export default {
   name: 'Navbar',
+  components: {
+    navbarmodal: navbarModal
+  },
   data () {
     return {
       search: '',

@@ -393,3 +393,21 @@ hr {
 .code {
   font: 12px "Courier New", Helvetica, Arial, sans-serif;
 }
+
+.modal-content {
+  background-color: #333;
+  color: #00ea90;
+  & .modal-header, & .modal-footer {
+    border-color: #272727;
+  }
+}
+
+.form-control {
+  background-color: #333;
+  border-color: #272727;
+  &:focus {
+    background-color: #1d1d1d;
+    border: 0;
+    box-shadow: unset;
+  }
+}
