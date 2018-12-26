@@ -4,10 +4,10 @@
       {{descriptions[this.isActive]}}
     </div>
     <div class="grid" :style="panel">
-      <a v-for="(slot, name) in slots" :key="name" @click="active(name)" :style="{'grid-area': name}" >
+      <div v-for="(slot, name) in slots" :key="name" @click="active(name)" :style="{'grid-area': name}" >
         <b-button @click="isActive = name" v-if="isActive !== name" name="button">{{descriptions[name]}}</b-button>
         <slot v-else :name="name"></slot>
-      </a>
+      </div>
     </div>
   </b-card>
 </template>

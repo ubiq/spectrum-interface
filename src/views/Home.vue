@@ -34,8 +34,12 @@
       </b-col>
       <b-col md="5">
         <b-card class="text-center card-dark">
-          <h6>14 day Ubiq transaction history</h6>
-          <LineChart :chart-data="chartData" :options="chartOptions" :height="180" :styles="{height: '180px'}"/>
+          <div style="height: 207px">
+            <h6>14 day Ubiq transaction history</h6>
+            <apexchart type=line height='180px' :options="chartOptions" :series="chartData" />
+          </div>
+
+          <!-- <LineChart :chart-data="chartData" :options="chartOptions" :height="180" :styles="{height: '180px'}"/> -->
         </b-card>
       </b-col>
     </b-row>
@@ -91,22 +95,71 @@ export default {
       blocktime: 0,
       difficulty: 0,
       chartOptions: {
-        scales: {
-          xAxes: [{
-            display: false
-          }],
-          yAxes: [{
-            ticks: {
-              min: 0
-            },
-            fontColor: 'rgba(255,255,255,0.5)'
-          }]
+        chart: {
+          foreColor: '#00ea90',
+          fontFamily: '"Courier New", Helvetica, Arial, sans-serif',
+          height: 350,
+          zoom: {
+            enabled: false
+          },
+          toolbar: {
+            show: false
+          }
         },
-        legend: {
-          display: false
+        colors: ['#00ea90'],
+        dataLabels: {
+          enabled: false
         },
-        responsive: true,
-        maintainAspectRatio: false
+        stroke: {
+          curve: 'smooth',
+          lineCap: 'square',
+          width: 1,
+          colors: ['#00ea90']
+        },
+        markers: {
+          size: 0
+        },
+        tooltip: {
+          enabled: true,
+          fillSeriesColors: true,
+          theme: 'dark',
+          fixed: {
+            enabled: true,
+            position: 'topRight'
+          }
+        },
+        title: {
+          text: ''
+        },
+        grid: {
+          show: true,
+          yaxis: {
+            lines: {
+              show: false
+            }
+          }
+        },
+        yaxis: {
+        },
+        xaxis: {
+          labels: {
+            show: false
+          },
+          axisBorder: {
+            show: true,
+            color: '#00ea90',
+            height: 0.75
+          },
+          tooltip: {
+            enabled: false
+          },
+          crosshairs: {
+            show: false
+          },
+          axisTicks: {
+            show: false
+          }
+        }
       }
     }
   },
@@ -124,19 +177,14 @@ export default {
       return (common.mulFiat(common.fromWei(this.$store.state.supply), this.$store.state.price.usd, 2) / 1000000).toFixed(2)
     },
     chartData () {
-      return {
-        labels: this.$store.state.txnsCounts.labels.slice(-14),
-        datasets: [
-          {
-            label: 'Txns',
-            borderWidth: 1,
-            borderColor: '#00ea90',
-            pointBackgroundColor: '#00ea90',
-            cubicInterpolationMode: 'monotone',
-            data: this.$store.state.txnsCounts.values.slice(-14)
-          }
-        ]
-      }
+      let dates = this.$store.state.txnsCounts.labels.slice(-14)
+      let arr = [{
+        name: 'Transactions',
+        data: this.$store.state.txnsCounts.values.slice(-14).map((val, idx) => {
+          return {x: dates[idx], y: Number(val)}
+        })
+      }]
+      return arr
     }
   },
   methods: {

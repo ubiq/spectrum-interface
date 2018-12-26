@@ -34,6 +34,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "apexcharts": "^2.5.0",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -76,6 +77,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
+    "laue": "^0.2.0",
     "mocha": "^5.2.0",
     "nightwatch": "^1.0.8",
     "node-notifier": "^5.1.2",
@@ -96,6 +98,7 @@
     "sinon-chai": "^2.8.0",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^1.0.1",
+    "vue-apexcharts": "^1.2.7",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",

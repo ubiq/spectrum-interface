@@ -8,11 +8,15 @@ import router from './router'
 import { store } from './store/'
 import moment from 'moment'
 import Notifications from 'vue-notification'
+import VueApexCharts from 'vue-apexcharts'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(VueApexCharts)
 Vue.use(Notifications)
 Vue.use(require('vue-moment'), {moment: moment})
+
+Vue.component('apexchart', VueApexCharts)
 
 /* eslint-disable no-new */
 new Vue({
