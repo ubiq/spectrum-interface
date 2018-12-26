@@ -44,6 +44,13 @@ export const store = new Vuex.Store({
     blocktime88Instance (state, payload) {
       state.blocktime88.values = payload.values
       state.blocktime88.labels = payload.labels
+    },
+    poolsInstance (state, payload) {
+      payload.forEach((val) => {
+        let idx = val.chart.split(' ')
+        state.pools.values[idx[0]] = val
+      })
+      state.pools.labels = payload[0].labels
     }
   },
   actions: {
@@ -76,6 +83,9 @@ export const store = new Vuex.Store({
     },
     setBlocktime88 ({commit}, payload) {
       commit('blocktime88Instance', payload)
+    },
+    setPools ({commit}, payload) {
+      commit('poolsInstance', payload)
     }
   }
 })

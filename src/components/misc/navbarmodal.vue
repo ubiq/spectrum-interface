@@ -20,7 +20,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: "NavbarModal",
+  name: 'NavbarModal',
   props: ['id'],
   data: function () {
     return {
@@ -39,16 +39,15 @@ export default {
         ],
         id: 1
       })
-      .then(function (response) {
-            if (response.status === 200) {
-              if (response.data.error !== "") {
-                self.status = response.data.error.message
-              }
-              console.log(response)
-              console.log(self.status)
-
+        .then(function (response) {
+          if (response.status === 200) {
+            if (response.data.error !== '') {
+              self.status = response.data.error.message
             }
-          })
+            console.log(response)
+            console.log(self.status)
+          }
+        })
     }
   }
 }

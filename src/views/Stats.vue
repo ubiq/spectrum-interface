@@ -12,6 +12,9 @@
     <template slot="blocktime88">
       <blocktime88/>
     </template>
+    <template slot="pools">
+      <pools/>
+    </template>
   </tabgrid>
 </template>
 <script>
@@ -19,6 +22,7 @@ import avggastx from './charts/avggastx'
 import difficulty from './charts/difficulty'
 import blocktime from './charts/blocktime'
 import blocktime88 from './charts/blocktime88'
+import pools from './charts/pools'
 
 import tabgrid from '../components/misc/tabgrid'
 
@@ -29,6 +33,7 @@ export default {
     difficulty,
     blocktime,
     blocktime88,
+    pools,
     tabgrid
   },
   data () {
@@ -38,8 +43,9 @@ export default {
         'avggastx': 'Avg.gas/Gaslimit/Txns',
         'blocktime': 'Avg.blocktime',
         'blocktime88': 'Avg.88-block period blocktime',
+        'pools': 'Blocks mined by pools'
       },
-      isActive: '',
+      isActive: ''
     }
   }
 }

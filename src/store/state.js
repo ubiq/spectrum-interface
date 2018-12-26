@@ -41,6 +41,10 @@ let state = {
   blocktime88: {
     values: [],
     labels: []
+  },
+  pools: {
+    values: {},
+    labels: []
   }
 }
 export default state

@@ -40,9 +40,9 @@ export default {
 
       for (var i = 0; i < arr.length; i++) {
         if (i < 4) {
-          result[1][1+i] = arr[i]
+          result[1][1 + i] = arr[i]
         } else {
-          result[2][i-3] = arr[i]
+          result[2][i - 3] = arr[i]
         }
       }
       return this.areasToCss(result)
@@ -59,30 +59,30 @@ export default {
       // TODO: add more cases
       switch (letters.length) {
         case 4:
-        for (var i = 0; i < 4; i++) {
-          if (letters[i] !== x) {
-            result[3].push(letters[i])
-            result[3].push(letters[i])
-          }
-        }
-        break;
-        default:
-        for (var i = 0; i < 6; i++) {
-          if (letters[i] !== x) {
-            if (letters.length < 5) {
-              result[3][i] = letters[i]
-              result[3][i] = letters[i]
-            } else {
-              if (letters[i] === undefined) {
-                result[3][i] = '.'
-              } else {
-                result[3][i] = letters[i]
-              }
+          for (var i = 0; i < 4; i++) {
+            if (letters[i] !== x) {
+              result[3].push(letters[i])
+              result[3].push(letters[i])
             }
-          } else {
-            result[3][i] = '.'
           }
-        }
+          break
+        default:
+          for (var idx = 0; idx < 6; idx++) {
+            if (letters[idx] !== x) {
+              if (letters.length < 5) {
+                result[3][idx] = letters[idx]
+                result[3][idx] = letters[idx]
+              } else {
+                if (letters[idx] === undefined) {
+                  result[3][idx] = '.'
+                } else {
+                  result[3][idx] = letters[idx]
+                }
+              }
+            } else {
+              result[3][idx] = '.'
+            }
+          }
       }
       return this.areasToCss(result)
     },
@@ -96,13 +96,13 @@ export default {
     panel: function () {
       switch (this.isActive) {
         case '':
-        return {
-          'grid-template-areas': this.defaultpanel()
-        }
+          return {
+            'grid-template-areas': this.defaultpanel()
+          }
         default:
-        return {
-          'grid-template-areas': this.displaypanel(this.isActive)
-        }
+          return {
+            'grid-template-areas': this.displaypanel(this.isActive)
+          }
       }
     },
     slots: function () {
