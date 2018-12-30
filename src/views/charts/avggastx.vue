@@ -11,11 +11,46 @@ export default {
   components: {
     BarChart
   },
+  props: {
+    dates: {
+      type: Array
+    }
+  },
+  watch: {
+    dates: {
+      handler: function (val, old) {
+        this.indexToSlice.left = this.$store.state.pools.labels.findIndex(function (el) {
+          return el.includes(val[0])
+        })
+        this.indexToSlice.right = this.$store.state.pools.labels.findIndex(function (el) {
+          return el.includes(val[1])
+        })
+      },
+      immediate: true
+    }
+  },
   data () {
     return {
+      indexToSlice: {
+        left: null,
+        right: null
+      },
       chartOptions: {
         chart: {
-          foreColor: '#00ea90',
+          // animations: {
+          //   enabled: true,
+          //   easing: 'easinout',
+          //   speed: 350,
+          //   animateGradually: {
+          //     enabled: true,
+          //     delay: 150
+          //   },
+          //   dynamicAnimation: {
+          //     enabled: true,
+          //     speed: 350
+          //   }
+          // },
+          foreColor: '#ffffff80',
           fontFamily: '"Courier New", Helvetica, Arial, sans-serif',
           zoom: {
             enabled: false
@@ -24,7 +59,7 @@ export default {
             show: false
           }
         },
-        colors: ['#eba900', '#00ebdd', '#00ea90'],
+        colors: ['#eba900', '#00ebdd', '#636363'],
         dataLabels: {
           enabled: false
         },
@@ -63,6 +98,7 @@ export default {
             },
             axisBorder: {
               show: true,
+              color: '#ffffff80',
               height: 0.75
             },
             tooltip: {
@@ -84,6 +120,7 @@ export default {
             },
             axisBorder: {
               show: true,
+              color: '#ffffff80',
               height: 0.75
             },
             tooltip: {
@@ -106,6 +143,7 @@ export default {
             },
             axisBorder: {
               show: true,
+              color: '#ffffff80',
               height: 0.75
             },
             tooltip: {
@@ -139,95 +177,26 @@ export default {
           }
         }
       }
-      // chartOptions: {
-      //   scales: {
-      //     xAxes: [{
-      //       display: false
-      //     }],
-      //     yAxes: [
-      //       {
-      //         id: 'avggas',
-      //         position: 'left',
-      //         fontColor: 'rgba(255,255,255,0.5)',
-      //         ticks: {
-      //           suggestedMax: 385,
-      //           // beginAtZero: true
-      //           callback: function (val) {
-      //             return common.fromWeiToGwei(val)
-      //           }
-      //         },
-      //         scaleLabel: {
-      //           display: true,
-      //           labelString: 'Average daily gas price'
-      //         }
-      //       },
-      //       {
-      //         id: 'txns',
-      //         position: 'top',
-      //         fontColor: 'rgba(255,255,255,0.5)',
-      //         ticks: {
-      //           beginAtZero: true,
-      //           max: 50000
-      //         },
-      //         scaleLabel: {
-      //           display: true,
-      //           labelString: 'Transactions'
-      //         }
-      //       },
-      //       {
-      //         id: 'gaslimit',
-      //         position: 'right',
-      //         fontColor: 'rgba(255,255,255,0.5)',
-      //         ticks: {
-      //           beginAtZero: true,
-      //           max: 10000000
-      //         },
-      //         scaleLabel: {
-      //           display: true,
-      //           labelString: 'Gaslimit'
-      //         }
-      //       }
-      //     ]
-      //   },
-      //   legend: {
-      //     display: true
-      //   },
-      //   tooltips: {
-      //     mode: 'x',
-      //     multiKeyBackground: '#00000000',
-      //     callbacks: {
-      //       label: function (tooltipItem, data) {
-      //         if (data.datasets[tooltipItem.datasetIndex].label === 'Avg. gasprice') {
-      //           return data.datasets[tooltipItem.datasetIndex].label + ': ' + (Math.round(common.fromWeiToGwei(tooltipItem.yLabel) * 100) / 100).toFixed(2) + ' gwei'
-      //         } else {
-      //           return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel
-      //         }
-      //       }
-      //     }
-      //   },
-      //   responsive: true,
-      //   maintainAspectRatio: false
-      // }
     }
   },
   computed: {
     chartData () {
-      let dates = this.$store.state.txnsCounts.labels
+      let dates = this.$store.state.txnsCounts.labels.slice(this.indexToSlice.left, this.indexToSlice.right)
       let arr = [
         {
           name: 'avggas',
           type: 'line',
-          data: this.$store.state.avgGasPrice.values.map((val, idx) => { return {x: dates[idx], y: Number(val)} })
+          data: this.$store.state.avgGasPrice.values.slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: Number(val)} })
         },
         {
           name: 'gaslimit',
           type: 'line',
-          data: this.$store.state.gasLimit.values.map((val, idx) => { return {x: dates[idx], y: Number(val)} })
+          data: this.$store.state.gasLimit.values.slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: Number(val)} })
         },
         {
           name: 'txns',
           type: 'column',
-          data: this.$store.state.txnsCounts.values.map((val, idx) => { return {x: dates[idx], y: Number(val)} })
+          data: this.$store.state.txnsCounts.values.slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: Number(val)} })
         }
       ]
       return arr

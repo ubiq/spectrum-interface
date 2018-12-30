@@ -82,13 +82,13 @@ export default {
         }).then(response => {
           this.$store.dispatch('setBlocktime', response.data)
 
-          return axios.get(this.$store.state.api + 'charts/blocktime88/1100')
+          return axios.get(this.$store.state.api + 'charts/blocktime88/900')
         }).then(response => {
           this.$store.dispatch('setBlocktime88', response.data)
 
           let arr = []
           for (const key of Object.keys(addresses.pools)) {
-            arr.push(axios.get(this.$store.state.api + `charts/minedblocks/365?miner=${key}`))
+            arr.push(axios.get(this.$store.state.api + `charts/minedblocks/180?miner=${key}`))
           }
           return axios.all(arr)
         }).then(pooldata => {
@@ -96,7 +96,6 @@ export default {
           this.$store.dispatch('setPools', data)
         })
       // console.log(pooldata)
-      //   this.$store.dispatch('setPools', pooldata)
     }
   }
 }

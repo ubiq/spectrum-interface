@@ -1,7 +1,10 @@
 <template>
   <b-card style="height:700px;" no-body>
     <div slot="header">
-      {{descriptions[this.isActive]}}
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span>{{descriptions[this.isActive]}}</span>
+        <slot name="card-header"></slot>
+      </div>
     </div>
     <div class="grid" :style="panel">
       <div v-for="(slot, name) in slots" :key="name" @click="active(name)" :style="{'grid-area': name}" >

@@ -411,3 +411,80 @@ hr {
     box-shadow: unset;
   }
 }
+
+// datePicker
+
+.mx-datepicker-popup {
+  background-color: #333333;
+  border: 0;
+  border-radius: 3px;
+}
+
+.mx-calendar-content {
+  & .cell:hover {
+    background-color: inherit;
+    opacity: 0.5;
+  }
+  & .cell.actived {
+    color: #000;
+    background-color: #00ea90;
+  }
+  & .cell.today {
+    color: rgba(#00eb90, 0.5);
+  }
+  & .cell.actived.today {
+    color: #fff;
+    background-color: #00ea90;
+  }
+  & .cell.inrange {
+    color: #00ea90;
+    background-color: #1b1a1a;
+  }
+  & .cell.disabled {
+    color: #ffffff80;
+    background-color: #474747;
+  }
+  & .cell.next-month, & .cell.last-month {
+    color: #ffffff80;
+  }
+}
+
+.mx-calendar {
+  color: #fff;
+}
+
+.mx-datepicker-btn-confirm {
+  color: #fff;
+  &:hover {
+    color: #00ea90;
+    border-color: #00ea90
+  }
+}
+
+.mx-input {
+  background-color: #333333;
+  border: 0;
+}
+
+.mx-input-append {
+  background-color: #333333;
+  & .mx-calendar-icon {
+    color: #00ea90;
+  }
+}
+
+.mx-shortcuts-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  & .mx-shortcuts {
+    color: #00ea90;
+  }
+  & .mx-shortcuts:hover {
+    color: #00ea90;
+    opacity: 0.5;
+  }
+  & .mx-shortcuts:after {
+      content: none;
+  }
+}

@@ -1,111 +1,182 @@
 <template>
-  <BarChart :chart-data="chartData" :options="chartOptions" :height="600" :width="1200"/>
+  <apexchart type=line height="100%" width="100%" :options="chartOptions" :series="chartData" />
+  <!-- <BarChart :chart-data="chartData" :options="chartOptions" :height="600" :width="1200"/> -->
 </template>
 <script>
 import BarChart from '../../components/charts/Bar'
-// import common from '../../scripts/common'
 
 export default {
   name: 'Blocktime88',
   components: {
     BarChart
   },
+  props: {
+    dates: {
+      type: Array
+    }
+  },
+  watch: {
+    dates: {
+      handler: function (val, old) {
+        this.indexToSlice.left = this.$store.state.pools.labels.findIndex(function (el) {
+          return el.includes(val[0])
+        })
+        this.indexToSlice.right = this.$store.state.pools.labels.findIndex(function (el) {
+          return el.includes(val[1])
+        })
+      },
+      immediate: true
+    }
+  },
   data () {
     return {
+      indexToSlice: {
+        left: null,
+        right: null
+      },
       chartOptions: {
-        elements: {
-          line: {
-            tension: 1
-          }
-        },
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [
-            {
-              id: 'blocktime',
-              position: 'left',
-              fontColor: 'rgba(255,255,255,0.5)',
-              ticks: {
-                min: -60,
-                max: 60,
-                callback: function (val) {
-                  return Number(val + 88)
-                }
-              },
-              scaleLabel: {
-                display: true,
-                labelString: 'Average blocktime of 88-block intervals / 140 tick moving average'
-              },
-              gridlines: {
-                display: false
-              }
+        chart: {
+          animations: {
+            enabled: false,
+            easing: 'linear',
+            speed: 1000,
+            animateGradually: {
+              enabled: true,
+              delay: 150
             },
-            {
-              display: false,
-              id: 'ma',
-              position: 'left',
-              fontColor: 'rgba(255,255,255,0.5)',
-              ticks: {
-                min: -60,
-                max: 60
-              },
-              gridlines: {
-                display: false
-              }
+            dynamicAnimation: {
+              enabled: true,
+              speed: 350
             }
-          ]
+          },
+          foreColor: '#ffffff80',
+          fontFamily: '"Courier New", Helvetica, Arial, sans-serif',
+          zoom: {
+            enabled: false
+          },
+          toolbar: {
+            show: false
+          }
         },
-        legend: {
-          display: true
+        colors: ['#e9f239', '#00ea90'],
+        dataLabels: {
+          enabled: false
         },
-        tooltips: {
-          mode: 'index',
-          multiKeyBackground: '#00000000',
-          intersect: false,
-          callbacks: {
-            label: function (tooltipItem, data) {
-              if (data.datasets[tooltipItem.datasetIndex].label === 'Blocktime') {
-                return data.datasets[tooltipItem.datasetIndex].label + ': ' + (Number(tooltipItem.yLabel) + 88)
-              } else {
-                return data.datasets[tooltipItem.datasetIndex].label + ': ' + (Number(tooltipItem.yLabel) + 88)
-              }
+        stroke: {
+          curve: 'smooth',
+          lineCap: 'butt',
+          width: [1.5, 1],
+          colors: ['#e9f239', '#00ea90']
+        },
+        markers: {
+          size: 0
+        },
+        tooltip: {
+          enabled: true,
+          fillSeriesColors: true,
+          theme: 'dark'
+        },
+        title: {
+          text: ''
+        },
+        grid: {
+          show: true,
+          yaxis: {
+            lines: {
+              show: false
             }
           }
         },
-        responsive: true,
-        maintainAspectRatio: false
+        yaxis: [
+          {
+            name: 'ma',
+            show: false,
+            min: -20,
+            max: 20,
+            labels: {
+              show: true,
+              offsetX: 35,
+              formatter: val => val + 88
+            },
+            axisBorder: {
+              show: true,
+              color: '#ffffff80',
+              height: 0.75
+            },
+            tooltip: {
+              enabled: false
+            },
+            crosshairs: {
+              show: false
+            },
+            axisTicks: {
+              show: true
+            }
+          },
+          {
+            name: 'blocktime',
+            opposite: true,
+            min: -70,
+            max: +70,
+            decimalsInFloat: 0,
+            labels: {
+              show: true,
+              formatter: val => (val + 88)
+            },
+            axisBorder: {
+              show: true,
+              color: '#ffffff80',
+              height: 0.75
+            },
+            tooltip: {
+              enabled: false
+            },
+            crosshairs: {
+              show: false
+            },
+            axisTicks: {
+              show: false
+            }
+          }
+        ],
+        xaxis: {
+          labels: {
+            show: false
+          },
+          axisBorder: {
+            show: true,
+            height: 0.75
+          },
+          tooltip: {
+            enabled: false
+          },
+          crosshairs: {
+            show: false
+          },
+
+          axisTicks: {
+            show: false
+          }
+        }
       }
     }
   },
   computed: {
     chartData () {
-      return {
-        labels: this.$store.state.blocktime88.labels,
-        datasets: [
-          {
-            yAxisID: 'ma',
-            type: 'line',
-            label: 'Moving Average',
-            lineTension: 1,
-            borderWidth: 1,
-            borderColor: '#00e4eb',
-            pointRadius: '0px',
-            data: this.movingAverage(this.$store.state.blocktime88.values)
-          },
-          {
-            yAxisID: 'blocktime',
-            type: 'bar',
-            label: 'Blocktime',
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            borderColor: '#00ebab',
-            pointRadius: '0px',
-            data: this.btfunc(this.$store.state.blocktime88.values)
-          }
-        ]
-      }
+      let dates = this.$store.state.blocktime88.labels.slice(this.indexToSlice.left, this.indexToSlice.right)
+      let arr = [
+        {
+          name: 'ma',
+          type: 'line',
+          data: this.movingAverage(this.$store.state.blocktime88.values).slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: val} })
+        },
+        {
+          name: 'blocktime',
+          type: 'column',
+          data: this.btfunc(this.$store.state.blocktime88.values).slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: val} })
+        }
+      ]
+      return arr
     }
   },
   methods: {
@@ -113,7 +184,7 @@ export default {
       var result = []
       for (var i = 0; i < data.length; i++) {
         if (i < 39) {
-          result[i] = 0
+          result[i] = null
         } else {
           let tmp = 0
           for (var e = 40; e !== 0; e--) {
@@ -132,10 +203,10 @@ export default {
             result[i] = 0
             break
           case data[i] > 88:
-            result[i] = Number(data[i]) - 88
+            result[i] = Math.round((Number(data[i]) - 88) * 100) / 100
             break
           case data[i] < 88:
-            result[i] = Number(data[i]) - 88
+            result[i] = Math.round((Number(data[i]) - 88) * 100) / 100
             break
         }
       }

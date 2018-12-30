@@ -96,7 +96,7 @@ export default {
       difficulty: 0,
       chartOptions: {
         chart: {
-          foreColor: '#00ea90',
+          foreColor: '#ffffff80',
           fontFamily: '"Courier New", Helvetica, Arial, sans-serif',
           height: 350,
           zoom: {
@@ -147,7 +147,7 @@ export default {
           },
           axisBorder: {
             show: true,
-            color: '#00ea90',
+            color: '#ffffff80',
             height: 0.75
           },
           tooltip: {

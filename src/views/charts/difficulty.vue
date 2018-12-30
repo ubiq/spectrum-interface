@@ -1,5 +1,5 @@
 <template>
-  <LineChart :chart-data="chartData" :options="chartOptions" :height="600" :width="1200"/>
+  <apexchart type=line height="100%" width="100%" :options="chartOptions" :series="chartData" />
 </template>
 <script>
 import LineChart from '../../components/charts/Line'
@@ -10,103 +10,166 @@ export default {
   components: {
     LineChart
   },
+  props: {
+    dates: {
+      type: Array
+    }
+  },
+  watch: {
+    dates: {
+      handler: function (val, old) {
+        this.indexToSlice.left = this.$store.state.pools.labels.findIndex(function (el) {
+          return el.includes(val[0])
+        })
+        this.indexToSlice.right = this.$store.state.pools.labels.findIndex(function (el) {
+          return el.includes(val[1])
+        })
+      },
+      immediate: true
+    }
+  },
   data () {
     return {
+      indexToSlice: {
+        left: null,
+        right: null
+      },
       chartOptions: {
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [
-            {
-              id: 'difficulty',
-              position: 'left',
-              fontColor: 'rgba(255,255,255,0.5)',
-              ticks: {
-                min: 10000000000000,
-                callback: function (val) {
-                  return common.toTH(val, 2) + ' TH'
-                }
-              },
-              scaleLabel: {
-                display: true,
-                labelString: 'Average daily difficulty'
-              },
-              gridlines: {
-                display: false
-              }
-            },
-            {
-              id: 'hashrate',
-              position: 'right',
-              fontColor: 'rgba(255,255,255,0.5)',
-              ticks: {
-                min: 100000000000,
-                callback: function (val) {
-                  return common.toGH(val, 2) + ' GH'
-                }
-              },
-              scaleLabel: {
-                display: true,
-                labelString: 'Estimated daily hashrate'
-              },
-              gridlines: {
-                display: false
-              }
-            }
-          ]
+        chart: {
+          foreColor: '#ffffff80',
+          fontFamily: '"Courier New", Helvetica, Arial, sans-serif',
+          zoom: {
+            enabled: false
+          },
+          toolbar: {
+            show: false
+          }
         },
-        legend: {
-          display: true
+        colors: ['#00ebeb', '#00ea90'],
+        dataLabels: {
+          enabled: false
         },
-        tooltips: {
-          mode: 'index',
-          multiKeyBackground: '#00000000',
-          intersect: false,
-          callbacks: {
-            label: function (tooltipItem, data) {
-              if (data.datasets[tooltipItem.datasetIndex].label === 'Difficulty') {
-                return data.datasets[tooltipItem.datasetIndex].label + ': ' + common.toTH(tooltipItem.yLabel, 2) + 'TH'
-              } else {
-                return data.datasets[tooltipItem.datasetIndex].label + ': ' + common.toGH(tooltipItem.yLabel, 2) + 'GH'
-              }
+        stroke: {
+          curve: 'smooth',
+          lineCap: 'round',
+          width: 1,
+          colors: ['#00ebeb', '#00ea90']
+        },
+        markers: {
+          size: 0
+        },
+        tooltip: {
+          enabled: true,
+          y: {
+            show: false
+          },
+          fixed: {
+            enabled: true,
+            position: 'bottomLeft',
+            offsetY: -25,
+            offsetX: 10
+          },
+          fillSeriesColors: true,
+          theme: 'dark'
+        },
+        title: {
+          text: ''
+        },
+        grid: {
+          show: true,
+          yaxis: {
+            lines: {
+              show: false
             }
           }
         },
-        responsive: true,
-        maintainAspectRatio: false
+        yaxis: [
+          {
+            name: 'difficulty',
+            show: false,
+            min: 10000000000000, // 10 TH
+            labels: {
+              show: true,
+              offsetX: 35,
+              formatter: val => common.toTH(val, 2) + ' TH'
+            },
+            axisBorder: {
+              show: true,
+              height: 0.75
+            },
+            tooltip: {
+              enabled: false
+            },
+            crosshairs: {
+              show: true
+            },
+            axisTicks: {
+              show: true
+            }
+          },
+          {
+            name: 'hashrate',
+            show: false,
+            min: 100000000000, // 100 GH
+            opposite: true,
+            labels: {
+              show: true,
+              formatter: val => common.toGH(val, 2) + ' GH'
+            },
+            axisBorder: {
+              show: true,
+              height: 0.75
+            },
+            tooltip: {
+              enabled: false
+            },
+            crosshairs: {
+              show: true
+            },
+            axisTicks: {
+              show: false
+            }
+          }
+        ],
+        xaxis: {
+          labels: {
+            show: false
+          },
+          axisBorder: {
+            show: true,
+            color: '#ffffff80',
+            height: 0.75
+          },
+          tooltip: {
+            enabled: false
+          },
+          crosshairs: {
+            show: false
+          },
+
+          axisTicks: {
+            show: false
+          }
+        }
       }
     }
   },
   computed: {
     chartData () {
-      return {
-        labels: this.$store.state.difficulty.labels,
-        datasets: [
-          {
-            yAxisID: 'difficulty',
-            type: 'line',
-            label: 'Difficulty',
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            borderColor: '#00ea90',
-            pointRadius: '0px',
-            data: this.$store.state.difficulty.values
-          },
-          {
-            yAxisID: 'hashrate',
-            type: 'line',
-            backgroundColor: '#ffffff30',
-            fill: '-1',
-            label: 'Hashrate',
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            borderColor: '#00c7eb',
-            pointRadius: '0px',
-            data: this.$store.state.hashrate.values
-          }
-        ]
-      }
+      let dates = this.$store.state.difficulty.labels.slice(this.indexToSlice.left, this.indexToSlice.right)
+      let arr = [
+        {
+          name: 'difficulty',
+          type: 'line',
+          data: this.$store.state.difficulty.values.slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: Number(val)} })
+        },
+        {
+          name: 'hashrate',
+          type: 'line',
+          data: this.$store.state.hashrate.values.slice(this.indexToSlice.left, this.indexToSlice.right).map((val, idx) => { return {x: dates[idx], y: Number(val)} })
+        }
+      ]
+      return arr
     }
   }
 }
