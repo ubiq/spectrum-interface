@@ -16,11 +16,14 @@ export default {
   watch: {
     dates: {
       handler: function (val, old) {
-        this.indexToSlice.left = this.$store.state.pools.labels.findIndex(function (el) {
-          return el.includes(val[0])
+        let self = this
+        let dates = this.$store.state.pools.labels.map(val => self.$moment(val, 'D/MM/YY'))
+
+        this.indexToSlice.left = dates.findIndex(function (el) {
+          return el.isSame(self.$moment(val[0], 'D/MM/YY'), 'day')
         })
-        this.indexToSlice.right = this.$store.state.pools.labels.findIndex(function (el) {
-          return el.includes(val[1])
+        this.indexToSlice.right = dates.length - dates.reverse().findIndex(function (el) {
+          return el.isSame(self.$moment(val[1], 'D/MM/YY'), 'day')
         })
       },
       immediate: true
@@ -38,6 +41,12 @@ export default {
         right: null
       },
       chartOptions: {
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '50%'
+          }
+        },
         chart: {
           animations: {
             enabled: false,

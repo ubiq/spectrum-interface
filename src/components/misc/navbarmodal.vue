@@ -3,12 +3,16 @@
     <b-form @submit.prevent="post">
       <b-form-group id="exampleInputGroup1"
                     label="Raw txhash:"
-                    label-for="exampleInput1"
-                    :description="(this.status !== '' ?  this.status : 'Signed raw trasaction data')">
+                    label-for="exampleInput1">
         <b-form-input id="exampleInput1"
                       v-model="txhash"
                       placeholder="0x00000000000000000000000000000000000000000000">
         </b-form-input>
+        <template slot="description">
+          <div :style="{color: (this.status.error ? '#f13a3a': '#00ea90')}">
+            {{this.status.text}}
+          </div>
+        </template>
       </b-form-group>
     </b-form>
     <div slot="modal-footer">
@@ -25,7 +29,10 @@ export default {
   data: function () {
     return {
       txhash: '',
-      status: ''
+      status: {
+        error: false,
+        text: ''
+      }
     }
   },
   methods: {
@@ -35,16 +42,20 @@ export default {
         jsonrpc: '2.0',
         method: 'eth_sendRawTransaction',
         params: [
-          this.hash
+          this.txhash
         ],
         id: 1
       })
         .then(function (response) {
+          console.log(response)
           if (response.status === 200) {
-            if (response.data.error !== '') {
-              self.status = response.data.error.message
+            if (response.data.error) {
+              self.status.error = true
+              self.status.text = response.data.error.message
+            } else {
+              self.status.error = false
+              self.status.text = `Transaction broadcasted succesfully; hash: ${response.data.result}`
             }
-            console.log(response)
             console.log(self.status)
           }
         })

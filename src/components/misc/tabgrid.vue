@@ -1,14 +1,18 @@
 <template>
   <b-card style="height:700px;" no-body>
     <div slot="header">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span>{{descriptions[this.isActive]}}</span>
-        <slot name="card-header"></slot>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; place-items: center; grid-template-areas: 'slot title .'">
+        <div style="grid-area: slot; justify-self: start;">
+          <slot name="card-header"></slot>
+        </div>
+        <div style="grid-area: title">
+          {{descriptions[this.isActive]}}
+        </div>
       </div>
     </div>
     <div class="grid" :style="panel">
       <div v-for="(slot, name) in slots" :key="name" @click="active(name)" :style="{'grid-area': name}" >
-        <b-button @click="isActive = name" v-if="isActive !== name" name="button">{{descriptions[name]}}</b-button>
+        <b-button class="giant" @click="isActive = name" v-if="isActive !== name" name="button">{{descriptions[name]}}</b-button>
         <slot v-else :name="name"></slot>
       </div>
     </div>
@@ -25,7 +29,8 @@ export default {
   },
   data () {
     return {
-      isActive: ''
+      isActive: '',
+      refreshing: false
     }
   },
   methods: {
@@ -148,7 +153,7 @@ export default {
   ". . . . . .";
 }
 
-.btn {
+.giant {
   height: 100%;
   width: 100%;
   border: 0;

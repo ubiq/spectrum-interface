@@ -18,12 +18,25 @@ export default {
   watch: {
     dates: {
       handler: function (val, old) {
-        this.indexToSlice.left = this.$store.state.pools.labels.findIndex(function (el) {
-          return el.includes(val[0])
+        let self = this
+        let dates = this.$store.state.difficulty.labels.map(val => self.$moment(val, 'D/MM/YY'))
+
+        let left = dates.findIndex(function (el) {
+          return el.isSame(self.$moment(val[0], 'D/MM/YY'), 'day')
         })
-        this.indexToSlice.right = this.$store.state.pools.labels.findIndex(function (el) {
-          return el.includes(val[1])
+        let right = dates.length - dates.reverse().findIndex(function (el) {
+          return el.isSame(self.$moment(val[1], 'D/MM/YY'), 'day')
         })
+
+        if (left === -1) {
+          left = 0
+        }
+        if (right === -1) {
+          right = dates.length
+        }
+
+        this.indexToSlice.left = left
+        this.indexToSlice.right = right
       },
       immediate: true
     }
