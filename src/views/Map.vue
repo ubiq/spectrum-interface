@@ -1,22 +1,33 @@
 <template>
-  <b-card>
-    <b-row class="justify-content-md-center">
-      <b-col md="2">
-        <h5>Nodes <small>{{data.length}}</small></h5>
-        <b-list-group>
-          <b-list-group-item v-for="v in this.stats" :key="v[0]" class="d-flex justify-content-between align-items-center">
-            <span>{{v[0]}}</span>
-            <b-badge variant="primary" pill>{{v[1]}}</b-badge>
-          </b-list-group-item>
-        </b-list-group>
-      </b-col>
-      <b-col md="6" offset-md="2">
-        <b-card header="Node Map" body-bg-variant="#222222">
-          <nodemap :locations="data"></nodemap>
-        </b-card>
-      </b-col>
-    </b-row>
-  </b-card>
+  <b-row class="justify-content-md-center">
+    <b-col md="10">
+      <b-breadcrumb>
+        <b-breadcrumb-item :to="{name: 'Home'}">Home</b-breadcrumb-item>
+        <b-breadcrumb-item active>Node Map</b-breadcrumb-item>
+      </b-breadcrumb>
+      <b-alert show>This page does not represent the entire state of the Ubiq network, only nodes that have connected to ubiqscan are displayed.</b-alert>
+      <b-row class="justify-content-md-center">
+        <b-col md="3">
+          <b-card>
+            <div slot="header">
+              Nodes <b-badge>{{data.length}}</b-badge>
+            </div>
+            <b-list-group>
+              <b-list-group-item v-for="v in this.stats" :key="v[0]" class="d-flex justify-content-between align-items-center">
+                <span>{{v[0]}}</span>
+                <b-badge variant="primary" pill>{{v[1]}}</b-badge>
+              </b-list-group-item>
+            </b-list-group>
+          </b-card>
+        </b-col>
+        <b-col md="9">
+          <b-card header="Node Map">
+            <nodemap :locations="data"></nodemap>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-col>
+  </b-row>
 </template>
 <script>
 import map from '../components/maps/Nodemap'

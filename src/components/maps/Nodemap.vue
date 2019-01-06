@@ -1,5 +1,5 @@
 <template>
-  <l-map style="height: 500px; width: 750px;" :minZoom="2" :maxZoom="8" :zoom="2" :center="[40,0]">
+  <l-map style="height: 500px; width: 100%;" :minZoom="2" :maxZoom="8" :zoom="2" :center="[40,0]">
     <l-icondefault></l-icondefault>
     <l-tilelayer url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png"></l-tilelayer>
     <l-marker-cluster :options="clusterOptions" ref="clusterRef">
