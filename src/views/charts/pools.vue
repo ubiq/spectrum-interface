@@ -1,9 +1,7 @@
 <template>
   <apexchart type=bar height="100%" width="100%" :options="chartOptions" :series="chartData" />
-  <!-- <BarChart :chart-data="chartData" :options="chartOptions" :plugins="plugins" :height="600" :width="1200"/> -->
 </template>
 <script>
-import BarChart from '../../components/charts/Bar'
 import addresses from '../../scripts/addresses'
 
 export default {
@@ -67,12 +65,6 @@ export default {
         dataLabels: {
           enabled: false
         },
-        stroke: {
-          curve: 'smooth',
-          lineCap: 'round',
-          width: 0,
-          colors: colors
-        },
         markers: {
           size: 0
         },
@@ -88,8 +80,6 @@ export default {
             title: {
               formatter: miner => addresses.getAddressTag(miner)
             }
-          },
-          items: {
           },
           fixed: {
             enabled: true,
@@ -154,9 +144,6 @@ export default {
         }
       }
     }
-  },
-  components: {
-    BarChart
   },
   methods: {
     hexFromAccount (acc) {

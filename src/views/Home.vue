@@ -67,13 +67,16 @@
 
 <script>
 import axios from 'axios'
-import LineChart from '../components/charts/Line.vue'
 import common from '../scripts/common'
 import PreviewTxn from '../components/PreviewTxn.vue'
 import PreviewBlock from '../components/PreviewBlock.vue'
 
 export default {
   name: 'Home',
+  components: {
+    PreviewTxn,
+    PreviewBlock
+  },
   watch: {
     '$route': {
       handler: function (from, to) {
@@ -223,11 +226,6 @@ export default {
           this.errors.push(e)
         })
     }
-  },
-  components: {
-    PreviewTxn,
-    PreviewBlock,
-    LineChart
   }
 }
 </script>

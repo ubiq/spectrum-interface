@@ -2,14 +2,10 @@
   <apexchart type=line height="100%" width="100%" :options="chartOptions" :series="chartData" />
 </template>
 <script>
-import LineChart from '../../components/charts/Line'
 import common from '../../scripts/common'
 
 export default {
   name: 'Difficulty',
-  components: {
-    LineChart
-  },
   props: {
     dates: {
       type: Array

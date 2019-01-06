@@ -1,16 +1,11 @@
 <template>
   <apexchart type=line height="100%" width="100%" :options="chartOptions" :series="chartData" />
-  <!-- <BarChart :chart-data="chartData" :options="chartOptions" :height="600" :width="1200"/> -->
 </template>
 <script>
 import common from '../../scripts/common'
-import BarChart from '../../components/charts/Bar'
 
 export default {
   name: 'Avggasprice',
-  components: {
-    BarChart
-  },
   props: {
     dates: {
       type: Array
