@@ -8,6 +8,7 @@ import Full from '@/containers/Full'
 import Address from '@/views/Address'
 import Block from '@/views/Block'
 import Blocks from '@/views/Blocks'
+import BroadcastTxn from '@/views/BroadcastTxn'
 import ForkedBlocks from '@/views/ForkedBlocks'
 import Home from '@/views/Home'
 import Token from '@/views/Token'
@@ -87,6 +88,17 @@ export default new Router({
           path: '/blocks_forked',
           name: 'ForkedBlocks',
           component: ForkedBlocks
+        }
+      ]
+    },
+    {
+      path: 'broadcast',
+      component: Full,
+      children: [
+        {
+          path: '/broadcast',
+          name: 'BroadcastTxn',
+          component: BroadcastTxn
         }
       ]
     },

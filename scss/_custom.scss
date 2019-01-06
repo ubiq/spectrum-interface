@@ -403,13 +403,23 @@ hr {
 }
 
 .form-control {
-  background-color: #333;
-  border-color: #272727;
+  background-color: $grey3;
+  border-color: $grey2;
   &:focus {
-    background-color: #1d1d1d;
-    border: 0;
+    background-color: $grey2;
+    border-color: $highlight;
     box-shadow: unset;
   }
+}
+
+#sendRawTxn {
+  background-color: $grey2;
+  border-color: $grey2;
+  margin-left: auto;
+}
+
+#sendRawTxn:hover {
+  border-color: $highlight;
 }
 
 // datePicker
