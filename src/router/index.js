@@ -51,122 +51,74 @@ export default new Router({
           component: Map
         },
         {
-          path: '/stats',
+          path: '/charts',
           name: 'Stats',
           component: Stats
-        }
-      ]
-    },
-    {
-      path: 'txns',
-      component: Full,
-      children: [
+        },
         {
           path: '/txns/:type/:blockNumber?',
           name: 'Transactions',
           component: Transactions,
           props: true
-        }
-      ]
-    },
-    {
-      path: 'blocks',
-      component: Full,
-      children: [
+        },
         {
           path: '/blocks',
           name: 'Blocks',
           component: Blocks
-        }
-      ]
-    },
-    {
-      path: 'blocks_forked',
-      component: Full,
-      children: [
+        },
         {
           path: '/blocks_forked',
           name: 'ForkedBlocks',
           component: ForkedBlocks
-        }
-      ]
-    },
-    {
-      path: 'broadcast',
-      component: Full,
-      children: [
+        },
         {
           path: '/broadcast',
           name: 'BroadcastTxn',
           component: BroadcastTxn
-        }
-      ]
-    },
-    {
-      path: 'tokens',
-      component: Full,
-      children: [
+        },
         {
           path: '/tokens',
           name: 'Tokens',
           component: Tokens
-        }
-      ]
-    },
-    {
-      path: 'tokentransfers',
-      component: Full,
-      children: [
+        },
         {
           path: '/tokentxns',
           name: 'TokenTransfers',
           component: TokenTransfers
-        }
-      ]
-    },
-    {
-      path: 'uncles',
-      component: Full,
-      children: [
+        },
         {
           path: '/uncles',
           name: 'Uncles',
           component: Uncles
-        }
-      ]
-    },
-    {
-      path: 'block',
-      component: Full,
-      children: [
+        },
         {
           path: '/block/:number',
           name: 'Block',
           component: Block,
           props: true
-        }
-      ]
-    },
-    {
-      path: 'uncle',
-      component: Full,
-      children: [
+        },
         {
           path: '/uncle/:hash',
           name: 'Uncle',
           component: Uncle,
           props: true
-        }
-      ]
-    },
-    {
-      path: 'tx',
-      component: Full,
-      children: [
+        },
         {
           path: '/tx/:hash',
           name: 'Transaction',
           component: Transaction,
+          props: true
+        },
+        {
+          path: '/token/:hash',
+          name: 'Token',
+          component: Token,
+          props: true
+        },
+        {
+          path: '/address/:hash',
+          name: 'Address',
+          component: Address,
           props: true
         }
       ]
@@ -182,30 +134,6 @@ export default new Router({
           return '/' + params.route
         }
       }
-    },
-    {
-      path: 'token',
-      component: Full,
-      children: [
-        {
-          path: '/token/:hash',
-          name: 'Token',
-          component: Token,
-          props: true
-        }
-      ]
-    },
-    {
-      path: 'address',
-      component: Full,
-      children: [
-        {
-          path: '/address/:hash',
-          name: 'Address',
-          component: Address,
-          props: true
-        }
-      ]
     }
   ]
 })
