@@ -17,15 +17,7 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
 
-        <b-nav-item v-b-modal.modalPopover>BROADCAST TRANSACTION</b-nav-item>
-
-        <navbarmodal id="modalPopover" />
-
         <b-nav-item :to="{ name: 'Home', params: {} }">HOME</b-nav-item>
-
-        <b-nav-item :to="{ name: 'Map', params: {} }">NODE MAP</b-nav-item>
-
-        <b-nav-item :to="{ name: 'Stats', params: {} }">STATS</b-nav-item>
 
         <b-nav-item-dropdown text="BLOCKCHAIN" right>
           <b-dropdown-item :to="{ name: 'Transactions', params: {type: 'latest'} }"><span class="fa fa-list-alt"/> View Txns</b-dropdown-item>
@@ -35,6 +27,9 @@
           <b-dropdown-item :to="{ name: 'Uncles', params: {} }"><span class="fa fa-cube"/> View Uncles</b-dropdown-item>
           <b-dropdown-divider/>
           <b-dropdown-item :to="{ name: 'ForkedBlocks', params: {} }"><span class="fa fa-code-fork"/> Forked Blocks (Reorgs)</b-dropdown-item>
+          <b-dropdown-divider/>
+          <b-dropdown-item :to="{ name: 'Stats', params: {} }"><span class="fa fa-area-chart"/> Charts</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'Map', params: {} }"><span class="fa fa-globe"/> Node Map</b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="TOKENS" right>
@@ -44,6 +39,8 @@
 
         <b-nav-item-dropdown text="MISC" right>
           <b-dropdown-item href="https://ubiq.darcr.us" target="_blank"><span class="fa fa-dashboard"/> Network Stats</b-dropdown-item>
+          <b-dropdown-divider/>
+          <b-dropdown-item :to="{ name: 'BroadcastTxn', params: {} }"><span class="fa fa-mail-forward"/> Broadcast Txn</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
@@ -53,14 +50,10 @@
 
 <script>
 import axios from 'axios'
-import navbarModal from './misc/navbarmodal'
 import common from '../scripts/common'
 import Tokens from '../scripts/tokens'
 export default {
   name: 'Navbar',
-  components: {
-    navbarmodal: navbarModal
-  },
   data () {
     return {
       search: '',
