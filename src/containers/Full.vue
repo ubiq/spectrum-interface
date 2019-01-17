@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     fetch: function () {
-      axios.get(this.$store.state.api + 'status')
+      axios.get(this.$store.state.api + 'supply/ubq')
         .then(response => {
           let latestBlock = response.data.latestBlock
           if (this.$store.state.latestBlock.number !== latestBlock.number) {
