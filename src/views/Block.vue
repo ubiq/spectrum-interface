@@ -4,7 +4,7 @@
       <b-breadcrumb>
         <b-breadcrumb-item :to="{name: 'Home'}">Home</b-breadcrumb-item>
         <b-breadcrumb-item :to="{name: 'Blocks'}">Blocks</b-breadcrumb-item>
-        <b-breadcrumb-item active>{{ number }}</b-breadcrumb-item>
+        <b-breadcrumb-item active>{{ number || hash }}</b-breadcrumb-item>
         <b-breadcrumb-link>
           <b-button :class="{fa: true, 'fa-refresh': true, 'fa-spin': refreshing, 'btn-breadcrumb': true}" v-on:click="fetch()"/>
         </b-breadcrumb-link>
@@ -15,9 +15,9 @@
             Height:
           </b-col>
           <b-col md="9">
-            <router-link :to="{ name: 'Block', params: { number: number - 1 }}"><span class="fa fa-arrow-left icon-left"/></router-link>
+            <router-link :to="{ name: 'Block', params: { number: block.number - 1 }}"><span class="fa fa-arrow-left icon-left"/></router-link>
             {{ block.number }}
-            <router-link v-if="fromHead > 0" :to="{ name: 'Block', params: { number: number - -1 }}"><span class="fa fa-arrow-right icon-right"/></router-link>
+            <router-link v-if="fromHead > 0" :to="{ name: 'Block', params: { number: block.number + 1 }}"><span class="fa fa-arrow-right icon-right"/></router-link>
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -33,7 +33,7 @@
             Transactions:
           </b-col>
           <b-col v-if="block.transactions !== 0" md="9">
-            <router-link :to="{ name: 'Transactions', params: { type: 'block', blockNumber: number}}">{{ block.transactions }} transactions</router-link>
+            <router-link :to="{ name: 'Transactions', params: { type: 'block', blockNumber: block.number}}">{{ block.transactions }} transactions</router-link>
           </b-col>
           <b-col v-else md="9">
             {{ block.transactions }} transactions
@@ -52,7 +52,7 @@
             Parent Hash:
           </b-col>
           <b-col md="9">
-            <router-link :to="{ name: 'Block', params: { number: number - 1 }}">{{ block.parentHash }}</router-link>
+            <router-link :to="{ name: 'Block', params: { number: block.parentHash }}">{{ block.parentHash }}</router-link>
           </b-col>
         </b-row>
         <b-row class="card-row">
@@ -163,7 +163,7 @@ import common from '../scripts/common'
 
 export default {
   name: 'Block',
-  props: ['number'],
+  props: ['number', 'hash'],
   watch: {
     '$route': {
       handler: function (from, to) {
@@ -186,14 +186,21 @@ export default {
   },
   methods: {
     fetch: function () {
+      let request
+
       this.refreshing = true
-      axios.get(this.$store.state.api + 'block/' + this.number)
-        .then(response => {
-          this.block = response.data
-          if (this.block.number) {
-            this.isBlock = true
-          }
-        })
+      if (this.hash) {
+        request = axios.get(this.$store.state.api + 'blockbyhash/' + this.hash)
+      } else if (this.number) {
+        request = axios.get(this.$store.state.api + 'block/' + this.number)
+      }
+
+      request.then(response => {
+        this.block = response.data
+        if (this.block.number) {
+          this.isBlock = true
+        }
+      })
         .catch(e => {
           this.errors.push(e)
         })

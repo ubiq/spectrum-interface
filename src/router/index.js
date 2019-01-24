@@ -95,7 +95,14 @@ export default new Router({
           path: '/block/:number',
           name: 'Block',
           component: Block,
-          props: true
+          props: (route) => {
+            if (/^0x([A-Fa-f0-9]{64})$/.test(route.params.number)) {
+              return {hash: route.params.number}
+            } else if (/^([0-9]{1,})$/.test(route.params.number)) {
+              return {number: route.params.number}
+            }
+          // '/0x[a-zA-Z0-9]{64}/'.test(route.params.number)
+          }
         },
         {
           path: '/uncle/:hash',

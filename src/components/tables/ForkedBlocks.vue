@@ -28,7 +28,7 @@
                   <span class="code">Nonce: {{ data.item.nonce }}</span>
               </div>
               <div class="">
-                  <span class="code">Canonical chain hash:</span><router-link :to="{ name: 'Block', params: {number: data.item.canonicalblock.number} }">{{ data.item.canonicalblock.hash }}</router-link>
+                  <span class="code">Canonical chain hash:</span><router-link :to="{ name: 'Block', params: {number: data.item.canonicalblock.hash} }">{{ data.item.canonicalblock.hash }}</router-link>
                   <br>
                   <span class="code">Miner:</span> <router-link :to="{ name: 'Address', params: {hash: data.item.canonicalblock.miner} }">{{getAddressTag(data.item.canonicalblock.miner)}}</router-link>
                   <br>
