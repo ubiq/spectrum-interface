@@ -35,6 +35,7 @@ var addresses = {
   // Other
   '0x2300b30dfd91306a5acfa8ae00a3a47d519303ee': 'Infinitum Card',
   '0xae3f04584446aa081cd98011f80f19977f8c10e0': 'Infinitum Flame',
+  '0x8b26b5712399447ea6dc9def5ddace05f08122c8': 'Augmentum',
   // Tokens
   '0xd245207cfbf6eb6f34970db2a807ab1d178fde6c': 'APX',
   '0xff3bf057adf3b0e015b6465331a6236e55688274': 'BeerToken',
