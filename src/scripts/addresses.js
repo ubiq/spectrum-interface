@@ -28,7 +28,8 @@ var addresses = {
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
   '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia', // UBQ
-  '0x6b7bcaebcbe0b92f879cfe5ed2cdb34247d49f0d': 'Cryptopia', // ERC20
+  '0x6b7bcaebcbe0b92f879cfe5ed2cdb34247d49f0d': 'Cryptopia', // ERC20 OLD
+  '0x81e8416fabcfb122964b61e24e8b005fb1c7081b': 'Cryptopia', // ERC20
   '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',
   '0x11e328fd0ee99a2c2f5e929a8f25afb94cecb660': 'ERC20 Exchange',
   // Other
@@ -49,12 +50,16 @@ var addresses = {
   '0x5e1715bb79805bd672729760b3f7f34d6f485098': 'PickleRicks',
   '0x497e20586f86c35592ff8f65cde94f296514c387': 'Snarg01',
   '0xbc3e373d2b24faf1dfe5b3f3acff9d66a7b48869': 'WorldBit Token',
+  '0x20e3dd746ddf519b23ffbbb6da7a5d33ea6349d6': 'Sphere',
   // Contracts
   '0x256009e4687ab2183bbca3e4ea54ba6f0a7ad21e': 'ESCH Airdrop #1',
   '0x36ae3bdbbd19bc55f2fe3cccf41bf12c4c3afb42': 'ESCH Airdrop #2',
   '0x1cac28619f78cdf8da22f9cf523f995d3fe7e98c': 'ESCH Airdrop #3',
+  '0x0AB4aB630841F93bA2CC588DB4a7e646A38B58Ed': 'ESCH Airdrop #4',
+  '0x9c4d9c73FDbEa2eF0a96E8651122576E5449f113': 'ESCH Airdrop #5',
   '0xfcd0b547b89f001c17d50df98cf10ce406da5518': 'UIP #1',
-  '0x96cf38c234d5e513c4fc783a3ba73d7320f2900b': 'UIP #2'
+  '0x96cf38c234d5e513c4fc783a3ba73d7320f2900b': 'UIP #2',
+  '0x073c6b68ba00c59163fa3ae79d7C3D263f78981E': 'UIP #4'
 }
 
 module.exports = {
