@@ -178,12 +178,12 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-      axios.get(this.$store.state.api + 'latestaccounttxns/' + this.hash)
+      axios.get(this.$store.state.api + 'latestaccounttxns/' + this.hash.toLowerCase())
         .then(response => {
           this.txns = response.data.txns || []
           this.txnsTotal = response.data.total
 
-          axios.get(this.$store.state.api + 'latestaccounttokentxns/' + this.hash)
+          axios.get(this.$store.state.api + 'latestaccounttokentxns/' + this.hash.toLowerCase())
             .then(response_ => {
               this.tokentxns = response_.data.txns || []
               this.tokentxnsTotal = response_.data.total
@@ -201,7 +201,7 @@ export default {
         })
 
       // get contract info if contract
-      axios.get(this.$store.state.api + 'transactionbycontract/' + this.hash)
+      axios.get(this.$store.state.api + 'transactionbycontract/' + this.hash.toLowerCase())
         .then(response => {
           if (response.data.hash) {
             this.isContract = true
@@ -269,10 +269,10 @@ export default {
       this.tokenBalances = tokenBals
     },
     getAddressTag (hash) {
-      return addresses.getAddressTag(hash) || hash
+      return addresses.getAddressTag(hash.toLowerCase()) || hash
     },
     getAddressTitle (hash) {
-      let tag = addresses.getAddressTag(hash)
+      let tag = addresses.getAddressTag(hash.toLowerCase())
       if (tag) {
         return '(' + tag + ')'
       } else {
