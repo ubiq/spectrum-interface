@@ -120,5 +120,13 @@ module.exports = {
       })
     })
     return logs
+  },
+  tokenTransferSuccess: function (txnLogs) {
+    var eventId = txnLogs[0].topics[0].substr(0, 10).toLowerCase()
+    if (eventId === '0xddf252ad') {
+      return true
+    } else {
+      return false
+    }
   }
 }

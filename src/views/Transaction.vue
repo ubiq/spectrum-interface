@@ -73,6 +73,14 @@
                 <span class="fa fa-arrow-right"/> From <router-link :to="{ name: 'Address', params: { hash: token.from }}">{{ shortenAddress(token.from) }}</router-link> To <router-link :to="{ name: 'Address', params: { hash: token.to }}">{{ shortenAddress(token.to) }}</router-link> for {{ token.value }} <router-link :to="{ name: 'Token', params: { hash: token.contract }}">{{ token.symbol }}</router-link>
               </b-col>
             </b-row>
+            <b-row v-if="tokenTransfered" class="card-row">
+              <b-col md="3">
+                Token Transfer Status:
+              </b-col>
+              <b-col md="9">
+                {{ tokenTransferedSuccess === true ? 'success' : 'fail' }}
+              </b-col>
+            </b-row>
             <b-row class="card-row">
               <b-col md="3">
                 Value:
@@ -201,6 +209,7 @@ export default {
       txn: {},
       notfound: false,
       tokenTransfered: false,
+      tokenTransferedSuccess: false,
       showLogs: false,
       inputType: 'original',
       inputData: {},
@@ -264,6 +273,7 @@ export default {
             this.token = tokens.processInputData(this.txn, this.inputData)
             if (this.token.isTokenTxn) {
               this.tokenTransfered = true
+              this.tokenTransferedSuccess = contracts.tokenTransferSuccess(this.txn.logs)
             }
           }
         })
