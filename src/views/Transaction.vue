@@ -77,8 +77,8 @@
               <b-col md="3">
                 Token Transfer Status:
               </b-col>
-              <b-col md="9">
-                {{ tokenTransferedSuccess === true ? 'success' : 'fail' }}
+              <b-col md="9" :class="{'erc20-transfer-success': tokenTransferedSuccess, 'erc20-transfer-fail': !tokenTransferedSuccess}">
+                {{ tokenTransferedSuccess === true ? 'SUCCESS' : 'FAILED' }}
               </b-col>
             </b-row>
             <b-row class="card-row">

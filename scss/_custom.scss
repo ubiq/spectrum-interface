@@ -338,3 +338,11 @@ hr {
   background: $highlight;
   border-radius: 3px;
 }
+
+.erc20-transfer-success {
+  color: green;
+}
+
+.erc20-transfer-fail {
+  color: red;
+}
