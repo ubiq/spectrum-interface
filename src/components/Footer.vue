@@ -24,8 +24,8 @@
           <h6>Social <span class="fa fa-users"/></h6>
           <hr style="margin: 5px 0px"/>
           <ul class="social">
-            <li><a href="https://twitter.com/ubiqsmart.com" target="_blank"><span class="fa fa-twitter"/> Twitter</a></li>
-            <li><a href="https://discord.gg/HF6vEGF" target="_blank"><span class="fa fa-users"/> Discord</a></li>
+            <li><a href="https://twitter.com/ubiqsmart" target="_blank"><span class="fa fa-twitter"/> Twitter</a></li>
+            <li><a href="https://discord.gg/XaqzJB4" target="_blank"><span class="fa fa-users"/> Discord</a></li>
             <li><a href="https://github.com/ubiq/" target="_blank"><span class="fa fa-github-alt"/> Github</a></li>
             <li><a href="https://www.reddit.com/r/Ubiq/" target="_blank"><span class="fa fa-reddit"/> Reddit</a></li>
             <li><a href="https://blog.ubiqsmart.com" target="_blank"><span class="fa fa-medium"/> Blog</a></li>
