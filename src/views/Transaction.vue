@@ -73,12 +73,12 @@
                 <span class="fa fa-arrow-right"/> From <router-link :to="{ name: 'Address', params: { hash: token.from }}">{{ shortenAddress(token.from) }}</router-link> To <router-link :to="{ name: 'Address', params: { hash: token.to }}">{{ shortenAddress(token.to) }}</router-link> for {{ token.value }} <router-link :to="{ name: 'Token', params: { hash: token.contract }}">{{ token.symbol }}</router-link>
               </b-col>
             </b-row>
-            <b-row v-if="tokenTransfered" class="card-row">
+            <b-row v-if="status" class="card-row">
               <b-col md="3">
-                Token Transfer Status:
+                Status:
               </b-col>
-              <b-col md="9" :class="{'erc20-transfer-success': tokenTransferedSuccess, 'erc20-transfer-fail': !tokenTransferedSuccess}">
-                {{ tokenTransferedSuccess === true ? 'SUCCESS' : 'FAILED' }}
+              <b-col md="9" :class="{'erc20-transfer-success': status === '0x1', 'erc20-transfer-fail': status === '0x0'}">
+                {{ status === '0x1' ? 'SUCCESS' : 'FAILED' }}
               </b-col>
             </b-row>
             <b-row class="card-row">
@@ -209,7 +209,7 @@ export default {
       txn: {},
       notfound: false,
       tokenTransfered: false,
-      tokenTransferedSuccess: false,
+      status: false,
       showLogs: false,
       inputType: 'original',
       inputData: {},
@@ -273,14 +273,31 @@ export default {
             this.token = tokens.processInputData(this.txn, this.inputData)
             if (this.token.isTokenTxn) {
               this.tokenTransfered = true
-              this.tokenTransferedSuccess = contracts.tokenTransferSuccess(this.txn.logs)
             }
           }
         })
         .catch(e => {
           this.errors.push(e)
         })
-
+        // get receipt to display status (post Andromeda)
+      axios.post(this.$store.state.rpc, {
+        jsonrpc: '2.0',
+        method: 'eth_getTransactionReceipt',
+        params: [
+          this.hash
+        ],
+        id: 2
+      })
+        .then(response_ => {
+          if (response_.data.result && response_.data.result.status) {
+            this.status = response_.data.result.status
+          } else {
+            this.status = false
+          }
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
       let self = this
       setTimeout(function () {
         self.refreshing = false
