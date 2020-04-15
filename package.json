@@ -17,7 +17,7 @@
     "@xkeshi/vue-qrcode": "^1.0.0",
     "axios": "^0.18.0",
     "bignumber.js": "^7.2.1",
-    "bootstrap-vue": "^2.0.0-rc.11",
+    "bootstrap-vue": "^2.0.0-rc.14",
     "canoe-solidity": "^0.1.0",
     "chart.js": "^2.7.2",
     "ethereumjs-util": "^6.0.0",
