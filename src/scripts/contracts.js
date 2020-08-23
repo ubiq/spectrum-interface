@@ -59,7 +59,18 @@ var functions = {
   '0xb214faa5': 'deposit(bytes32 _commitment)',
   '0x21a0adb6': 'withdraw(bytes _proof, bytes32 _root, bytes32 _nullifierHash, address _recipient, address _relayer, uint256 _fee, unit256 _refund)',
   '0x97fc007c': 'updateVerifier(address _newVerifier)',
-  '0x06394c9b': 'changeOperator(address _newOperator)'
+  '0x06394c9b': 'changeOperator(address _newOperator)',
+  // uniswap-v2-core
+  '0xc9c65396': 'createPair(address tokenA, address tokenB)',
+  '0xf46901ed': 'setFeeTo(address _feeTo)',
+  '0xa2e74af6': 'setFeeToSetter(address _feeToSetter)',
+  '0x89afcb44': 'burn(address to)',
+  '0x485cc955': 'initialize(address _token0, address _token1)',
+  '0x6a627842': 'mint(address to)',
+  '0xd505accf': 'permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s)',
+  '0xbc25cf77': 'skim(address to)',
+  '0x022c0d9f': 'swap(uint256 amount0out, uint256 amount1Out, address to, bytes data)',
+  '0xfff6cae9': 'sync()'
 }
 
 var events = {
@@ -89,7 +100,13 @@ var events = {
   '0xa64da754': 'LogSweep(index_topic_1 address from, index_topic_2 address to, index_topic_3 address token, uint256 amount)',
   // tornado
   '0xa945e51e': 'Deposit(index_topic_1 bytes32 commitment, uint32 leafIndex, uint256 timestamp)',
-  '0xe9e508ba': 'Withdrawal(address to, bytes32 nullifierHash, index_topic_1 address relayer, uint256 fee)'
+  '0xe9e508ba': 'Withdrawal(address to, bytes32 nullifierHash, index_topic_1 address relayer, uint256 fee)',
+  // uniswap-v2-core
+  '0x0d3648bd': 'PairCreated(index_topic_1 address token0, index_topic_2 address token1, address pair, uint256)',
+  '0xdccd412f': 'Burn(index_topic_1 address sender, uint256 amount0, uint256 amount1, index_topic_2 address to)',
+  '0x4c209b5f': 'Mint(index_topic_1 address sender, uint256 amount0, unint256 amount1)',
+  '0xd78ad95f': 'Swap(index_topic_1 address sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out uint256 amount1Out, index_topic_2 address to)',
+  '0x1c411e9a': 'Sync(uint112 reserve0, uint112 reserve1)'
 }
 
 module.exports = {

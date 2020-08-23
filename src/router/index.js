@@ -35,7 +35,7 @@ export default new Router({
       ]
     },
     {
-      path: 'txns',
+      path: '/txns',
       component: Full,
       children: [
         {
@@ -47,7 +47,7 @@ export default new Router({
       ]
     },
     {
-      path: 'blocks',
+      path: '/blocks',
       component: Full,
       children: [
         {
@@ -58,7 +58,7 @@ export default new Router({
       ]
     },
     {
-      path: 'blocks_forked',
+      path: '/blocks_forked',
       component: Full,
       children: [
         {
@@ -69,7 +69,7 @@ export default new Router({
       ]
     },
     {
-      path: 'tokens',
+      path: '/tokens',
       component: Full,
       children: [
         {
@@ -80,7 +80,7 @@ export default new Router({
       ]
     },
     {
-      path: 'tokentransfers',
+      path: '/tokentransfers',
       component: Full,
       children: [
         {
@@ -91,7 +91,7 @@ export default new Router({
       ]
     },
     {
-      path: 'uncles',
+      path: '/uncles',
       component: Full,
       children: [
         {
@@ -102,7 +102,7 @@ export default new Router({
       ]
     },
     {
-      path: 'block',
+      path: '/block',
       component: Full,
       children: [
         {
@@ -114,7 +114,7 @@ export default new Router({
       ]
     },
     {
-      path: 'uncle',
+      path: '/uncle',
       component: Full,
       children: [
         {
@@ -126,7 +126,7 @@ export default new Router({
       ]
     },
     {
-      path: 'tx',
+      path: '/tx',
       component: Full,
       children: [
         {
@@ -150,7 +150,7 @@ export default new Router({
       }
     },
     {
-      path: 'token',
+      path: '/token',
       component: Full,
       children: [
         {
@@ -162,7 +162,7 @@ export default new Router({
       ]
     },
     {
-      path: 'address',
+      path: '/address',
       component: Full,
       children: [
         {
