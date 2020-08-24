@@ -70,7 +70,25 @@ var functions = {
   '0xd505accf': 'permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s)',
   '0xbc25cf77': 'skim(address to)',
   '0x022c0d9f': 'swap(uint256 amount0out, uint256 amount1Out, address to, bytes data)',
-  '0xfff6cae9': 'sync()'
+  '0xfff6cae9': 'sync()',
+  // uniswap-v2-periphery
+  '0xe8e33700': 'addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)',
+  '0xf305d719': 'addLiquidityETH(address token, uint256 amountTokenDesired, uint256 amountTokenMin, uint256 amountETHMin, uint256 deadline)',
+  '0xbaa2abde': 'removeLiquidity(address tokenA, address tokenB, uint256 liquidity, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline)',
+  '0x02751cec': 'removeLiquidityETH(address token, uint256 liquidity, uint256 amountTokenMin, uint256 amountETHMin, address to, uint256 deadline)',
+  '0xaf2979eb': 'removeLiquidityETHSupportingFeeOnTransferTokens(address token, uint256 liquidity, uint256 amountTokenMin, uint256 amountETHMin, address to, uint256 deadline)',
+  '0xded9382a': 'removeLiquidityETHWithPermit(address token, uint256 liquidity, uint256 amountTokenMin, uint256 amountETHMin, address to, uint256 deadline, bool approveMax, uint8 v, bytes32 r, bytes32 s)',
+  '0x5b0d5984': 'removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(address token, uint256 liquidity, uint256 amountTokenMin, uint256 amountETHMin, address to, uint256 deadline, bool approveMax, uint8 v, bytes32 r, bytes32 s)',
+  '0x2195995c': 'removeLiquidityWithPermit(address tokenA, address tokenB, uint256 liquidity, uint256 amountAMin, unit256 amountBMin, address to, uint256 deadline, bool approveMax, uint8 v, bytes32 r, bytes32 s)',
+  '0xfb3bdb41': 'swapETHForExactTokens(uint256 amountOut, address[] path, address to, uint256 deadline)',
+  '0x7ff36ab5': 'swapExactETHForTokens(uint256 amountOutMin, address[] path, address to, uint256 deadline)',
+  '0xb6f9de95': 'swapExactETHForTokensSupportingFeeOnTransferTokens(uint256 amountOutMin, address[] path, address to, uint256 deadline)',
+  '0x18cbafe5': 'swapExactTokensForETH(uint256 amountIn, uint256 amountOutMin, address[] path, address to, uint256 deadline)',
+  '0x791ac947': 'swapExactTokensForETHSupportingFeeOnTransferTokens(uint256 amountIn, uint256 amountOutMin, address[] path, address to, uint256 deadline)',
+  '0x38ed1739': 'swapExactTokensForTokens(uint256 amountIn, uint256 amountOutMin, address[] path, address to, uint256 deadline)',
+  '0x5c11d795': 'swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256 amountIn, uint256 amountOutMin, address[] path, address to, uint256 deadline)',
+  '0x4a25d94a': 'swapTokensForExactETH(uint256 amountOut, uint256 amountInMax, address[] path, address to, uint256 deadline)',
+  '0x8803dbee': 'swapTokensForExactTokens(uint256 amountOut, uint256 amountInMax, address[] path, address to, uint256 deadline)'
 }
 
 var events = {
