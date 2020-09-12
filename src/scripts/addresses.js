@@ -26,6 +26,7 @@ var addresses = {
   '0x0ebf873b343ab004d5a95479c58645bd75f4c42b': 'ReiDoCoin.com.br',
   '0x59b5ff7ef75bdbbf78f341eeb1bcbc2a908edd67': 'Mole-pool.net',
   '0xab36ab822061b832f3415d4f03c279c33c372b81': 'WattPool.net',
+  '0x444431cc65abe2d63d32831f53da9911ad5e2771': 'Kryptex.org',
   // Exchanges
   '0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864': 'Bittrex',
   '0xde89c4687984d7cb91cacdd084003ffdf36e493a': 'Cryptopia', // UBQ
