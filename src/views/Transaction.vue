@@ -334,7 +334,7 @@ export default {
       return common.fromWei(common.calcTxFee(gasUsed, gasPrice))
     },
     toDecimal (hex) {
-      return common.hexToDecimal(hex)
+      return hex ? common.hexToDecimal(hex) : ''
     },
     toUtf8 (val) {
       return common.toUtf8(val)
