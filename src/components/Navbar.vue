@@ -34,7 +34,7 @@
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown text="MISC" right>
-          <b-dropdown-item href="https://ubiq.darcr.us" target="_blank"><span class="fa fa-dashboard"/> Network Stats</b-dropdown-item>
+          <b-dropdown-item href="https://ubiq.gojupiter.tech/" target="_blank"><span class="fa fa-dashboard"/> Network Stats</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
 
