@@ -34,6 +34,7 @@ var addresses = {
   '0x81e8416fabcfb122964b61e24e8b005fb1c7081b': 'Cryptopia', // ERC20
   '0x57e0ebfade42211c8a4837ad1bb9c1c290ee265b': 'Einstein',
   '0x11e328fd0ee99a2c2f5e929a8f25afb94cecb660': 'ERC20 Exchange',
+  '0xf3cE4655A44146C8EeFbf45651F6479F9d67a77a': 'Shinobi',
   // Other
   '0x2300b30dfd91306a5acfa8ae00a3a47d519303ee': 'Infinitum Card',
   '0xae3f04584446aa081cd98011f80f19977f8c10e0': 'Infinitum Flame',
