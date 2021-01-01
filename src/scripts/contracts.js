@@ -7,7 +7,6 @@ some manual formatting is required.
 note: if using truffle to compile, do not pass the full build .json, extract the abi array out to its own json and pass that.
 */
 
-
 var functions = {
   // erc20
   '0x095ea7b3': 'approve(address _spender, uint256 _value)',
