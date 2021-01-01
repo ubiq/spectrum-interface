@@ -1,3 +1,13 @@
+/*
+the below 4byte function hashes were produced using https://github.com/iquidus/abi2signature
+functions with stateMutability 'view' should be ignored (readonly).
+
+some manual formatting is required.
+
+note: if using truffle to compile, do not pass the full build .json, extract the abi array out to its own json and pass that.
+*/
+
+
 var functions = {
   // erc20
   '0x095ea7b3': 'approve(address _spender, uint256 _value)',
@@ -88,7 +98,16 @@ var functions = {
   '0x38ed1739': 'swapExactTokensForTokens(uint256 amountIn, uint256 amountOutMin, address[] path, address to, uint256 deadline)',
   '0x5c11d795': 'swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256 amountIn, uint256 amountOutMin, address[] path, address to, uint256 deadline)',
   '0x4a25d94a': 'swapTokensForExactETH(uint256 amountOut, uint256 amountInMax, address[] path, address to, uint256 deadline)',
-  '0x8803dbee': 'swapTokensForExactTokens(uint256 amountOut, uint256 amountInMax, address[] path, address to, uint256 deadline)'
+  '0x8803dbee': 'swapTokensForExactTokens(uint256 amountOut, uint256 amountInMax, address[] path, address to, uint256 deadline)',
+  // staking rewards
+  '0xa694fc3a': 'stake(uint256 amount)',
+  '0x2e1a7d4d': 'withdraw(uint256 amount)',
+  '0x3d18b912': 'getReward()',
+  '0xe9fad8ee': 'exit()',
+  // ERC1155
+  '0xa22cb465': 'setApprovalForAll(address operator, bool approved)',
+  '0xf242432a': 'safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes data)',
+  '0x2eb2c2d6': 'safeBatchTransferFrom(address from, address to, uint256[] ids, uint256[] amounts, bytes data)'
 }
 
 var events = {
@@ -124,7 +143,12 @@ var events = {
   '0xdccd412f': 'Burn(index_topic_1 address sender, uint256 amount0, uint256 amount1, index_topic_2 address to)',
   '0x4c209b5f': 'Mint(index_topic_1 address sender, uint256 amount0, unint256 amount1)',
   '0xd78ad95f': 'Swap(index_topic_1 address sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out uint256 amount1Out, index_topic_2 address to)',
-  '0x1c411e9a': 'Sync(uint112 reserve0, uint112 reserve1)'
+  '0x1c411e9a': 'Sync(uint112 reserve0, uint112 reserve1)',
+  // ERC1155
+  '0x17307eab': 'ApprovalForAll(index_topic_1 address account, index_topic_2 address operator, bool approved)',
+  '0x4a39dc06': 'TransferBatch(index_topic_1 address operator, index_topic_2 address from, index_topic_3 address to, uint256[] ids, uint256[] values)',
+  '0xc3d58168': 'TransferSingle(index_topic_1 address operator, index_topic_2 address from, index_topic_3 address to, uint256 id, uint256 value)',
+  '0x6bb7ff70': 'URI(string value, index_topic_1 uint256 id)'
 }
 
 module.exports = {
