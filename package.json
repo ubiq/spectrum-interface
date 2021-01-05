@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@xkeshi/vue-qrcode": "^1.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bignumber.js": "^7.2.1",
     "bootstrap-vue": "^2.0.0-rc.14",
     "canoe-solidity": "^0.1.0",
